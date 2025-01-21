@@ -36,9 +36,7 @@ public class Robot extends A05Robot {
         // Set the drive constants that are specific to this swerve geometry.
         // Some drive geometry is passed in RobotContainer's constructor
         Constants.setDriveOrientationKp(Constants.DRIVE_ORIENTATION_kP);
-        // TODO: If you are having trouble debugging an issue related to the a05annexLibrary, setting this to true -
-        // TODO: i.e. uncommenting the following line, will add a lot of debug logging to the console output, and
-        // TODO: may help you determine what is really happening.
+
         Constants.setPrintDebug(true);
 
         // update dictionary with all needed values

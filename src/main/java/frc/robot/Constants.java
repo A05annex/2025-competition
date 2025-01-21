@@ -28,14 +28,12 @@ public final class Constants extends A05Constants
             SAMPLE_MOTOR = 14;
     }
 
-    //TODO: Set which cameras you have
     @SuppressWarnings("unused")
     public static final boolean HAS_USB_CAMERA = false;
     @SuppressWarnings("unused")
 	public static final boolean HAS_LIMELIGHT = false;
 
 
-    //TODO: declare camera name
     public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("IMX219"), 1.0, new AngleD(AngleUnit.DEGREES,0.0));
 
     //TODO: write a function to adjust the reported X from photonvision to the real x value
@@ -58,8 +56,7 @@ public final class Constants extends A05Constants
     // For competition, length and width from center of the wheels, in m (note chassis is 28" square,
     // the bolt pattern is 27" square, wheels are 2.75" in from the bolt pattern or centered on the
     // corners of a 21.5"(0.5461m) square.
-    //TODO: set calibration constants here for your relevant robot. rf = right front, lr = left rear, etc
-    //TODO: Verify dimensions of your robot
+
     /**
      * The geometry and calibration specific to a swerve drive robot base. We currently have 2 bases, the first being
      * a <i>prototyping/practice</i> base that should always be in working condition for drive tuning/testing,

@@ -25,12 +25,10 @@ public class DriveCommand extends A05DriveCommand {
 
     @Override
     public void execute() {
-        //TODO: If you want to do special control like targeting, comment out super.execute() and add your own control code
-        //TODO: Refer to the documentation. Much of the code you want to run is already packaged in callable methods
         //This runs the default swerve calculations for xbox control
-        //super.execute();
+        super.execute();
 
-        conditionStick();
-        iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
+        //conditionStick();
+        //iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
     }
 }

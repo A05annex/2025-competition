@@ -20,16 +20,19 @@ public class TagTargetCommand extends A05TagTargetCommand {
         // Similar to the drive command, you can either call the super.execute which runs checkIfCanPerformTargeting()
         // and executeTargeting(), or write your own code.
 
-        //super.execute();
+        super.execute();
 
         // NOTE: there is a boolean variable called 'canTarget' that needs to get set to true in order to use
         // executeTargeting(). verifyOkToTarget() will set this to true if conditions in it are met.
 
-        updateIRP();
+//        updateIRP();
+//
+//        verifyOkToTarget();
+//
+//        calculateThenDrive();
 
-        verifyOkToTarget();
-
-        calculateThenDrive();
+//        this.canTarget = false;
+//        this.lastMode = this.currentMode;
     }
 
     @Override
