@@ -68,7 +68,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
         return motorRight.getEncoderVelocity();
     }
 
-    public void setAllVelocity(double rpm) {
+    public void setVelocity(double rpm) {
         setRightVelocity(rpm);
         setLeftVelocity(rpm);
     }
