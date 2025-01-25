@@ -5,6 +5,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import org.a05annex.frc.A05Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.a05annex.frc.subsystems.PhotonCameraWrapper;
@@ -46,6 +48,9 @@ public final class Constants extends A05Constants
         return reportedY;
     }
 
+    public static final DigitalInput FRONT_CORAL_SENSOR = new DigitalInput(8), BACK_CORAL_SENSOR = new DigitalInput(9);
+
+    public static final DutyCycleEncoder ELEVATOR_ANALOG_ENCOUDER = new DutyCycleEncoder(10);
 
     // kP for keeping drive at the same orientation
     public static final double DRIVE_ORIENTATION_kP = 1.2;
