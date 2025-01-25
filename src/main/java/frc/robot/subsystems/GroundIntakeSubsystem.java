@@ -41,7 +41,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
 
     private GroundIntakeSubsystem() {
         intakeMotor.startConfig();
-        intakeMotor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps40);
+        intakeMotor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps30);
 		//noinspection ConstantValue
 		intakeMotor.setSoftLimits(intakeMinPosition, intakeMaxPosition);
         intakeMotor.setDirection(SparkNeo.Direction.DEFAULT);
