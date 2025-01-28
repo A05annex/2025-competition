@@ -35,6 +35,12 @@ public final class Constants extends A05Constants
     @SuppressWarnings("unused")
 	public static final boolean HAS_LIMELIGHT = false;
 
+    public static boolean backSensor() {
+        return BACK_CORAL_SENSOR.get();
+    }
+    public static boolean frontSenor() {
+        return FRONT_CORAL_SENSOR.get();
+    }
 
     public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("IMX219"), 1.0, new AngleD(AngleUnit.DEGREES,0.0));
 

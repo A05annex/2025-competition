@@ -1,9 +1,9 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.EndEffectorSubsystem;
+import frc.robot.Constants;
 
 
 public class CoralCenterCommand extends Command {
@@ -13,12 +13,7 @@ public class CoralCenterCommand extends Command {
 
     private final double slowSpeed = 50, fastSpeed = 200;
 
-    private boolean backSensor() {
-        return Constants.BACK_CORAL_SENSOR.get();
-    }
-    private boolean frontSenor() {
-        return Constants.FRONT_CORAL_SENSOR.get();
-    }
+
 
     public CoralCenterCommand() {
         // each subsystem used by the command must be passed into the
@@ -31,13 +26,13 @@ public class CoralCenterCommand extends Command {
      */
     @Override
     public void initialize() {
-        if (!backSensor() && !frontSenor()) {
+        if (!Constants.backSensor() && !Constants.frontSenor()) {
             currentStatus = STATUS.STOPPED;
             endEffectorSubsystem.stopAll();
-        } else if (!backSensor() && frontSenor()) {
+        } else if (!Constants.backSensor() && Constants.frontSenor()) {
             currentStatus = STATUS.FAST_BACK;
             endEffectorSubsystem.setVelocity(-fastSpeed);
-        } else if ((backSensor() && !frontSenor()) || (backSensor() && frontSenor())) {
+        } else if ((Constants.backSensor() && !Constants.frontSenor()) || (Constants.backSensor() && Constants.frontSenor())) {
             currentStatus = STATUS.FAST_FORWARD;
             endEffectorSubsystem.setVelocity(fastSpeed);
         }
@@ -53,19 +48,19 @@ public class CoralCenterCommand extends Command {
             case STOPPED:
                 return;
             case FAST_FORWARD, SLOW_FORWARD:
-                if (!backSensor()) {
+                if (!Constants.backSensor()) {
                     currentStatus = STATUS.SLOW_BACK;
                     endEffectorSubsystem.setVelocity(-slowSpeed);
                 }
                 break;
             case FAST_BACK:
-                if (backSensor()) {
+                if (Constants.backSensor()) {
                     currentStatus = STATUS.SLOW_FORWARD;
                     endEffectorSubsystem.setVelocity(slowSpeed);
                 }
                 break;
             case SLOW_BACK:
-                if (backSensor()) {
+                if (Constants.backSensor()) {
                     currentStatus = STATUS.STOPPED;
                     endEffectorSubsystem.stopAll();
                 }
