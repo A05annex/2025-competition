@@ -38,7 +38,7 @@ public final class Constants extends A05Constants
     public static boolean backSensor() {
         return BACK_CORAL_SENSOR.get();
     }
-    public static boolean frontSenor() {
+    public static boolean frontSensor() {
         return FRONT_CORAL_SENSOR.get();
     }
 

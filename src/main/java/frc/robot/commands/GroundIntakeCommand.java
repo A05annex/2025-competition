@@ -33,7 +33,7 @@ public class GroundIntakeCommand extends Command {
 
 	@Override
 	public boolean isFinished() {
-		return Constants.frontSenor();
+		return Constants.frontSensor();
 	}
 
 	@Override

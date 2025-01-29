@@ -26,13 +26,13 @@ public class CoralCenterCommand extends Command {
      */
     @Override
     public void initialize() {
-        if (!Constants.backSensor() && !Constants.frontSenor()) {
+        if (!Constants.backSensor() && !Constants.frontSensor()) {
             currentStatus = STATUS.STOPPED;
             endEffectorSubsystem.stopAll();
-        } else if (!Constants.backSensor() && Constants.frontSenor()) {
+        } else if (!Constants.backSensor() && Constants.frontSensor()) {
             currentStatus = STATUS.FAST_BACK;
             endEffectorSubsystem.setVelocity(-fastSpeed);
-        } else if ((Constants.backSensor() && !Constants.frontSenor()) || (Constants.backSensor() && Constants.frontSenor())) {
+        } else if ((Constants.backSensor() && !Constants.frontSensor()) || (Constants.backSensor() && Constants.frontSensor())) {
             currentStatus = STATUS.FAST_FORWARD;
             endEffectorSubsystem.setVelocity(fastSpeed);
         }
