@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -10,7 +9,7 @@ public class CoralPostScoreCommand extends Command {
     //private final ElevatorSubsystem elevatorSubsystem;
     private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
-    private double timeSpun;
+    private int timeSpun;
 
     public CoralPostScoreCommand() {
         // each subsystem used by the command must be passed into the

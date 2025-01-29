@@ -9,6 +9,7 @@ public class CoralTroughScoreCommand extends Command {
     private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
     private final boolean stopRight;
+    private int timeSpun;
 
     public CoralTroughScoreCommand(boolean stopRight) {
        this.stopRight = stopRight;
@@ -22,7 +23,8 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public void initialize() {
-       endEffectorSubsystem.setVelocity(2000.0);
+        timeSpun = 0;
+        endEffectorSubsystem.setVelocity(2000.0);
     }
 
     /**
@@ -31,16 +33,16 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public void execute() {
-      if (Constants.backSensor()){
-
-      }else if (!Constants.backSensor()){
-
-         if(stopRight){
-            endEffectorSubsystem.stopRight();
-         }else {
-            endEffectorSubsystem.stopLeft();
-         }
+      if (!Constants.backSensor()){
+		  if(stopRight) {
+			  endEffectorSubsystem.stopRight();
+		  } else {
+			  endEffectorSubsystem.stopLeft();
+		  }
       }
+
+
+      timeSpun = Constants.frontSensor() ? timeSpun + 1 : 0;
     }
 
     /**
@@ -59,7 +61,7 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return !Constants.frontSensor();
+        return timeSpun > 50;
     }
 
     /**
@@ -72,6 +74,6 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public void end(boolean interrupted) {
-
+        endEffectorSubsystem.stopAll();
     }
 }
