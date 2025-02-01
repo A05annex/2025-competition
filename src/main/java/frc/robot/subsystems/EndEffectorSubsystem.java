@@ -8,9 +8,9 @@ import org.a05annex.frc.subsystems.SparkNeo;
 
 public class EndEffectorSubsystem extends SubsystemBase {
 
-    private final SparkNeo motorLeft = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo motorLeft = SparkNeo.factory(Constants.CAN_Devices.END_EFFECTOR_LEFT_MOTOR);
 
-    private final SparkNeo motorRight = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo motorRight = SparkNeo.factory(Constants.CAN_Devices.END_EFFECTOR_RIGHT_MOTOR);
 
     // Declare PID constants for speed (rpm) control
     @SuppressWarnings("FieldCanBeLocal")

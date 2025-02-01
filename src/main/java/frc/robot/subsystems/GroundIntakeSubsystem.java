@@ -8,9 +8,9 @@ import org.a05annex.frc.subsystems.SparkNeo;
 
 public class GroundIntakeSubsystem extends SubsystemBase {
 
-    private final SparkNeo intakeMotor = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo intakeMotor = SparkNeo.factory(Constants.CAN_Devices.GROUND_INTAKE_SPIN_MOTOR);
 
-    private final SparkNeo actuatorMotor = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo actuatorMotor = SparkNeo.factory(Constants.CAN_Devices.GROUND_INTAKE_ACTUATOR_MOTOR);
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")

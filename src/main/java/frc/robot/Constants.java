@@ -27,6 +27,12 @@ public final class Constants extends A05Constants
     public static final class CAN_Devices {
         public static final int
             // Non-Drive Motors
+            ALGAE_MOTOR = 9,
+            ELEVATOR_MOTOR = 10,
+            END_EFFECTOR_RIGHT_MOTOR = 11,
+            END_EFFECTOR_LEFT_MOTOR = 12,
+            GROUND_INTAKE_ACTUATOR_MOTOR = 13,
+            GROUND_INTAKE_SPIN_MOTOR = 14,
             SAMPLE_MOTOR = 14;
     }
 

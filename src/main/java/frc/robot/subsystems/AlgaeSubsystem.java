@@ -6,9 +6,9 @@ import frc.robot.Constants;
 import org.a05annex.frc.subsystems.SparkNeo;
 import org.a05annex.frc.subsystems.SparkNeo550;
 
-public class SampleMotorSubsystem extends SubsystemBase {
+public class AlgaeSubsystem extends SubsystemBase {
 
-    private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.ALGAE_MOTOR);
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
@@ -27,12 +27,12 @@ public class SampleMotorSubsystem extends SubsystemBase {
     @SuppressWarnings("FieldCanBeLocal")
     private final Double minPosition = null, maxPosition = 1000.0, startPosition = 500.0;
 
-    private final static SampleMotorSubsystem INSTANCE = new SampleMotorSubsystem();
-    public static SampleMotorSubsystem getInstance() {
+    private final static AlgaeSubsystem INSTANCE = new AlgaeSubsystem();
+    public static AlgaeSubsystem getInstance() {
         return INSTANCE;
     }
 
-    private SampleMotorSubsystem() {
+    private AlgaeSubsystem() {
         motor.startConfig();
         motor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps40);
 		//noinspection ConstantValue

@@ -8,7 +8,7 @@ import org.a05annex.util.Utl;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
-    private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.ELEVATOR_MOTOR);
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
