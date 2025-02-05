@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.ElevatorSubsystem;
 import org.a05annex.frc.A05RobotContainer;
 import org.a05annex.frc.subsystems.SpeedCachedSwerve;
 
@@ -65,5 +66,8 @@ public class RobotContainer extends A05RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
 
         driveBack.onTrue(new InstantCommand(navx::initializeHeadingAndNav)); // Reset the NavX field relativity
+        driveY.onTrue(new InstantCommand(ElevatorSubsystem.getInstance()::moveUp)).onFalse(new InstantCommand(ElevatorSubsystem.getInstance()::stop));
+        driveA.onTrue(new InstantCommand(ElevatorSubsystem.getInstance()::moveDown)).onFalse(new InstantCommand(ElevatorSubsystem.getInstance()::stop));
+        driveB.onTrue(new InstantCommand(ElevatorSubsystem.getInstance()::stop));
     }
 }

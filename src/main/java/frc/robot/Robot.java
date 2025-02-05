@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SampleMotorSubsystem;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05Robot;
@@ -96,6 +97,8 @@ public class Robot extends A05Robot {
     public void disabledPeriodic() {
         //SmartDashboard.putNumber("Heading", NavX.getInstance().getHeadingInfo().expectedHeading.getDegrees());
         DriveSubsystem.getInstance().printAllAngles();
+
+        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
     }
 
     /** This method is called periodically during autonomous. */
@@ -108,7 +111,7 @@ public class Robot extends A05Robot {
         super.teleopPeriodic();
 
         // Example SmartDashboard telemetry call
-        SmartDashboard.putNumber("sampleMotorPosition", SampleMotorSubsystem.getInstance().getPosition());
+        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
     }
 
 

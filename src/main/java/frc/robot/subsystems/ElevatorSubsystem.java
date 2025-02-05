@@ -21,14 +21,13 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare PID constants for speed (rpm) control
     @SuppressWarnings("FieldCanBeLocal")
-    private final double rpmKp = 0.5, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.0;
+    private final double rpmKp = 0.005, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.0;
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 1000.0, startPosition = 500.0;
+    private final Double minPosition = 2.0, maxPosition = 165.0, startPosition = 0.0;
 
-    //TODO: This is a placeholder value
-    private final double positionTolerence = 1;
+    private final double positionTolerence = 1.0;
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
@@ -56,6 +55,14 @@ public class ElevatorSubsystem extends SubsystemBase {
     @SuppressWarnings("unused")
     public void resetEncoder() {
         motor.setEncoderPosition(0.0);
+    }
+
+    public void moveUp() {
+        motor.sparkMax.set(1.0);
+    }
+
+    public void moveDown() {
+        motor.sparkMax.set(-1.0);
     }
 
     @SuppressWarnings("unused")
