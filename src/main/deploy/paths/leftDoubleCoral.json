@@ -1,0 +1,85 @@
+{
+  "speedMultiplier": 1.0,
+  "description": "No description provided.",
+  "robotScheduledActions": [],
+  "title": "untitled",
+  "controlPoints": [
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -0.7359026369168353,
+      "field_dY": 0.0,
+      "fieldX": -3.5298174442190664,
+      "fieldHeading": 3.14159,
+      "time": 0.0,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 2.017038539553754,
+      "fieldY": -2.7644016227180526,
+      "field_dY": -1.7878296146044619,
+      "fieldX": -3.014097363083164,
+      "fieldHeading": 3.141592653589793,
+      "time": 0.9,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -3.6583164300202835,
+      "field_dY": 0.0,
+      "fieldX": -1.14604462474645,
+      "fieldHeading": 2.08586914381368,
+      "time": 2.275,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": false,
+      "field_dX": -0.9855983772819492,
+      "fieldY": -4.884584178498986,
+      "field_dY": -2.223326572008114,
+      "fieldX": -2.4639959432048677,
+      "fieldHeading": 1.741944932211078,
+      "time": 3.275,
+      "field_dHeading": -0.6409151549719725,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -7.635091277890465,
+      "field_dY": 0.0,
+      "fieldX": -3.048478701825558,
+      "fieldHeading": 0.9205688620464573,
+      "time": 5.275,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": false,
+      "field_dX": 1.6268103448275872,
+      "fieldY": -6.133772819472616,
+      "field_dY": 2.2794827586206887,
+      "fieldX": -1.9941176470588236,
+      "fieldHeading": 0.6480568859305152,
+      "time": 6.275,
+      "field_dHeading": 0.06718415897714387,
+      "derivativesEdited": false
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -4.953346855983773,
+      "field_dY": 0.0,
+      "fieldX": -1.1345841784989847,
+      "fieldHeading": 1.042721878368537,
+      "time": 7.275,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    }
+  ]
+}
