@@ -24,6 +24,7 @@ public class GroundIntakeCommand extends Command {
 		groundIntakeSubsystem.extendActuator();
 		ElevatorSubsystem.ELEVATOR_POSITION.AGI.goTo();
 		groundIntakeSubsystem.setIntakeVelocity(2000.0);
+		endEffectorSubsystem.setVelocity(-1000.0);
 	}
 
 	@Override
