@@ -12,22 +12,22 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
-	private final double smKp = 0.00005, smKi = 0.000, smKiZone = 0.0, smKff = 0.000156, smMaxRPM = 3000.0,
-            smMaxDeltaRPMSec = 3000.0, smError = 0.1;
+	private final double mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKff = 0.000156, mmMaxRPM = 5200.0,
+            mmMaxDeltaRPMSec = 10000.0, mmError = 0.4;
 
     // Declare PID constants for position control
     @SuppressWarnings("FieldCanBeLocal")
-    private final double posKp = 0.22, posKi = 0.0, posKiZone = 0.0, posKff = 0.0;
+    private final double posKp = 0.1, posKi = 0.0, posKiZone = 0.0, posKff = 0.000156;
 
     // Declare PID constants for speed (rpm) control
     @SuppressWarnings("FieldCanBeLocal")
-    private final double rpmKp = 0.005, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.0;
+    private final double rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156;
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 2.0, maxPosition = 165.0, startPosition = 0.0;
+    private final Double minPosition = -0.1, maxPosition = 165.0, startPosition = 0.0;
 
-    private final double positionTolerence = 1.0;
+    private final double positionTolerance = 0.3;
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
@@ -41,7 +41,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setDirection(SparkNeo.Direction.REVERSE);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         motor.setPositionPID(posKp, posKi, posKiZone, posKff);
-        motor.setMAXMotionPosition(smKp, smKi, smKiZone, smKff, smMaxRPM, smMaxDeltaRPMSec, smError);
+        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKff, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
         motor.setEncoderPosition(startPosition);
@@ -75,15 +75,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean isInPosition(double position) {
-        return Utl.inTolerance(getPosition(), position, positionTolerence);
+        return Utl.inTolerance(getPosition(), position, positionTolerance);
     }
 
     public enum ELEVATOR_POSITION {
         AGI(0.0),
-        HPI(50.0),
-        L1(250.0),
-        L2(500.0),
-        L3(1000.0);
+        HPI(20.0),
+        L1(50.0),
+        L2(100.0),
+        L3(160.0);
 
         public final double position;
 
@@ -95,6 +95,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
         public void goTo() {
             elevatorSubsystem.goToMAXMotionPosition(position);
+            System.out.print("going to " + this.name());
         }
 
         public boolean isInPosition() {

@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SampleMotorSubsystem;
 import org.a05annex.frc.A05Constants;
@@ -38,7 +39,7 @@ public class Robot extends A05Robot {
         // Some drive geometry is passed in RobotContainer's constructor
         Constants.setDriveOrientationKp(Constants.DRIVE_ORIENTATION_kP);
 
-        Constants.setPrintDebug(true);
+        Constants.setPrintDebug(false);
 
         // update dictionary with all needed values
         Constants.setAprilTagPositionParametersDictionary();
@@ -57,6 +58,12 @@ public class Robot extends A05Robot {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         setRobotContainer(new RobotContainer());
+
+        SmartDashboard.putData("L1", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1::goTo));
+        SmartDashboard.putData("L2", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L2::goTo));
+        SmartDashboard.putData("L3", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L3::goTo));
+        SmartDashboard.putData("AGI", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.AGI::goTo));
+        SmartDashboard.putData("HPI", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI::goTo));
     }
     
     /** This method is called once each time the robot enters Disabled mode. */
