@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.SampleMotorSubsystem;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05Robot;
 import org.a05annex.frc.subsystems.DriveSubsystem;
@@ -43,17 +42,20 @@ public class Robot extends A05Robot {
 
         // update dictionary with all needed values
         Constants.setAprilTagPositionParametersDictionary();
-
-        // Set the camera correction functions. This accounts for error in the reported distances from PhotonVision
-        Constants.CAMERA.setXCorrectionFunction(Constants::xCorrectionFunction);
-        Constants.CAMERA.setYCorrectionFunction(Constants::yCorrectionFunction);
-
         // Load the robot settings list
         Collections.addAll(A05Constants.ROBOT_SETTINGS_LIST,Constants.ROBOT_SETTINGS);
         // Load the autonomous path list
         Collections.addAll(A05Constants.AUTONOMOUS_PATH_LIST,Constants.AUTONOMOUS_PATHS);
         // Load the driver list
         Collections.addAll(A05Constants.DRIVER_SETTINGS_LIST,Constants.DRIVER_SETTINGS);
+
+        // Set the camera correction functions. This accounts for error in the reported distances from PhotonVision
+        Constants.CAMERA.setXCorrectionFunction(Constants::xCorrectionFunction);
+        Constants.CAMERA.setYCorrectionFunction(Constants::yCorrectionFunction);
+
+
+        Constants.ELEVATOR_ANALOG_ENCODER.setInverted(true);
+
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
@@ -105,7 +107,6 @@ public class Robot extends A05Robot {
         //SmartDashboard.putNumber("Heading", NavX.getInstance().getHeadingInfo().expectedHeading.getDegrees());
         DriveSubsystem.getInstance().printAllAngles();
 
-        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
     }
 
     /** This method is called periodically during autonomous. */

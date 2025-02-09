@@ -29,6 +29,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private final double positionTolerance = 0.3;
 
+    private final double analogEncoderZero = 0.4423;
+
+    private final double gearRatio = 45.0;
+
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
         return INSTANCE;
@@ -44,7 +48,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKff, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
-        motor.setEncoderPosition(startPosition);
+        motor.setEncoderPosition(encoderStartPosition());
     }
 
     @SuppressWarnings("unused")
@@ -76,6 +80,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public boolean isInPosition(double position) {
         return Utl.inTolerance(getPosition(), position, positionTolerance);
+    }
+
+    private double encoderStartPosition() {
+        double shift = 0.3;
+        double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;
+        double correctedEncoder = encoder > 1.0 ? encoder - 1.0 : encoder;
+
+        return (Constants.ELEVATOR_ANALOG_ENCODER.get() - analogEncoderZero) * gearRatio;
     }
 
     public enum ELEVATOR_POSITION {
