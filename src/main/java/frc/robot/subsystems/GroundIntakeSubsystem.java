@@ -4,7 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.SharedSpaceManager;
+import frc.robot.RobotStateManager;
 import org.a05annex.frc.subsystems.SparkNeo;
 
 public class GroundIntakeSubsystem extends SubsystemBase {
@@ -30,9 +30,11 @@ public class GroundIntakeSubsystem extends SubsystemBase {
     @SuppressWarnings("FieldCanBeLocal")
     private final Double intakeMinPosition = 0.0, intakeMaxPosition = 1000.0, intakeStartPosition = 0.0;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final Double actuatorMinPosition = 0.0, actuatorMaxPosition = 1000.0, actuatorStartPosition = 0.0;
 
     // Declare non-parameter method constants
+    @SuppressWarnings("FieldCanBeLocal")
     private final double intakeRPM = 1000.0, extendedPosition = 1000.0, retractedPosition = 0.0;
 
     private final static GroundIntakeSubsystem INSTANCE = new GroundIntakeSubsystem();
@@ -54,7 +56,6 @@ public class GroundIntakeSubsystem extends SubsystemBase {
 
         actuatorMotor.startConfig();
         actuatorMotor.setCurrentLimit(SparkNeo.UseType.POSITION, SparkNeo.BreakerAmps.Amps40);
-        //noinspection ConstantValue
         actuatorMotor.setSoftLimits(actuatorMinPosition, actuatorMaxPosition);
         actuatorMotor.setDirection(SparkNeo.Direction.DEFAULT);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
@@ -90,7 +91,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
 
     @SuppressWarnings("unused")
     public void stopActuator() {
-        SharedSpaceManager.releaseAccess(this);
+        RobotStateManager.ElevatorAGIManager.releaseAccess(this);
         actuatorMotor.stopMotor();
     }
 
@@ -99,7 +100,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
     }
 
     public boolean retractActuator(){
-        if(SharedSpaceManager.requestAccess(this)) {
+        if(RobotStateManager.ElevatorAGIManager.requestAccess(this)) {
             actuatorToMMPosition(retractedPosition);
             return true;
         }

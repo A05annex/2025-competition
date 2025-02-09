@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.SharedSpaceManager;
+import frc.robot.RobotStateManager;
 import org.a05annex.frc.subsystems.SparkNeo;
 import org.a05annex.util.Utl;
 
@@ -26,12 +26,15 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = -0.1, maxPosition = 165.0, AGICollisionPosition = 28.0;
-
+    private final Double minPosition = -0.1, maxPosition = 165.0, AGICollisionHeight = 28.0,
+            coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 65.0;
+    @SuppressWarnings("FieldCanBeLocal")
     private final double positionTolerance = 0.3;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final double analogEncoderZero = 0.4423;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final double gearRatio = 45.0;
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
@@ -53,14 +56,26 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean goToMAXMotionPosition(double position) {
-        if(position > AGICollisionPosition) {
-            SharedSpaceManager.releaseAccess(this);
+        if(position >= AGICollisionHeight && !RobotStateManager.CoralManager.elevatorBlocked()) {
+            RobotStateManager.ElevatorAGIManager.releaseAccess(this);
             motor.setTargetMAXMotionPosition(position);
             return true;
         }
-        if(SharedSpaceManager.requestAccess(this)) {
-            motor.setTargetMAXMotionPosition(position);
-            return true;
+
+        if(position < AGICollisionHeight) {
+            if(RobotStateManager.ElevatorAGIManager.requestAccess(this)) {
+                motor.setTargetMAXMotionPosition(position);
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        if(!((getPosition() < coralCollisionMinHeight && position >= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
+                || (getPosition() >= coralCollisionMaxHeight && position < coralCollisionMaxHeight))) {
+                motor.setTargetMAXMotionPosition(position);
+                return true;
         }
         return false;
     }
