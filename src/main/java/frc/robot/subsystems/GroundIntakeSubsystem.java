@@ -15,7 +15,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
-	private final double actuatorMmKp = 0.00005, actuatorMmKi = 0.000, actuatorMmKiZone = 0.0, actuatorMmKff = 0.000156, actuatorMmMaxRPM = 5000.0,
+	private final double actuatorMmKp = 0.00005, actuatorMmKi = 0.000, actuatorMmKiZone = 0.0, actuatorMmKd = 0.0, actuatorMmMaxRPM = 5000.0,
             actuatorMmMaxDeltaRPMSec = 3000.0, actuatorMmError = 0.1;
 
     // Declare PID constants for position control
@@ -59,7 +59,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
         actuatorMotor.setDirection(SparkNeo.Direction.DEFAULT);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         actuatorMotor.setPositionPID(actuatorPosKp, actuatorPosKi, actuatorPosKiZone, actuatorPosKff);
-        actuatorMotor.setMAXMotionPosition(actuatorMmKp, actuatorMmKi, actuatorMmKiZone, actuatorMmKff, actuatorMmMaxRPM, actuatorMmMaxDeltaRPMSec, actuatorMmError);
+        actuatorMotor.setMAXMotionPosition(actuatorMmKp, actuatorMmKi, actuatorMmKiZone, actuatorMmKd, actuatorMmMaxRPM, actuatorMmMaxDeltaRPMSec, actuatorMmError);
         actuatorMotor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         actuatorMotor.endConfig();
         actuatorMotor.setEncoderPosition(actuatorStartPosition);

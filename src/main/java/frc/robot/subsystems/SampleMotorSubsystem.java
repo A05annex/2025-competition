@@ -11,7 +11,7 @@ public class SampleMotorSubsystem extends SubsystemBase {
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
-	private final double mmKp = 0.00005, mmKi = 0.000, mmKiZone = 0.0, mmKff = 0.000156, mmMaxRPM = 3000.0,
+	private final double mmKp = 0.00005, mmKi = 0.000, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 3000.0,
             mmMaxDeltaRPMSec = 3000.0, mmError = 0.1;
 
     // Declare PID constants for position control
@@ -39,7 +39,7 @@ public class SampleMotorSubsystem extends SubsystemBase {
         motor.setDirection(SparkNeo.Direction.REVERSE);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         motor.setPositionPID(posKp, posKi, posKiZone, posKff);
-        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKff, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
+        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKd, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
         motor.setEncoderPosition(startPosition);

@@ -13,7 +13,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
-	private final double mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKff = 0.000156, mmMaxRPM = 5200.0,
+	private final double mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 5200.0,
             mmMaxDeltaRPMSec = 10000.0, mmError = 0.4;
 
     // Declare PID constants for position control
@@ -46,7 +46,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setDirection(SparkNeo.Direction.REVERSE);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         motor.setPositionPID(posKp, posKi, posKiZone, posKff);
-        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKff, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
+        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKd, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
         motor.setEncoderPosition(encoderStartPosition());
@@ -89,6 +89,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         AGI(0.0),
         HPI(20.0),
         SAFE(35.0),
+        ALGAE(45.0),
         L1(50.0),
         L2(100.0),
         L3(160.0);
