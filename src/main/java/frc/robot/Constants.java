@@ -110,6 +110,7 @@ public final class Constants extends A05Constants
         aprilTagSetDictionary.put("far left reef", new AprilTagSet(new int[]{11}, new int[]{20}, new AngleD(AngleUnit.DEGREES, 120)));
         aprilTagSetDictionary.put("close right reef", new AprilTagSet(new int[]{8}, new int[]{17}, new AngleD(AngleUnit.DEGREES, 60)));
         aprilTagSetDictionary.put("far right reef", new AprilTagSet(new int[]{9}, new int[]{22}, new AngleD(AngleUnit.DEGREES, -120)));
+        aprilTagSetDictionary.put("all reef", new AprilTagSet(new int[]{6, 7, 8, 9, 10, 11}, new int[]{17, 18, 19, 20, 21, 22}));
         aprilTagSetDictionary.put("left cage", new AprilTagSet(new int[]{5}, new int[]{14}, new AngleD(AngleUnit.DEGREES, 0)));
         aprilTagSetDictionary.put("right cage", new AprilTagSet(new int[]{4}, new int[]{15}, new AngleD(AngleUnit.DEGREES, 0)));
         aprilTagSetDictionary.put("processor", new AprilTagSet(new int[]{3}, new int[]{16}, new AngleD(AngleUnit.DEGREES, 90)));
