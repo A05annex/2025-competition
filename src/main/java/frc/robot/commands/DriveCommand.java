@@ -65,6 +65,8 @@ public class DriveCommand extends A05DriveCommand {
 			case D -> 180.0;
 			case DL -> 240.0;
 			case UL -> 300.0;
+            case R -> 90.0;
+            case L -> 270.0;
 			default -> 0.0;
 		};
 
