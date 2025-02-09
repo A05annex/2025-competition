@@ -9,6 +9,8 @@ public class ElevatorMoveWaitCommand extends Command {
 
     private final ElevatorSubsystem.ELEVATOR_POSITION position;
 
+    private boolean moveSuccessful = false;
+
     public ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION position) {
        this.position = position;
         // each subsystem used by the command must be passed into the
@@ -21,7 +23,7 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void initialize() {
-      position.goTo();
+      moveSuccessful = position.goTo();
     }
 
     /**
@@ -30,7 +32,9 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void execute() {
-
+        if(!moveSuccessful) {
+            moveSuccessful = position.goTo();
+        }
     }
 
     /**

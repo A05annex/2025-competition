@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.SharedSpaceManager;
 import org.a05annex.frc.subsystems.SparkNeo;
 import org.a05annex.util.Utl;
 
@@ -25,7 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = -0.1, maxPosition = 165.0, startPosition = 0.0;
+    private final Double minPosition = -0.1, maxPosition = 165.0, AGICollisionPosition = 28.0;
 
     private final double positionTolerance = 0.3;
 
@@ -51,25 +52,19 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setEncoderPosition(encoderStartPosition());
     }
 
-    @SuppressWarnings("unused")
-    public void goToMAXMotionPosition(double position) {
-        motor.setTargetMAXMotionPosition(position);
+    public boolean goToMAXMotionPosition(double position) {
+        if(position > AGICollisionPosition) {
+            SharedSpaceManager.releaseAccess(this);
+            motor.setTargetMAXMotionPosition(position);
+            return true;
+        }
+        if(SharedSpaceManager.requestAccess(this)) {
+            motor.setTargetMAXMotionPosition(position);
+            return true;
+        }
+        return false;
     }
 
-    @SuppressWarnings("unused")
-    public void resetEncoder() {
-        motor.setEncoderPosition(0.0);
-    }
-
-    public void moveUp() {
-        motor.sparkMax.set(1.0);
-    }
-
-    public void moveDown() {
-        motor.sparkMax.set(-1.0);
-    }
-
-    @SuppressWarnings("unused")
     public void stop() {
         motor.stopMotor();
     }
@@ -93,6 +88,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     public enum ELEVATOR_POSITION {
         AGI(0.0),
         HPI(20.0),
+        SAFE(35.0),
         L1(50.0),
         L2(100.0),
         L3(160.0);
@@ -105,9 +101,8 @@ public class ElevatorSubsystem extends SubsystemBase {
             this.position = position;
         }
 
-        public void goTo() {
-            elevatorSubsystem.goToMAXMotionPosition(position);
-            System.out.print("going to " + this.name());
+        public boolean goTo() {
+            return elevatorSubsystem.goToMAXMotionPosition(position);
         }
 
         public boolean isInPosition() {

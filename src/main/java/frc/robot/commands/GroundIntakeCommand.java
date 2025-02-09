@@ -22,8 +22,8 @@ public class GroundIntakeCommand extends Command {
 	@Override
 	public void initialize() {
 		groundIntakeSubsystem.extendActuator();
-		ElevatorSubsystem.ELEVATOR_POSITION.AGI.goTo();
 		groundIntakeSubsystem.setIntakeVelocity(2000.0);
+		ElevatorSubsystem.ELEVATOR_POSITION.AGI.goTo();
 		endEffectorSubsystem.setVelocity(-1000.0);
 	}
 
@@ -40,7 +40,7 @@ public class GroundIntakeCommand extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		ElevatorSubsystem.ELEVATOR_POSITION.L1.goTo();
-		elevatorSubsystem.stop();
+		endEffectorSubsystem.stopAll();
 		groundIntakeSubsystem.retractActuator();
 		groundIntakeSubsystem.stopAll();
 	}

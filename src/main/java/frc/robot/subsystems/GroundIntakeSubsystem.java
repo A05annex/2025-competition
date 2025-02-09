@@ -4,6 +4,7 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.SharedSpaceManager;
 import org.a05annex.frc.subsystems.SparkNeo;
 
 public class GroundIntakeSubsystem extends SubsystemBase {
@@ -89,6 +90,7 @@ public class GroundIntakeSubsystem extends SubsystemBase {
 
     @SuppressWarnings("unused")
     public void stopActuator() {
+        SharedSpaceManager.releaseAccess(this);
         actuatorMotor.stopMotor();
     }
 
@@ -96,8 +98,12 @@ public class GroundIntakeSubsystem extends SubsystemBase {
         actuatorToMMPosition(extendedPosition);
     }
 
-    public void retractActuator(){
-        actuatorToMMPosition(retractedPosition);
+    public boolean retractActuator(){
+        if(SharedSpaceManager.requestAccess(this)) {
+            actuatorToMMPosition(retractedPosition);
+            return true;
+        }
+        return false;
     }
 
     public void stopAll(){
