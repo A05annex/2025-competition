@@ -11,33 +11,32 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.ELEVATOR_MOTOR);
 
-    // Declare PID constants for smart motion control
-    @SuppressWarnings("FieldCanBeLocal")
-	private final double mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 5200.0,
-            mmMaxDeltaRPMSec = 10000.0, mmError = 0.2;
-
-    // Declare PID constants for position control
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double posKp = 0.1, posKi = 0.0, posKiZone = 0.0, posKff = 0.000156;
-
-    // Declare PID constants for speed (rpm) control
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156;
-
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 171.0, AGICollisionHeight = 28.0,
-            coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 65.0;
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double positionTolerance = 0.3;
+    private final Double minPosition = 0.0, maxPosition = 171.0;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final double analogEncoderZero = 0.0123;
+	private final double
+    // Declare PID constants for smart motion control
+            mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 5200.0, mmMaxDeltaRPMSec = 10000.0, mmError = 0.2,
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double gearRatio = 45.0;
+    // Declare PID constants for position control
+            posKp = 0.1, posKi = 0.0, posKiZone = 0.0, posKff = 0.0,
 
-    public final double encoderToInches = 42.0 / (maxPosition - minPosition);
+    // Declare PID constants for speed (rpm) control
+            rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156,
+
+            AGICollisionHeight = 28.0, coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 65.0,
+
+            positionTolerance = 0.3,
+
+            analogEncoderZero = 0.0123,
+
+            gearRatio = 45.0,
+
+            encoderToInches = 42.0 / (maxPosition - minPosition);
+
+
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
