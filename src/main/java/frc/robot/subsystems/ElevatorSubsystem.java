@@ -14,7 +14,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
 	private final double mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 5200.0,
-            mmMaxDeltaRPMSec = 10000.0, mmError = 0.4;
+            mmMaxDeltaRPMSec = 10000.0, mmError = 0.2;
 
     // Declare PID constants for position control
     @SuppressWarnings("FieldCanBeLocal")
@@ -26,16 +26,18 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = -0.1, maxPosition = 165.0, AGICollisionHeight = 28.0,
+    private final Double minPosition = 0.0, maxPosition = 171.0, AGICollisionHeight = 28.0,
             coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 65.0;
     @SuppressWarnings("FieldCanBeLocal")
     private final double positionTolerance = 0.3;
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final double analogEncoderZero = 0.4423;
+    private final double analogEncoderZero = 0.0123;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final double gearRatio = 45.0;
+
+    public final double encoderToInches = 42.0 / (maxPosition - minPosition);
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
@@ -92,22 +94,24 @@ public class ElevatorSubsystem extends SubsystemBase {
         return Utl.inTolerance(getPosition(), position, positionTolerance);
     }
 
-    private double encoderStartPosition() {
-        double shift = 0.3;
+    public double getCorrectedEncoder() {
+        double shift = -0.13;
         double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;
-        double correctedEncoder = encoder > 1.0 ? encoder - 1.0 : encoder;
+        return encoder < 0.0 ? encoder + 1.0 : encoder;
+    }
 
-        return (Constants.ELEVATOR_ANALOG_ENCODER.get() - analogEncoderZero) * gearRatio;
+    private double encoderStartPosition() {
+        return (getCorrectedEncoder() - analogEncoderZero) * gearRatio;
     }
 
     public enum ELEVATOR_POSITION {
-        AGI(0.0),
-        HPI(20.0),
+        AGI(11.0),
+        HPI(66.25),
         SAFE(35.0),
         ALGAE(45.0),
-        L1(50.0),
-        L2(100.0),
-        L3(160.0);
+        L1(70.8),
+        L2(108.6),
+        L3(170.0);
 
         public final double position;
 

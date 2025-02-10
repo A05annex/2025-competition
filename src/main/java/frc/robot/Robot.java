@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ElevatorSubsystem;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05Robot;
-import org.a05annex.frc.subsystems.DriveSubsystem;
 
 import java.util.Collections;
 
@@ -61,11 +60,37 @@ public class Robot extends A05Robot {
         // autonomous chooser on the dashboard.
         setRobotContainer(new RobotContainer());
 
-        SmartDashboard.putData("L1", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1::goTo));
-        SmartDashboard.putData("L2", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L2::goTo));
-        SmartDashboard.putData("L3", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L3::goTo));
-        SmartDashboard.putData("AGI", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.AGI::goTo));
-        SmartDashboard.putData("HPI", new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI::goTo));
+
+        SmartDashboard.putData("L1", new InstantCommand());
+        SmartDashboard.putData("L2", new InstantCommand());
+        SmartDashboard.putData("L3", new InstantCommand());
+        SmartDashboard.putData("AGI", new InstantCommand());
+        SmartDashboard.putData("HPI", new InstantCommand());
+        SmartDashboard.putData("ALGAE", new InstantCommand());
+
+        InstantCommand
+                L1 = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1::goTo),
+                L2 = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L2::goTo),
+                L3 = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L3::goTo),
+                AGI = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.AGI::goTo),
+                HPI = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI::goTo),
+                ALGAE = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE::goTo);
+
+        L1.setName("L1");
+        L2.setName("L2");
+        L3.setName("L3");
+        AGI.setName("AGI");
+        HPI.setName("HPI");
+        ALGAE.setName("ALGAE");
+
+
+        SmartDashboard.putData("L1", L1);
+        SmartDashboard.putData("L2", L2);
+        SmartDashboard.putData("L3", L3);
+        SmartDashboard.putData("AGI", AGI);
+        SmartDashboard.putData("HPI", HPI);
+        SmartDashboard.putData("ALGAE", ALGAE);
+
     }
     
     /** This method is called once each time the robot enters Disabled mode. */
@@ -100,12 +125,18 @@ public class Robot extends A05Robot {
     @Override
     public void robotPeriodic() {
         super.robotPeriodic();
+
+        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
+
+        SmartDashboard.putNumber("encoder", Constants.ELEVATOR_ANALOG_ENCODER.get());
+        SmartDashboard.putNumber("correctedEncoder", ElevatorSubsystem.getInstance().getCorrectedEncoder());
+
     }
 
     @Override
     public void disabledPeriodic() {
         //SmartDashboard.putNumber("Heading", NavX.getInstance().getHeadingInfo().expectedHeading.getDegrees());
-        DriveSubsystem.getInstance().printAllAngles();
+        //DriveSubsystem.getInstance().printAllAngles();
 
     }
 
