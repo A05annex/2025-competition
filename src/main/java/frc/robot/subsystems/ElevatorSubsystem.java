@@ -107,7 +107,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         AGI(11.0),
         HPI(66.25),
         SAFE(35.0),
-        ALGAE(45.0),
+        ALGAE_HIGH(167.0),
+        ALGAE_LOW(120.0),
         L1(70.8),
         L2(108.6),
         L3(170.0);
@@ -127,6 +128,14 @@ public class ElevatorSubsystem extends SubsystemBase {
         public boolean isInPosition() {
             return elevatorSubsystem.isInPosition(position);
         }
+    }
+
+    private double encoderToInches(double encoder) {
+        return encoder * encoderToInches;
+    }
+
+    private double inchesToEncoder(double inches) {
+        return inches / encoderToInches;
     }
 }
 

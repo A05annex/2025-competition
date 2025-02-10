@@ -66,7 +66,9 @@ public class Robot extends A05Robot {
         SmartDashboard.putData("L3", new InstantCommand());
         SmartDashboard.putData("AGI", new InstantCommand());
         SmartDashboard.putData("HPI", new InstantCommand());
-        SmartDashboard.putData("ALGAE", new InstantCommand());
+        SmartDashboard.putData("LOW ALGAE", new InstantCommand());
+        SmartDashboard.putData("HIGH ALGAE", new InstantCommand());
+        SmartDashboard.putData("SAFE", new InstantCommand());
 
         InstantCommand
                 L1 = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1::goTo),
@@ -74,14 +76,19 @@ public class Robot extends A05Robot {
                 L3 = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.L3::goTo),
                 AGI = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.AGI::goTo),
                 HPI = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI::goTo),
-                ALGAE = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE::goTo);
+                LOW_ALGAE = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_LOW::goTo),
+                HIGH_ALGAE = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_HIGH::goTo),
+                SAFE = new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.SAFE::goTo);
+
 
         L1.setName("L1");
         L2.setName("L2");
         L3.setName("L3");
         AGI.setName("AGI");
         HPI.setName("HPI");
-        ALGAE.setName("ALGAE");
+        LOW_ALGAE.setName("LOW ALGAE");
+        HIGH_ALGAE.setName("HIGH ALGAE");
+        SAFE.setName("SAFE");
 
 
         SmartDashboard.putData("L1", L1);
@@ -89,7 +96,9 @@ public class Robot extends A05Robot {
         SmartDashboard.putData("L3", L3);
         SmartDashboard.putData("AGI", AGI);
         SmartDashboard.putData("HPI", HPI);
-        SmartDashboard.putData("ALGAE", ALGAE);
+        SmartDashboard.putData("LOW ALGAE", LOW_ALGAE);
+        SmartDashboard.putData("HIGH ALGAE", HIGH_ALGAE);
+        SmartDashboard.putData("SAFE", SAFE);
 
     }
     
