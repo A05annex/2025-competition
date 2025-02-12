@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             encoderToInches = 42.0 / (maxPosition - minPosition);
 
-
+    private double requestedPosition;
 
     private final static ElevatorSubsystem INSTANCE = new ElevatorSubsystem();
     public static ElevatorSubsystem getInstance() {
@@ -54,18 +54,21 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
         motor.setEncoderPosition(encoderStartPosition());
+        requestedPosition = encoderStartPosition();
     }
 
     public boolean goToMAXMotionPosition(double position) {
         if(position >= AGICollisionHeight && !RobotStateManager.CoralManager.elevatorBlocked()) {
             RobotStateManager.ElevatorAGIManager.releaseAccess(this);
             motor.setTargetMAXMotionPosition(position);
+            requestedPosition = position;
             return true;
         }
 
         if(position < AGICollisionHeight) {
             if(RobotStateManager.ElevatorAGIManager.requestAccess(this)) {
                 motor.setTargetMAXMotionPosition(position);
+                requestedPosition = position;
                 return true;
             }
             else {
@@ -76,6 +79,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         if(!((getPosition() < coralCollisionMinHeight && position >= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
                 || (getPosition() >= coralCollisionMaxHeight && position < coralCollisionMaxHeight))) {
                 motor.setTargetMAXMotionPosition(position);
+                requestedPosition = position;
                 return true;
         }
         return false;
@@ -91,6 +95,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public boolean isInPosition(double position) {
         return Utl.inTolerance(getPosition(), position, positionTolerance);
+    }
+
+    public boolean isInPosition() {
+        return Utl.inTolerance(getPosition(), requestedPosition, positionTolerance);
     }
 
     public double getCorrectedEncoder() {
@@ -109,6 +117,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         SAFE(35.0),
         ALGAE_HIGH(167.0),
         ALGAE_LOW(120.0),
+        ALGAE_HOLD(90.0),
         L1(70.8),
         L2(108.6),
         L3(170.0);
@@ -130,11 +139,11 @@ public class ElevatorSubsystem extends SubsystemBase {
         }
     }
 
-    private double encoderToInches(double encoder) {
+    public double encoderToInches(double encoder) {
         return encoder * encoderToInches;
     }
 
-    private double inchesToEncoder(double inches) {
+    public double inchesToEncoder(double inches) {
         return inches / encoderToInches;
     }
 }

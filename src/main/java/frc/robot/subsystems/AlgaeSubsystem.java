@@ -49,6 +49,10 @@ public class AlgaeSubsystem extends SubsystemBase {
         motor.setTargetRPM(rpm);
     }
 
+    public void spin() {
+        setVelocity(3000.0);
+    }
+
     public void stop() {
         motor.stopMotor();
     }

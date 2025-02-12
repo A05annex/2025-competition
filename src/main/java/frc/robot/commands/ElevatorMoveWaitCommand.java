@@ -7,12 +7,19 @@ import frc.robot.subsystems.ElevatorSubsystem;
 public class ElevatorMoveWaitCommand extends Command {
     private final ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
 
-    private final ElevatorSubsystem.ELEVATOR_POSITION position;
+    private final double position;
 
     private boolean moveSuccessful = false;
 
     public ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION position) {
-       this.position = position;
+       this.position = position.position;
+        // each subsystem used by the command must be passed into the
+        // addRequirements() method (which takes a vararg of Subsystem)
+        addRequirements(this.elevatorSubsystem);
+    }
+
+    public ElevatorMoveWaitCommand(double position) {
+        this.position = position;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(this.elevatorSubsystem);
@@ -23,7 +30,7 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void initialize() {
-      moveSuccessful = position.goTo();
+      moveSuccessful = elevatorSubsystem.goToMAXMotionPosition(position);
     }
 
     /**
@@ -33,7 +40,7 @@ public class ElevatorMoveWaitCommand extends Command {
     @Override
     public void execute() {
         if(!moveSuccessful) {
-            moveSuccessful = position.goTo();
+            moveSuccessful = elevatorSubsystem.goToMAXMotionPosition(position);
         }
     }
 
@@ -53,7 +60,7 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return position.isInPosition();
+        return elevatorSubsystem.isInPosition(position);
     }
 
     /**
