@@ -2,12 +2,11 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import org.a05annex.frc.subsystems.SparkNeo;
 
 public class SampleMotorSubsystem extends SubsystemBase {
 
-    private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.SAMPLE_MOTOR);
+    private final SparkNeo motor = SparkNeo.factory(-1);
 
     // Declare PID constants for smart motion control
     @SuppressWarnings("FieldCanBeLocal")
