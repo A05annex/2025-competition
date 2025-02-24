@@ -41,22 +41,22 @@ public final class Constants extends A05Constants
 	public static final boolean HAS_LIMELIGHT = false;
 
     public static boolean backSensor() {
-        return BACK_CORAL_SENSOR.get();
+        return !BACK_CORAL_SENSOR.get();
     }
     public static boolean frontSensor() {
-        return FRONT_CORAL_SENSOR.get();
+        return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("IMX219"), 1.0, new AngleD(AngleUnit.DEGREES,0.0));
+    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 1.0, new AngleD(AngleUnit.DEGREES,0.0));
 
     //TODO: write a function to adjust the reported X from photonvision to the real x value
     public static double xCorrectionFunction(double reportedX) {
-        return reportedX;
+        return 0.938148 * reportedX - 0.0116201;
     }
 
     //TODO: write a function to adjust the reported Y from photonvision to the real Y value
     public static double yCorrectionFunction(double reportedY) {
-        return reportedY;
+        return 1.01911 * reportedY - 0.0664051;
     }
 
     public static final DigitalInput FRONT_CORAL_SENSOR = new DigitalInput(7), BACK_CORAL_SENSOR = new DigitalInput(8);
@@ -86,7 +86,7 @@ public final class Constants extends A05Constants
      * These settings are loaded into {@link #ROBOT_SETTINGS_LIST} during {@link Robot#robotInit()}
      */
     public static final RobotSettings[] ROBOT_SETTINGS = {
-            new A05Constants.RobotSettings(0, "Competition", 0.5461, 0.5461, 5.108, 3.714,
+            new A05Constants.RobotSettings(0, "Competition", 0.5461, 0.5461, 5.108, 4.085,
                     0.983, 5.041, 1.0, 0.9650),
             new RobotSettings(1, "Practice", 0.5969, 0.5969, 5.240, 5.654,
                     0.969, 5.039, 1.0, 0.9164)

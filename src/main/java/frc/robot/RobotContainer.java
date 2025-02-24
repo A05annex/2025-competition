@@ -5,15 +5,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.ElevatorMoveWaitCommand;
-import frc.robot.commands.TurtleCommand;
+import frc.robot.commands.*;
+import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.EndEffectorSubsystem;
 import org.a05annex.frc.A05RobotContainer;
 import org.a05annex.frc.subsystems.SpeedCachedSwerve;
 
@@ -36,10 +37,11 @@ public class RobotContainer extends A05RobotContainer
     {
         super();
         // finish swerve drive initialization for this specific robt.
-        driveCommand = new DriveCommand(driveSubsystem);
+        driveCommand = new DriveCommand(speedCachedSwerve);
 
         speedCachedSwerve.setDriveSubsystem(driveSubsystem);
         speedCachedSwerve.setCacheLength(1000);
+        speedCachedSwerve.setLatencyOffset(0.125);
 
         speedCachedSwerve.setDriveGeometry(robotSettings.length, robotSettings.width,
                 robotSettings.rf, robotSettings.rr,
@@ -48,6 +50,7 @@ public class RobotContainer extends A05RobotContainer
 
         driveSubsystem.setDefaultCommand(driveCommand);
 
+        EndEffectorSubsystem.getInstance().setDefaultCommand(new CoralCenterCommand());
 
         //TODO: add auto
 
@@ -68,8 +71,13 @@ public class RobotContainer extends A05RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
 
         driveBack.onTrue(new InstantCommand(navx::initializeHeadingAndNav)); // Reset the NavX field relativity
-        driveB.whileTrue(new TurtleCommand());
-        altB.whileTrue(new TurtleCommand());
-        driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
+        //driveB.whileTrue(new TurtleCommand());
+        //altB.whileTrue(new TurtleCommand());
+        //driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
+        driveA.whileTrue(new CoralTroughScoreCommand(true));
+        driveY.whileTrue(new CoralPostScoreCommand());
+        driveX.onTrue(new HumanIntakeCommand());
+        //driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+        driveB.whileTrue(new TagTargetCommand(1.0, 0.0, "processor"));
     }
 }

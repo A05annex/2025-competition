@@ -5,12 +5,20 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.EndEffectorSubsystem;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05Robot;
+import org.a05annex.frc.InferredRobotPosition;
+import org.a05annex.frc.RobotPosition;
+import org.a05annex.util.AngleD;
+import org.a05annex.util.AngleUnit;
+import org.photonvision.PhotonCamera;
 
 import java.util.Collections;
 
@@ -52,6 +60,8 @@ public class Robot extends A05Robot {
         Constants.CAMERA.setXCorrectionFunction(Constants::xCorrectionFunction);
         Constants.CAMERA.setYCorrectionFunction(Constants::yCorrectionFunction);
 
+        InferredRobotPosition.setCamera(Constants.CAMERA);
+
 
         Constants.ELEVATOR_ANALOG_ENCODER.setInverted(true);
 
@@ -91,6 +101,7 @@ public class Robot extends A05Robot {
         SAFE.setName("SAFE");
 
 
+
         SmartDashboard.putData("L1", L1);
         SmartDashboard.putData("L2", L2);
         SmartDashboard.putData("L3", L3);
@@ -99,6 +110,7 @@ public class Robot extends A05Robot {
         SmartDashboard.putData("LOW ALGAE", LOW_ALGAE);
         SmartDashboard.putData("HIGH ALGAE", HIGH_ALGAE);
         SmartDashboard.putData("SAFE", SAFE);
+
 
     }
     
@@ -140,6 +152,20 @@ public class Robot extends A05Robot {
         SmartDashboard.putNumber("encoder", Constants.ELEVATOR_ANALOG_ENCODER.get());
         SmartDashboard.putNumber("correctedEncoder", ElevatorSubsystem.getInstance().getCorrectedEncoder());
 
+        SmartDashboard.putNumber("algae", AlgaeSubsystem.getInstance().getVelocity());
+
+        SmartDashboard.putBoolean("front", Constants.frontSensor());
+        SmartDashboard.putBoolean("back", Constants.backSensor());
+
+
+//        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("processor"))) {
+//            SmartDashboard.putNumber("X", Constants.CAMERA.getLatestTargets().get(0).getBestCameraToTarget().getX());
+//            SmartDashboard.putNumber("Y", Constants.CAMERA.getLatestTargets().get(0).getBestCameraToTarget().getY());
+//            SmartDashboard.putNumber("Pitch", Constants.CAMERA.getLatestTargets().get(0).getPitch());
+//            SmartDashboard.putNumber("distance", Units.inchesToMeters(11.75 - 8.3125) / new AngleD(AngleUnit.DEGREES, Constants.CAMERA.getLatestTargets().get(0).getPitch()).tan());
+//            SmartDashboard.putNumber("Corrected X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("processor")));
+//            SmartDashboard.putNumber("Corrected Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("processor")));
+//        }
     }
 
     @Override
