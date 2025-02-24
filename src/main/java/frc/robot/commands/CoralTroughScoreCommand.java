@@ -24,7 +24,7 @@ public class CoralTroughScoreCommand extends Command {
     @Override
     public void initialize() {
         timeSpun = 0;
-        endEffectorSubsystem.setVelocity(2000.0);
+        endEffectorSubsystem.setVelocity(1250.0);
     }
 
     /**

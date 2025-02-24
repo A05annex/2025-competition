@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.Constants;
@@ -11,9 +12,9 @@ public class CoralCenterCommand extends Command {
 
     private STATUS currentStatus;
 
-    private final double slowSpeed = 50, fastSpeed = 200;
+    private final double slowSpeed = 200, fastSpeed = 600;
 
-
+    private int centerTimer;
 
     public CoralCenterCommand() {
         // each subsystem used by the command must be passed into the
@@ -26,6 +27,8 @@ public class CoralCenterCommand extends Command {
      */
     @Override
     public void initialize() {
+        currentStatus = null;
+        centerTimer = 0;
         if (!Constants.backSensor() && !Constants.frontSensor()) {
             currentStatus = STATUS.STOPPED;
             endEffectorSubsystem.stopAll();
@@ -47,8 +50,15 @@ public class CoralCenterCommand extends Command {
         switch (currentStatus) {
             case STOPPED:
                 return;
+            case SLOW_BACK:
+                if (Constants.backSensor() && centerTimer >= 15) {
+                    currentStatus = STATUS.STOPPED;
+                    endEffectorSubsystem.stopAll();
+                } else {
+                    centerTimer = Constants.backSensor() ? centerTimer + 1 : 0;
+                }
             case FAST_FORWARD, SLOW_FORWARD:
-                if (!Constants.backSensor()) {
+                if(!Constants.backSensor()) {
                     currentStatus = STATUS.SLOW_BACK;
                     endEffectorSubsystem.setVelocity(-slowSpeed);
                 }
@@ -59,12 +69,8 @@ public class CoralCenterCommand extends Command {
                     endEffectorSubsystem.setVelocity(slowSpeed);
                 }
                 break;
-            case SLOW_BACK:
-                if (Constants.backSensor()) {
-                    currentStatus = STATUS.STOPPED;
-                    endEffectorSubsystem.stopAll();
-                }
         }
+
     }
 
     @Override
@@ -82,7 +88,7 @@ public class CoralCenterCommand extends Command {
      */
     @Override
     public void end(boolean interrupted) {
-
+        endEffectorSubsystem.stopAll();
     }
 
     enum STATUS {

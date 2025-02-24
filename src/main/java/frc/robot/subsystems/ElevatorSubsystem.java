@@ -13,7 +13,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 171.0;
+    private final Double minPosition = 0.0, maxPosition = 171.5;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
@@ -26,7 +26,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // Declare PID constants for speed (rpm) control
             rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156,
 
-            AGICollisionHeight = 28.0, coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 65.0,
+            AGICollisionHeight = 28.0, coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 107.0,
 
             positionTolerance = 0.3,
 
@@ -119,8 +119,8 @@ public class ElevatorSubsystem extends SubsystemBase {
         ALGAE_LOW(120.0),
         ALGAE_HOLD(90.0),
         L1(70.8),
-        L2(108.6),
-        L3(170.0);
+        L2(110.0),
+        L3(171.3);
 
         public final double position;
 

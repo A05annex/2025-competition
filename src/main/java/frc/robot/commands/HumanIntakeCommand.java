@@ -11,6 +11,8 @@ public class HumanIntakeCommand extends Command {
 	ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
 	EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
+	private int coveredTimer;
+
 	public HumanIntakeCommand() {
 		// each subsystem used by the command must be passed into the
 		// addRequirements() method (which takes a vararg of Subsystem)
@@ -20,18 +22,19 @@ public class HumanIntakeCommand extends Command {
 
 	@Override
 	public void initialize() {
+		coveredTimer = 0;
 		ElevatorSubsystem.ELEVATOR_POSITION.HPI.goTo();
-		endEffectorSubsystem.setVelocity(2000.0);
+		endEffectorSubsystem.setVelocity(1000.0);
 	}
 
 	@Override
 	public void execute() {
-
+		coveredTimer = Constants.backSensor() ? coveredTimer + 1 : 0;
 	}
 
 	@Override
 	public boolean isFinished() {
-		return Constants.backSensor();
+		return coveredTimer > 5 || Constants.frontSensor();
 	}
 
 	@Override

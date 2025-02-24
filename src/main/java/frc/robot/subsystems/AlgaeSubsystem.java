@@ -9,18 +9,9 @@ public class AlgaeSubsystem extends SubsystemBase {
 
     private final SparkNeo motor = SparkNeo.factory(Constants.CAN_Devices.ALGAE_MOTOR);
 
-    // Declare PID constants for smart motion control
-    @SuppressWarnings("FieldCanBeLocal")
-	private final double mmKp = 0.00005, mmKi = 0.000, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 3000.0,
-            mmMaxDeltaRPMSec = 3000.0, mmError = 0.1;
-
-    // Declare PID constants for position control
-    @SuppressWarnings("FieldCanBeLocal")
-    private final double posKp = 0.22, posKi = 0.0, posKiZone = 0.0, posKff = 0.0;
-
     // Declare PID constants for speed (rpm) control
     @SuppressWarnings("FieldCanBeLocal")
-    private final double rpmKp = 0.5, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.0;
+    private final double rpmKp = 0.00016, rpmKi = 0.0000015, rpmKiZone = 150.0, rpmKff = 0.000190;
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
@@ -36,10 +27,8 @@ public class AlgaeSubsystem extends SubsystemBase {
         motor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps40);
 		//noinspection ConstantValue
 		motor.setSoftLimits(minPosition, maxPosition);
-        motor.setDirection(SparkNeo.Direction.REVERSE);
+        motor.setDirection(SparkNeo.Direction.DEFAULT);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
-        motor.setPositionPID(posKp, posKi, posKiZone, posKff);
-        motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKd, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();
         motor.setEncoderPosition(startPosition);
@@ -51,14 +40,15 @@ public class AlgaeSubsystem extends SubsystemBase {
 
     public void spin() {
         setVelocity(3000.0);
+        //motor.sparkMax.set(0.5);
     }
 
     public void stop() {
         motor.stopMotor();
     }
 
-    public double getPosition() {
-        return motor.getEncoderPosition();
+    public double getVelocity() {
+        return motor.getEncoderVelocity();
     }
 }
 

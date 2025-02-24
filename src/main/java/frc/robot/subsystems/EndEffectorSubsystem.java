@@ -14,7 +14,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
     // Declare PID constants for speed (rpm) control
     @SuppressWarnings("FieldCanBeLocal")
-    private final double rpmKp = 0.001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.0;
+    private final double rpmKp = 0.00016, rpmKi = 0.0000015, rpmKiZone = 150.0, rpmKff = 0.000156;
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
@@ -40,7 +40,7 @@ public class EndEffectorSubsystem extends SubsystemBase {
         motorRight.setCurrentLimit(SparkNeo.UseType.RPM_PROLONGED_STALL, SparkNeo.BreakerAmps.Amps30);
         //noinspection ConstantValue
         motorRight.setSoftLimits(minPosition, maxPosition);
-        motorRight.setDirection(SparkNeo.Direction.REVERSE);
+        motorRight.setDirection(SparkNeo.Direction.DEFAULT);
         motorRight.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         motorRight.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motorRight.endConfig();
@@ -71,6 +71,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
     public void setVelocity(double rpm) {
         setRightVelocity(rpm);
         setLeftVelocity(rpm);
+    }
+
+    public void spin() {
+        setVelocity(2000.0);
     }
 
     public double getVelocity() {
