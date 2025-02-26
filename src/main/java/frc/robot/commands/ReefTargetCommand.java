@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import org.a05annex.frc.A05Constants;
@@ -25,6 +26,8 @@ public class ReefTargetCommand extends Command {
 
 	private A05TagTargetCommand tagTargetCommand;
 
+	private int wasScheduled = 0;
+
     private final String[] keyList = {"close center reef", "far center reef", "close left reef", "far left reef", "close right reef", "far right reef"};
 
     public ReefTargetCommand(double xPosition) {
@@ -39,6 +42,11 @@ public class ReefTargetCommand extends Command {
     @Override
     public void initialize() {
         super.initialize();
+		bestY = 1000.0;
+		bestTagSetKey = null;
+		wasScheduled = 0;
+		tagTargetCommand = null;
+		direction = null;
     }
 
     @Override
@@ -59,26 +67,33 @@ public class ReefTargetCommand extends Command {
 			return;
 		}
 
-		double cameraOffset = 0.05;
+		double cameraOffset = 0.0635;
 		double coralSpacing = 0.1651;
 		direction = direction == null ? Constants.getDPad(A05Constants.ALT_XBOX) : direction;
 		double yPosition = switch (direction) {
-			case L, UL, DL -> cameraOffset - coralSpacing;
-			case R, UR, DR -> cameraOffset + coralSpacing;
+			case L, UL, DL -> cameraOffset + coralSpacing;
+			case R, UR, DR -> cameraOffset - coralSpacing;
 			default -> cameraOffset;
 		};
+		SmartDashboard.putNumber("YPos", yPosition);
 
-		tagTargetCommand = new A05TagTargetCommand(xPosition, yPosition, bestTagSetKey);
+		tagTargetCommand = new TagTargetCommand(xPosition, yPosition, bestTagSetKey);
+		wasScheduled = 1;
 		tagTargetCommand.schedule();
     }
 
     @Override
     public boolean isFinished() {
-        return tagTargetCommand != null && tagTargetCommand.isScheduled();
+		wasScheduled = wasScheduled != 0 ? wasScheduled + 1 : 0;
+        return tagTargetCommand != null && !tagTargetCommand.isScheduled() && wasScheduled >= 15;
     }
 
     @Override
     public void end(boolean interrupted) {
-		super.end(interrupted);
+		if(tagTargetCommand != null) {
+			tagTargetCommand.cancel();
+		}
+
+		SmartDashboard.putNumber("YPos", -1000);
     }
 }

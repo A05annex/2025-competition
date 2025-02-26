@@ -113,7 +113,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public enum ELEVATOR_POSITION {
         AGI(11.0),
-        HPI(66.25),
+        HPI(66.25 + ElevatorSubsystem.getInstance().inchesToEncoder(0.5)),
         SAFE(35.0),
         ALGAE_HIGH(167.0),
         ALGAE_LOW(120.0),

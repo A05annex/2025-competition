@@ -103,7 +103,7 @@ public final class Constants extends A05Constants
     public static void setAprilTagPositionParametersDictionary() {
         aprilTagSetDictionary.put("left coral station", new AprilTagSet(new int[]{1}, new int[]{13}, new AngleD(AngleUnit.DEGREES, -126)));
         aprilTagSetDictionary.put("right coral station", new AprilTagSet(new int[]{2}, new int[]{12}, new AngleD(AngleUnit.DEGREES, 126)));
-        aprilTagSetDictionary.put("close center reef", new AprilTagSet(new int[]{7}, new int[]{18}, new AngleD(AngleUnit.DEGREES, 0)));
+        aprilTagSetDictionary.put("close center reef", new AprilTagSet(new int[]{7}, new int[]{18}, new AngleD(AngleUnit.DEGREES, 0), 1.0, 0.0, 2.0, 0.1));
         aprilTagSetDictionary.put("far center reef", new AprilTagSet(new int[]{10}, new int[]{21}, new AngleD(AngleUnit.DEGREES, 180)));
         aprilTagSetDictionary.put("close left reef", new AprilTagSet(new int[]{6}, new int[]{19}, new AngleD(AngleUnit.DEGREES, -60)));
         aprilTagSetDictionary.put("far left reef", new AprilTagSet(new int[]{11}, new int[]{20}, new AngleD(AngleUnit.DEGREES, 120)));

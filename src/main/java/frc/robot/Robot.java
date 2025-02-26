@@ -157,15 +157,15 @@ public class Robot extends A05Robot {
         SmartDashboard.putBoolean("front", Constants.frontSensor());
         SmartDashboard.putBoolean("back", Constants.backSensor());
 
+        SmartDashboard.putString("D_PAD", Constants.getDPad(A05Constants.ALT_XBOX).toString());
 
-//        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("processor"))) {
-//            SmartDashboard.putNumber("X", Constants.CAMERA.getLatestTargets().get(0).getBestCameraToTarget().getX());
-//            SmartDashboard.putNumber("Y", Constants.CAMERA.getLatestTargets().get(0).getBestCameraToTarget().getY());
-//            SmartDashboard.putNumber("Pitch", Constants.CAMERA.getLatestTargets().get(0).getPitch());
-//            SmartDashboard.putNumber("distance", Units.inchesToMeters(11.75 - 8.3125) / new AngleD(AngleUnit.DEGREES, Constants.CAMERA.getLatestTargets().get(0).getPitch()).tan());
-//            SmartDashboard.putNumber("Corrected X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("processor")));
-//            SmartDashboard.putNumber("Corrected Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("processor")));
-//        }
+
+        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
+            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
+            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
+        }
     }
 
     @Override

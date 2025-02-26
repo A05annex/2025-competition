@@ -37,6 +37,9 @@ public class DriveCommand extends A05DriveCommand {
         //This runs the default swerve calculations for xbox control
         //super.execute();
 
+        conditionStick();
+
+
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
             if(Constants.getDPad(A05Constants.DRIVE_XBOX) == direction) {
                 lastDirection = direction;
@@ -44,15 +47,13 @@ public class DriveCommand extends A05DriveCommand {
             }
         }
 
-        if(Utl.inTolerance(Constants.DRIVE_XBOX.getRightX(), 0.0, driver.getRotateDeadband())) {
+        if(!Utl.inTolerance(Constants.DRIVE_XBOX.getRightX(), 0.0, driver.getRotateDeadband())) {
             isTargetingHeading = false;
         }
 
         if(isTargetingHeading) {
             calcTargetHeadingRotation();
         }
-
-        conditionStick();
 
         iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
     }
@@ -67,8 +68,12 @@ public class DriveCommand extends A05DriveCommand {
 			case UL -> 300.0;
             case R -> 90.0;
             case L -> 270.0;
-			default -> 0.0;
+			default -> -1.0;
 		};
+
+		 if(heading == -1.0) {
+			 return;
+		 }
 
         navX.setExpectedHeading(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)));
         conditionedRotate = new AngleD(navX.getHeadingInfo().expectedHeading).subtract(new AngleD(navX.getHeadingInfo().heading))

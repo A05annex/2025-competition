@@ -36,8 +36,6 @@ public class RobotContainer extends A05RobotContainer
     public RobotContainer()
     {
         super();
-        // finish swerve drive initialization for this specific robt.
-        driveCommand = new DriveCommand(speedCachedSwerve);
 
         speedCachedSwerve.setDriveSubsystem(driveSubsystem);
         speedCachedSwerve.setCacheLength(1000);
@@ -47,6 +45,10 @@ public class RobotContainer extends A05RobotContainer
                 robotSettings.rf, robotSettings.rr,
                 robotSettings.lf, robotSettings.lr,
                 robotSettings.maxSpeedCalibration);
+
+        // finish swerve drive initialization for this specific robt.
+        driveCommand = new DriveCommand(speedCachedSwerve);
+
 
         driveSubsystem.setDefaultCommand(driveCommand);
 
@@ -78,6 +80,7 @@ public class RobotContainer extends A05RobotContainer
         driveY.whileTrue(new CoralPostScoreCommand());
         driveX.onTrue(new HumanIntakeCommand());
         //driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        driveB.whileTrue(new TagTargetCommand(1.0, 0.0, "processor"));
+        //driveB.whileTrue(new ReefTargetCommand(0.5));
+        altB.whileTrue(new L2ScoreCommandGroup());
     }
 }
