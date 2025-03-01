@@ -165,6 +165,8 @@ public class Robot extends A05Robot {
             SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
             SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
             SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
+            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
+            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
         }
     }
 

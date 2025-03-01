@@ -47,7 +47,7 @@ public final class Constants extends A05Constants
         return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 1.0, new AngleD(AngleUnit.DEGREES,0.0));
+    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), -0.3429, 0.0, 0.0);
 
     //TODO: write a function to adjust the reported X from photonvision to the real x value
     public static double xCorrectionFunction(double reportedX) {
@@ -87,13 +87,13 @@ public final class Constants extends A05Constants
      */
     public static final RobotSettings[] ROBOT_SETTINGS = {
             new A05Constants.RobotSettings(0, "Competition", 0.5461, 0.5461, 5.108, 4.085,
-                    0.983, 5.041, 1.0, 0.9650),
+                    0.983, 5.041, 1.0, 0.9406),
             new RobotSettings(1, "Practice", 0.5969, 0.5969, 5.240, 5.654,
                     0.969, 5.039, 1.0, 0.9164)
     };
 
     public static final AutonomousPath[] AUTONOMOUS_PATHS = {
-            new AutonomousPath("Sample Path", 0, "samplePath.json")
+            new AutonomousPath("Calibration", 0, "3mCalibration.json")
     };
 
     public static final DriverSettings[] DRIVER_SETTINGS = {

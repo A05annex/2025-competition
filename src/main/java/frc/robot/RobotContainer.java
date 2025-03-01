@@ -39,7 +39,7 @@ public class RobotContainer extends A05RobotContainer
 
         speedCachedSwerve.setDriveSubsystem(driveSubsystem);
         speedCachedSwerve.setCacheLength(1000);
-        speedCachedSwerve.setLatencyOffset(0.125);
+        speedCachedSwerve.setLatencyOffset(0.07);
 
         speedCachedSwerve.setDriveGeometry(robotSettings.length, robotSettings.width,
                 robotSettings.rf, robotSettings.rr,
@@ -79,8 +79,7 @@ public class RobotContainer extends A05RobotContainer
         driveA.whileTrue(new CoralTroughScoreCommand(true));
         driveY.whileTrue(new CoralPostScoreCommand());
         driveX.onTrue(new HumanIntakeCommand());
-        //driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        //driveB.whileTrue(new ReefTargetCommand(0.5));
+        driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
         altB.whileTrue(new L2ScoreCommandGroup());
     }
 }

@@ -7,6 +7,6 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class L2ScoreCommandGroup extends SequentialCommandGroup {
     public L2ScoreCommandGroup() {
-        super(Commands.parallel(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.L2), new ReefTargetCommand(-0.15)), new CoralPostScoreCommand());
+        super(Commands.parallel(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.L2), new ReefTargetCommand(-0.03)), new CoralPostScoreCommand());
     }
 }

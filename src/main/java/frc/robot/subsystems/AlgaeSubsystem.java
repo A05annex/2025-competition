@@ -15,7 +15,7 @@ public class AlgaeSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = null, maxPosition = 1000.0, startPosition = 500.0;
+    private final Double minPosition = null, maxPosition = null, startPosition = 0.0;
 
     private final static AlgaeSubsystem INSTANCE = new AlgaeSubsystem();
     public static AlgaeSubsystem getInstance() {
@@ -39,7 +39,7 @@ public class AlgaeSubsystem extends SubsystemBase {
     }
 
     public void spin() {
-        setVelocity(3000.0);
+        setVelocity(2000.0);
         //motor.sparkMax.set(0.5);
     }
 
