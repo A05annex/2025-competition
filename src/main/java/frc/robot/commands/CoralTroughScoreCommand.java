@@ -8,13 +8,18 @@ import frc.robot.subsystems.EndEffectorSubsystem;
 public class CoralTroughScoreCommand extends Command {
     private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
-    private final boolean stopRight;
+    private Boolean stopRight;
     private int timeSpun;
 
     public CoralTroughScoreCommand(boolean stopRight) {
        this.stopRight = stopRight;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
+        addRequirements(this.endEffectorSubsystem);
+    }
+
+    public CoralTroughScoreCommand() {
+        this.stopRight = null;
         addRequirements(this.endEffectorSubsystem);
     }
 
@@ -34,6 +39,9 @@ public class CoralTroughScoreCommand extends Command {
     @Override
     public void execute() {
       if (!Constants.backSensor()){
+          if(stopRight == null) {
+              stopRight = Constants.getDPad(Constants.ALT_XBOX) == Constants.D_PAD.DR;
+          }
 		  if(stopRight) {
 			  endEffectorSubsystem.stopRight();
 		  } else {
@@ -61,7 +69,7 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return timeSpun > 50;
+        return timeSpun > 10;
     }
 
     /**

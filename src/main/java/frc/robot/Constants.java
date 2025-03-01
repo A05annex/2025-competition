@@ -93,7 +93,7 @@ public final class Constants extends A05Constants
     };
 
     public static final AutonomousPath[] AUTONOMOUS_PATHS = {
-            new AutonomousPath("Calibration", 0, "3mCalibration.json")
+            new AutonomousPath("Test", 0, "samplePath.json")
     };
 
     public static final DriverSettings[] DRIVER_SETTINGS = {

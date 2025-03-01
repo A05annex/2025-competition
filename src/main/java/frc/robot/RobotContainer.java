@@ -80,6 +80,6 @@ public class RobotContainer extends A05RobotContainer
         driveY.whileTrue(new CoralPostScoreCommand());
         driveX.onTrue(new HumanIntakeCommand());
         driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        altB.whileTrue(new L2ScoreCommandGroup());
+        altB.whileTrue(new AllCoralScoreCommandGroup());
     }
 }

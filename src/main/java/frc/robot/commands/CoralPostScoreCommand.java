@@ -32,9 +32,7 @@ public class CoralPostScoreCommand extends Command {
      */
     @Override
     public void execute() {
-        if (Constants.frontSensor()) {
-            timeSpun++;
-        }
+        timeSpun = Constants.frontSensor() ? timeSpun + 1 : 0;
     }
 
     /**
@@ -53,7 +51,7 @@ public class CoralPostScoreCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return timeSpun > 50;
+        return timeSpun > 10;
     }
 
     /**
