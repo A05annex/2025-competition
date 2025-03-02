@@ -93,7 +93,10 @@ public final class Constants extends A05Constants
     };
 
     public static final AutonomousPath[] AUTONOMOUS_PATHS = {
-            new AutonomousPath("Test", 0, "samplePath.json")
+            //new AutonomousPath("Test", 10, "samplePath.json"),
+            new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
+            new AutonomousPath("Middle", 10, "middleSingleCoral.json"),
+            new AutonomousPath("Right", 10, "rightDoubleCoral.json")
     };
 
     public static final DriverSettings[] DRIVER_SETTINGS = {
@@ -105,9 +108,9 @@ public final class Constants extends A05Constants
         aprilTagSetDictionary.put("right coral station", new AprilTagSet(new int[]{2}, new int[]{12}, new AngleD(AngleUnit.DEGREES, 126)));
         aprilTagSetDictionary.put("close center reef", new AprilTagSet(new int[]{7}, new int[]{18}, new AngleD(AngleUnit.DEGREES, 0), 1.0, 0.0, 2.0, 0.1));
         aprilTagSetDictionary.put("far center reef", new AprilTagSet(new int[]{10}, new int[]{21}, new AngleD(AngleUnit.DEGREES, 180)));
-        aprilTagSetDictionary.put("close left reef", new AprilTagSet(new int[]{6}, new int[]{19}, new AngleD(AngleUnit.DEGREES, -60)));
+        aprilTagSetDictionary.put("close left reef", new AprilTagSet(new int[]{6}, new int[]{19}, new AngleD(AngleUnit.DEGREES, 60)));
         aprilTagSetDictionary.put("far left reef", new AprilTagSet(new int[]{11}, new int[]{20}, new AngleD(AngleUnit.DEGREES, 120)));
-        aprilTagSetDictionary.put("close right reef", new AprilTagSet(new int[]{8}, new int[]{17}, new AngleD(AngleUnit.DEGREES, 60)));
+        aprilTagSetDictionary.put("close right reef", new AprilTagSet(new int[]{8}, new int[]{17}, new AngleD(AngleUnit.DEGREES, -60)));
         aprilTagSetDictionary.put("far right reef", new AprilTagSet(new int[]{9}, new int[]{22}, new AngleD(AngleUnit.DEGREES, -120)));
         aprilTagSetDictionary.put("all reef", new AprilTagSet(new int[]{6, 7, 8, 9, 10, 11}, new int[]{17, 18, 19, 20, 21, 22}));
         aprilTagSetDictionary.put("left cage", new AprilTagSet(new int[]{5}, new int[]{14}, new AngleD(AngleUnit.DEGREES, 0)));

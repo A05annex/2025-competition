@@ -18,11 +18,26 @@ public class ElevatorMoveWaitCommand extends Command {
         addRequirements(this.elevatorSubsystem);
     }
 
-    public ElevatorMoveWaitCommand(double position) {
+    public ElevatorMoveWaitCommand(Double position) {
         this.position = position;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(this.elevatorSubsystem);
+    }
+
+    public ElevatorMoveWaitCommand(String positionName) {
+        addRequirements(this.elevatorSubsystem);
+
+        for(ElevatorSubsystem.ELEVATOR_POSITION pos : ElevatorSubsystem.ELEVATOR_POSITION.values()) {
+            if(positionName.equals(pos.name())) {
+                this.position = pos.position;
+                return;
+            }
+        }
+        position = -1.0;
+
+        throw new IllegalArgumentException(String.format("ElevatorMoveWaitCommand(String positionName) was called " +
+                "with an invalid name: %s. Ensure your String matches the name of a position in ElevatorSubsystem.ELEVATOR_POSITION", positionName));
     }
 
     /**

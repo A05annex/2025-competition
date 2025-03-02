@@ -1,11 +1,12 @@
 package frc.robot.commands;
 
 import org.a05annex.frc.commands.A05TagTargetCommand;
+import org.a05annex.frc.commands.ICanTakeDrive;
 
 @SuppressWarnings("unused")
-public class TagTargetCommand extends A05TagTargetCommand {
+public class TagTargetCommand extends A05TagTargetCommand implements ICanTakeDrive {
 
-    public TagTargetCommand(double xPosition, double yPosition, String positionParametersKey) {
+    public TagTargetCommand(Double xPosition, Double yPosition, String positionParametersKey) {
         // NOTE: the super adds the drive subsystem requirement
         super(xPosition, yPosition, positionParametersKey);
     }
@@ -47,5 +48,10 @@ public class TagTargetCommand extends A05TagTargetCommand {
     @Override
     public void end(boolean interrupted) {
         super.end(interrupted);
+    }
+
+    @Override
+    public boolean canTakeDrive() {
+        return false;
     }
 }

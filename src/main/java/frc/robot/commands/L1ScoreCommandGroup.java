@@ -9,6 +9,6 @@ import org.a05annex.frc.A05Constants;
 
 public class L1ScoreCommandGroup extends SequentialCommandGroup {
     public L1ScoreCommandGroup() {
-        super(Commands.parallel(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1), new ReefTargetCommand(-0.03, A05Constants.D_PAD.D)), new CoralTroughScoreCommand());
+        super(Commands.parallel(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.L1), new ReefTargetCommand(-0.5, A05Constants.D_PAD.D)), new CoralTroughScoreCommand());
     }
 }

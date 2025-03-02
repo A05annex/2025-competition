@@ -9,14 +9,19 @@ import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
 import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
+import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05RobotContainer;
+import org.a05annex.frc.commands.AutonomousPathCommand;
 import org.a05annex.frc.subsystems.SpeedCachedSwerve;
+
+import java.io.FileNotFoundException;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -54,7 +59,26 @@ public class RobotContainer extends A05RobotContainer
 
         EndEffectorSubsystem.getInstance().setDefaultCommand(new CoralCenterCommand());
 
-        //TODO: add auto
+        // Which robot is this? competition or spare/prototype
+        int robotId = A05Constants.readRobotID();
+        robotSettings = A05Constants.ROBOT_SETTINGS_LIST.get(robotId);
+
+        // setup the chosen autonomous path
+        int autoId = A05Constants.readAutoID();
+        A05Constants.AutonomousPath autonomousPath = null;
+        try {
+            autonomousPath = A05Constants.AUTONOMOUS_PATH_LIST.get(autoId);
+            autonomousPath.load();
+            autoCommand = new AutonomousPathCommand(autonomousPath, speedCachedSwerve);
+            SmartDashboard.putString("Autonomous", autonomousPath.getName());
+        } catch (IndexOutOfBoundsException e) {
+            SmartDashboard.putString("Autonomous", String.format("Path ID %d does not exist", autoId));
+        } catch (FileNotFoundException e) {
+            SmartDashboard.putString("Autonomous",
+                    String.format("Could not load path: '%s'", autonomousPath.getName()));
+        }
+
+        //autoCommand.setMirror(false);
 
         // Configure the button bindings
         configureButtonBindings();

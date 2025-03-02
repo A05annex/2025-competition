@@ -168,6 +168,10 @@ public class Robot extends A05Robot {
             SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
             SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
         }
+
+        Constants.printIDs();
+
+        SmartDashboard.putData(CommandScheduler.getInstance());
     }
 
     @Override

@@ -1,1 +1,85 @@
-{"speedMultiplier":1.0,"description":"No description provided.","robotScheduledActions":[{"robotActionCommand":"AllCoralScoreCommandGroup","robotActionType":"RelinquishDriveTo","robotActionDuration":3.0,"robotScheduledActionTime":2.0500000000000003}],"title":"untitled","controlPoints":[{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-5.583015267175574,"field_dY":0.0,"fieldX":-0.03234732824427411,"fieldHeading":0.0,"time":0.0,"field_dHeading":0.0,"derivativesEdited":true},{"headingDerivativeEdited":false,"field_dX":-0.1283110687022903,"fieldY":-7.402741020793951,"field_dY":0.0,"fieldX":-0.14952741020794136,"fieldHeading":0.0,"time":1.9,"field_dHeading":0.0,"derivativesEdited":false},{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-5.583015267175574,"field_dY":0.0,"fieldX":-0.18330152671755684,"fieldHeading":0.0,"time":3.8,"field_dHeading":0.0,"derivativesEdited":true},{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-7.11412213740458,"field_dY":0.0,"fieldX":0.765553435114505,"fieldHeading":0.0,"time":9.0,"field_dHeading":0.0,"derivativesEdited":true}]}
+{
+  "speedMultiplier": 1.0,
+  "description": "No description provided.",
+  "robotScheduledActions": [
+    {
+      "robotActionCommand": "TagTargetCommand",
+      "robotActionType": "RelinquishDriveTo",
+      "robotActionDuration": 3.0,
+      "robotScheduledActionTime": 2.0500000000000003,
+      "robotActionArgs": [
+        {
+          "robotActionArgType": "Double",
+          "robotActionArgValue": "0.0"
+        },
+        {
+          "robotActionArgType": "Double",
+          "robotActionArgValue": "0.0"
+        },
+        {
+          "robotActionArgType": "String",
+          "robotActionArgValue": "close center reef"
+        }
+      ]
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 2.4499999999999993,
+      "robotActionArgs": [
+        {
+          "robotActionArgType": "Double",
+          "robotActionArgValue": "45.0"
+        }
+      ]
+    }
+  ],
+  "title": "untitled",
+  "controlPoints": [
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -5.583015267175574,
+      "field_dY": 0.0,
+      "fieldX": -0.03234732824427411,
+      "fieldHeading": 0.0,
+      "time": 0.0,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": false,
+      "field_dX": -0.36313799621927956,
+      "fieldY": -7.402741020793951,
+      "field_dY": -0.27769376181474215,
+      "fieldX": -0.14952741020794136,
+      "fieldHeading": 0.0,
+      "time": 1.9,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -5.583015267175574,
+      "field_dY": 0.0,
+      "fieldX": -0.18330152671755684,
+      "fieldHeading": 0.0,
+      "time": 3.8,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -7.11412213740458,
+      "field_dY": 0.0,
+      "fieldX": 0.765553435114505,
+      "fieldHeading": 0.0,
+      "time": 9.0,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    }
+  ]
+}

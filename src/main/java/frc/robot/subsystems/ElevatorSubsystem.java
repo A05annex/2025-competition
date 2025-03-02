@@ -13,7 +13,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 171.5;
+    private final Double minPosition = 0.0, maxPosition = 171.8;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
@@ -30,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             positionTolerance = 0.3,
 
-            analogEncoderZero = 0.0123,
+            analogEncoderZero = 0.1123,
 
             gearRatio = 45.0,
 
@@ -118,9 +118,9 @@ public class ElevatorSubsystem extends SubsystemBase {
         ALGAE_HIGH(155.0),
         ALGAE_LOW(95),
         ALGAE_HOLD(90.0),
-        L1(70.8),
-        L2(110.0),
-        L3(171.3);
+        L1(70.8 + getInstance().inchesToEncoder(1.0)),
+        L2(110.0 + getInstance().inchesToEncoder(1.0)),
+        L3(171.7);
 
         public final double position;
 

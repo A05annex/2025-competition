@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
 
 
@@ -23,7 +24,9 @@ public class CoralPostScoreCommand extends Command {
     @Override
     public void initialize() {
         timeSpun = 0;
-        endEffectorSubsystem.setVelocity(2000.0);
+        if(ElevatorSubsystem.getInstance().isInPosition()) {
+            endEffectorSubsystem.setVelocity(2000.0);
+        }
     }
 
     /**
@@ -32,7 +35,10 @@ public class CoralPostScoreCommand extends Command {
      */
     @Override
     public void execute() {
-        timeSpun = Constants.frontSensor() ? timeSpun + 1 : 0;
+        if(ElevatorSubsystem.getInstance().isInPosition()) {
+            endEffectorSubsystem.setVelocity(2000.0);
+        }
+        timeSpun = !Constants.frontSensor() ? timeSpun + 1 : 0;
     }
 
     /**
