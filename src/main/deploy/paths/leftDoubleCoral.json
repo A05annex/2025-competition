@@ -40,7 +40,8 @@
         {
           "robotActionArgValue": "HPI",
           "robotActionArgType": "String"
-        },
+        }
+      ],
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
       "robotScheduledActionTime": 3.7499999999999947
