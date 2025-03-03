@@ -6,16 +6,14 @@
 package frc.robot;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.EndEffectorSubsystem;
-import org.a05annex.frc.A05Constants;
-import org.a05annex.frc.A05Robot;
-import org.a05annex.frc.InferredRobotPosition;
-import org.a05annex.frc.RobotPosition;
+import org.a05annex.frc.*;
 import org.a05annex.util.AngleD;
 import org.a05annex.util.AngleUnit;
 import org.photonvision.PhotonCamera;
@@ -45,7 +43,7 @@ public class Robot extends A05Robot {
         // Some drive geometry is passed in RobotContainer's constructor
         Constants.setDriveOrientationKp(Constants.DRIVE_ORIENTATION_kP);
 
-        Constants.setPrintDebug(false);
+        Constants.setPrintDebug(true);
 
         // update dictionary with all needed values
         Constants.setAprilTagPositionParametersDictionary();
@@ -65,13 +63,17 @@ public class Robot extends A05Robot {
 
         Constants.ELEVATOR_ANALOG_ENCODER.setInverted(true);
 
+        Constants.populateAutoSelector();
+
+        SmartDashboard.putData(Constants.AUTO_SELECTOR);
+
 
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         setRobotContainer(new RobotContainer());
 
 
-        SmartDashboard.putData("L1", new InstantCommand());
+        //Shuffleboard.getTab("Main"). SmartDashboard.putData("L1", new InstantCommand());
         SmartDashboard.putData("L2", new InstantCommand());
         SmartDashboard.putData("L3", new InstantCommand());
         SmartDashboard.putData("AGI", new InstantCommand());
@@ -160,18 +162,20 @@ public class Robot extends A05Robot {
         SmartDashboard.putString("D_PAD", Constants.getDPad(A05Constants.ALT_XBOX).toString());
 
 
-        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
-            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
-            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
-            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
-            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
-        }
+//        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
+//            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+//            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+//            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
+//            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
+//            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
+//            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
+//        }
 
         Constants.printIDs();
 
         SmartDashboard.putData(CommandScheduler.getInstance());
+
+        SmartDashboard.putNumber("Heading", NavX.getInstance().getHeading().getDegrees());
     }
 
     @Override

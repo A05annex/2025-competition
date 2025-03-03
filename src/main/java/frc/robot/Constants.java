@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import org.a05annex.frc.A05Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.a05annex.frc.subsystems.PhotonCameraWrapper;
@@ -94,10 +95,22 @@ public final class Constants extends A05Constants
 
     public static final AutonomousPath[] AUTONOMOUS_PATHS = {
             //new AutonomousPath("Test", 10, "samplePath.json"),
-            new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
-            new AutonomousPath("Middle", 10, "middleSingleCoral.json"),
+            //new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
+            //new AutonomousPath("Middle", 0, "middleSingleCoral.json"),
             new AutonomousPath("Right", 10, "rightDoubleCoral.json")
     };
+
+    public static final SendableChooser<AutonomousPath> AUTO_SELECTOR = new SendableChooser<>();
+
+    public static void populateAutoSelector() {
+        for(AutonomousPath path : AUTONOMOUS_PATHS) {
+            if(AUTO_SELECTOR.getSelected() == null) {
+                AUTO_SELECTOR.setDefaultOption(path.getName(), path);
+            } else {
+                AUTO_SELECTOR.addOption(path.getName(), path);
+            }
+        }
+    }
 
     public static final DriverSettings[] DRIVER_SETTINGS = {
             new DriverSettings("programmer", 0)

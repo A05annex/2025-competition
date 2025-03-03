@@ -40,5 +40,6 @@ public class HumanIntakeCommand extends Command {
 	@Override
 	public void end(boolean interrupted) {
 		endEffectorSubsystem.stopAll();
+		//ElevatorSubsystem.ELEVATOR_POSITION.SAFE.goTo();
 	}
 }

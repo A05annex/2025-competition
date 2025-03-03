@@ -52,6 +52,6 @@ public class TagTargetCommand extends A05TagTargetCommand implements ICanTakeDri
 
     @Override
     public boolean canTakeDrive() {
-        return false;
+        return super.canTakeDrive();
     }
 }

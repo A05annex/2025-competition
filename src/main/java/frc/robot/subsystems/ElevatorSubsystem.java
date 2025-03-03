@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 
+import com.revrobotics.spark.config.SparkBaseConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotStateManager;
@@ -30,7 +31,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             positionTolerance = 0.3,
 
-            analogEncoderZero = 0.1123,
+            analogEncoderZero = 0.0265,
 
             gearRatio = 45.0,
 
@@ -48,7 +49,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         motor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps40);
 		motor.setSoftLimits(minPosition, maxPosition);
         motor.setDirection(SparkNeo.Direction.REVERSE);
-        //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
+        motor.setIdleMode(SparkBaseConfig.IdleMode.kCoast);
         motor.setPositionPID(posKp, posKi, posKiZone, posKff);
         motor.setMAXMotionPosition(mmKp, mmKi, mmKiZone, mmKd, mmMaxRPM, mmMaxDeltaRPMSec, mmError);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
@@ -76,8 +77,8 @@ public class ElevatorSubsystem extends SubsystemBase {
             }
         }
 
-        if(!((getPosition() < coralCollisionMinHeight && position >= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
-                || (getPosition() >= coralCollisionMaxHeight && position < coralCollisionMaxHeight))) {
+        if(!((getPosition() < coralCollisionMinHeight && position <= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
+                || (getPosition() >= coralCollisionMaxHeight && position > coralCollisionMaxHeight))) {
                 motor.setTargetMAXMotionPosition(position);
                 requestedPosition = position;
                 return true;
@@ -102,25 +103,25 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCorrectedEncoder() {
-        double shift = -0.13;
+        double shift = -0.75;
         double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;
         return encoder < 0.0 ? encoder + 1.0 : encoder;
     }
 
     private double encoderStartPosition() {
-        return (getCorrectedEncoder() - analogEncoderZero) * gearRatio;
+        return (getCorrectedEncoder() - analogEncoderZero) * gearRatio + 16.0;
     }
 
     public enum ELEVATOR_POSITION {
         AGI(11.0),
-        HPI(66.25 + ElevatorSubsystem.getInstance().inchesToEncoder(0.5)),
+        HPI(71.0),
         SAFE(35.0),
         ALGAE_HIGH(155.0),
         ALGAE_LOW(95),
         ALGAE_HOLD(90.0),
         L1(70.8 + getInstance().inchesToEncoder(1.0)),
-        L2(110.0 + getInstance().inchesToEncoder(1.0)),
-        L3(171.7);
+        L2(108.0),
+        L3(171.6);
 
         public final double position;
 

@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
@@ -41,19 +42,22 @@ public class DriveCommand extends A05DriveCommand {
 
 
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
-            if(Constants.getDPad(A05Constants.DRIVE_XBOX) == direction) {
+
+            if(Constants.getDPad(driveXbox) == direction || (RobotContainer.altA.getAsBoolean() && A05Constants.getDPad(Constants.ALT_XBOX) == direction)) {
                 lastDirection = direction;
-                isTargetingHeading = true;
+                isTargetingHeading = direction != A05Constants.D_PAD.NONE;
             }
         }
 
-        if(!Utl.inTolerance(Constants.DRIVE_XBOX.getRightX(), 0.0, driver.getRotateDeadband())) {
+        if(!Utl.inTolerance(driveXbox.getRightX(), 0.0, 0.05)) {
             isTargetingHeading = false;
         }
 
         if(isTargetingHeading) {
             calcTargetHeadingRotation();
         }
+
+		System.out.println(isTargetingHeading);
 
         iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
     }

@@ -9,6 +9,7 @@ import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -36,6 +37,7 @@ public class RobotContainer extends A05RobotContainer
     //TODO: Add any additional subsystems and commands here
     final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
 
+    private final SendableChooser<Integer> autoChooser = new SendableChooser<>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
@@ -44,7 +46,7 @@ public class RobotContainer extends A05RobotContainer
 
         speedCachedSwerve.setDriveSubsystem(driveSubsystem);
         speedCachedSwerve.setCacheLength(1000);
-        speedCachedSwerve.setLatencyOffset(0.07);
+        speedCachedSwerve.setLatencyOffset(0.0);
 
         speedCachedSwerve.setDriveGeometry(robotSettings.length, robotSettings.width,
                 robotSettings.rf, robotSettings.rr,
@@ -63,9 +65,9 @@ public class RobotContainer extends A05RobotContainer
         int robotId = A05Constants.readRobotID();
         robotSettings = A05Constants.ROBOT_SETTINGS_LIST.get(robotId);
 
-        // setup the chosen autonomous path
+        //setup the chosen autonomous path
         int autoId = A05Constants.readAutoID();
-        A05Constants.AutonomousPath autonomousPath = null;
+        A05Constants.AutonomousPath autonomousPath = Constants.AUTO_SELECTOR.getSelected();
         try {
             autonomousPath = A05Constants.AUTONOMOUS_PATH_LIST.get(autoId);
             autonomousPath.load();
@@ -77,8 +79,6 @@ public class RobotContainer extends A05RobotContainer
             SmartDashboard.putString("Autonomous",
                     String.format("Could not load path: '%s'", autonomousPath.getName()));
         }
-
-        //autoCommand.setMirror(false);
 
         // Configure the button bindings
         configureButtonBindings();
@@ -97,13 +97,11 @@ public class RobotContainer extends A05RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
 
         driveBack.onTrue(new InstantCommand(navx::initializeHeadingAndNav)); // Reset the NavX field relativity
-        //driveB.whileTrue(new TurtleCommand());
-        //altB.whileTrue(new TurtleCommand());
+        driveB.whileTrue(new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.SAFE::goTo));
+        altB.whileTrue(new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.SAFE::goTo));
         //driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
-        driveA.whileTrue(new CoralTroughScoreCommand(true));
-        driveY.whileTrue(new CoralPostScoreCommand());
-        driveX.onTrue(new HumanIntakeCommand());
+        altX.toggleOnTrue(new HumanIntakeCommand());
         driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        altB.whileTrue(new AllCoralScoreCommandGroup());
+        altA.whileTrue(new AllCoralScoreCommandGroup());
     }
 }

@@ -67,8 +67,8 @@ public class ReefTargetCommand extends Command {
 			return;
 		}
 
-		double cameraOffset = 0.08;
-		double coralSpacing = 0.1651;
+		double cameraOffset = 0.12;
+		double coralSpacing = 0.1951;
 		direction = direction == null ? Constants.getDPad(A05Constants.ALT_XBOX) : direction;
 		double yPosition = switch (direction) {
 			case L, UL, DL -> cameraOffset + coralSpacing;
