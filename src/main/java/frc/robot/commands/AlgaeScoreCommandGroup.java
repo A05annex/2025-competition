@@ -9,6 +9,6 @@ import frc.robot.subsystems.ElevatorSubsystem;
 
 public class AlgaeScoreCommandGroup extends SequentialCommandGroup {
     public AlgaeScoreCommandGroup() {
-        super(Commands.parallel(new ReefTargetCommand(0.5), new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_HIGH.position + ElevatorSubsystem.getInstance().inchesToEncoder(5.0)), new AlgaeDislodgeCommand()));
+        super(Commands.parallel(new ReefTargetCommand(-0.5), new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_LOW.position - 10)), new AlgaeDislodgeCommand());
     }
 }

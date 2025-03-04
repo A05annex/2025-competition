@@ -22,20 +22,20 @@ public class AlgaeDislodgeCommand extends Command {
     public void initialize() {
         position = Constants.getDPad(Constants.ALT_XBOX) == A05Constants.D_PAD.D ?
                 ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_LOW : ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_HIGH;
-        elevatorSubsystem.goToMAXMotionPosition(position.position - elevatorSubsystem.inchesToEncoder(5.0));
-        algaeSubsystem.setVelocity(3000.0);
+        elevatorSubsystem.goToMAXMotionPosition(position.position - 10);
+        algaeSubsystem.setVelocity(1000.0);
     }
 
     @Override
     public void execute() {
-        if(elevatorSubsystem.isInPosition(position.position - elevatorSubsystem.inchesToEncoder(5.0))) {
-            position.goTo();
+        if(elevatorSubsystem.isInPosition(position.position - 10)) {
+            elevatorSubsystem.goToMAXMotionPosition(position.position + 5);
         }
     }
 
     @Override
     public boolean isFinished() {
-        return position.isInPosition();
+        return elevatorSubsystem.isInPosition(position.position + 5);
     }
 
     @Override

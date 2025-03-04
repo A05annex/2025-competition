@@ -106,13 +106,17 @@ public class RobotContainer extends A05RobotContainer
         altY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
 
         altRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+        altLeftBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::reverse)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
         driveRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
 
         altStart.toggleOnTrue(new ManualElevatorCommand());
 
+        altLeftStickPress.whileTrue(new AlgaeScoreCommandGroup());
+
         //driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
         altX.toggleOnTrue(new HumanIntakeCommand());
-        driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+        driveX.toggleOnTrue(new HumanIntakeCommand());
+
         altA.whileTrue(new AllCoralScoreCommandGroup());
     }
 }

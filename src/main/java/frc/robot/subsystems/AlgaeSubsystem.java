@@ -43,6 +43,10 @@ public class AlgaeSubsystem extends SubsystemBase {
         //motor.sparkMax.set(0.5);
     }
 
+    public void reverse() {
+        setVelocity(-5000.0);
+    }
+
     public void stop() {
         motor.stopMotor();
     }

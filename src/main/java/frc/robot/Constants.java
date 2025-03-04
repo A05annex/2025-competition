@@ -50,12 +50,10 @@ public final class Constants extends A05Constants
 
     public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), -0.3429, 0.0, 0.0);
 
-    //TODO: write a function to adjust the reported X from photonvision to the real x value
     public static double xCorrectionFunction(double reportedX) {
         return 0.938148 * reportedX - 0.0116201;
     }
 
-    //TODO: write a function to adjust the reported Y from photonvision to the real Y value
     public static double yCorrectionFunction(double reportedY) {
         return 1.01911 * reportedY - 0.0664051;
     }

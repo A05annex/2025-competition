@@ -47,19 +47,21 @@ public class DriveCommand extends A05DriveCommand {
 
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
             if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(driveXbox) == direction) {
-                this.direction = direction;
-                isTargetingHeading = this.direction != A05Constants.D_PAD.NONE;
-            } else if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(Constants.ALT_XBOX) == direction) {
-                this.direction = direction;
-                if(this.direction != A05Constants.D_PAD.NONE) {
-                    isTargetingHeading = true;
-                    break;
-                }
-            }
+				this.direction = direction;
+				isTargetingHeading = this.direction != A05Constants.D_PAD.NONE;
+			}
+//            } else if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(Constants.ALT_XBOX) == direction) {
+//                this.direction = direction;
+//                if(this.direction != A05Constants.D_PAD.NONE) {
+//                    isTargetingHeading = true;
+//                    break;
+//                }
+//            }
         }
 
         if(!Utl.inTolerance(driveXbox.getRightX(), 0.0, 0.05)) {
             isTargetingHeading = false;
+			direction = A05Constants.D_PAD.NONE;
         }
 
         if(isTargetingHeading) {
