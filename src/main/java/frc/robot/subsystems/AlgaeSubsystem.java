@@ -27,7 +27,7 @@ public class AlgaeSubsystem extends SubsystemBase {
         motor.setCurrentLimit(SparkNeo.UseType.RPM_OCCASIONAL_STALL, SparkNeo.BreakerAmps.Amps40);
 		//noinspection ConstantValue
 		motor.setSoftLimits(minPosition, maxPosition);
-        motor.setDirection(SparkNeo.Direction.DEFAULT);
+        motor.setDirection(SparkNeo.Direction.REVERSE);
         //motor.setIdleMode(SparkBaseConfig.IdleMode.kBrake);
         motor.setRpmPID(rpmKp, rpmKi, rpmKiZone, rpmKff);
         motor.endConfig();

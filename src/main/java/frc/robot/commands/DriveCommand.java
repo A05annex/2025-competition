@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
@@ -13,9 +12,11 @@ import org.a05annex.util.Utl;
  * Drive command is here because you will likely need to override the serve (targeting, competition specific reason)
  */
 public class DriveCommand extends A05DriveCommand {
-    private A05Constants.D_PAD lastDirection = A05Constants.D_PAD.NONE;
+    private A05Constants.D_PAD direction = A05Constants.D_PAD.NONE;
 
     private boolean isTargetingHeading = false;
+
+    private int altTimeout;
 
     /**
      * Default command for DriveSubsystem. Left stick moves the robot field-relatively, and right stick X rotates.
@@ -29,8 +30,9 @@ public class DriveCommand extends A05DriveCommand {
 
     @Override
     public void initialize() {
-        lastDirection = A05Constants.D_PAD.NONE;
+        direction = A05Constants.D_PAD.NONE;
         isTargetingHeading = false;
+        altTimeout = 0;
     }
 
     @Override
@@ -38,14 +40,21 @@ public class DriveCommand extends A05DriveCommand {
         //This runs the default swerve calculations for xbox control
         //super.execute();
 
+        double rotate = lastConditionedRotate;
+
         conditionStick();
 
 
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
-
-            if(Constants.getDPad(driveXbox) == direction || (RobotContainer.altA.getAsBoolean() && A05Constants.getDPad(Constants.ALT_XBOX) == direction)) {
-                lastDirection = direction;
-                isTargetingHeading = direction != A05Constants.D_PAD.NONE;
+            if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(driveXbox) == direction) {
+                this.direction = direction;
+                isTargetingHeading = this.direction != A05Constants.D_PAD.NONE;
+            } else if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(Constants.ALT_XBOX) == direction) {
+                this.direction = direction;
+                if(this.direction != A05Constants.D_PAD.NONE) {
+                    isTargetingHeading = true;
+                    break;
+                }
             }
         }
 
@@ -54,6 +63,7 @@ public class DriveCommand extends A05DriveCommand {
         }
 
         if(isTargetingHeading) {
+            lastConditionedRotate = rotate;
             calcTargetHeadingRotation();
         }
 
@@ -63,7 +73,7 @@ public class DriveCommand extends A05DriveCommand {
     }
 
     private void calcTargetHeadingRotation() {
-		 double heading = switch(lastDirection) {
+		 double heading = switch(direction) {
 			case U -> 0.0;
 			case UR -> 60.0;
 			case DR -> 120.0;

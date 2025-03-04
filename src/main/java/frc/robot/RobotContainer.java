@@ -97,8 +97,19 @@ public class RobotContainer extends A05RobotContainer
         // See https://docs.wpilib.org/en/stable/docs/software/commandbased/binding-commands-to-triggers.html
 
         driveBack.onTrue(new InstantCommand(navx::initializeHeadingAndNav)); // Reset the NavX field relativity
+
         driveB.whileTrue(new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.SAFE::goTo));
         altB.whileTrue(new InstantCommand(ElevatorSubsystem.ELEVATOR_POSITION.SAFE::goTo));
+
+        // End Effector spin while held
+        driveY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
+        altY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
+
+        altRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+        driveRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+
+        altStart.toggleOnTrue(new ManualElevatorCommand());
+
         //driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
         altX.toggleOnTrue(new HumanIntakeCommand());
         driveB.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));

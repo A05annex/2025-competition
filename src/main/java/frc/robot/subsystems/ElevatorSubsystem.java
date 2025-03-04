@@ -86,6 +86,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         return false;
     }
 
+    public void goToDeltaPosition(double delta){
+        goToMAXMotionPosition(getPosition() + delta);
+    }
+
     public void stop() {
         motor.stopMotor();
     }
