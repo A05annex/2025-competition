@@ -8,12 +8,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import org.a05annex.frc.A05Constants;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.subsystems.PhotonCameraWrapper;
 import org.a05annex.util.AngleD;
 import org.a05annex.util.AngleUnit;
 import org.photonvision.PhotonCamera;
+
+import java.io.FileNotFoundException;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -93,8 +95,8 @@ public final class Constants extends A05Constants
 
     public static final AutonomousPath[] AUTONOMOUS_PATHS = {
             //new AutonomousPath("Test", 10, "samplePath.json"),
-            //new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
-            //new AutonomousPath("Middle", 0, "middleSingleCoral.json"),
+            new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
+            new AutonomousPath("Middle", 0, "middleSingleCoral.json"),
             new AutonomousPath("Right", 10, "rightDoubleCoral.json")
     };
 
@@ -108,6 +110,20 @@ public final class Constants extends A05Constants
                 AUTO_SELECTOR.addOption(path.getName(), path);
             }
         }
+
+        AUTO_SELECTOR.onChange(Constants::setAuto);
+    }
+
+    public static AutonomousPath setAuto(AutonomousPath autonomousPath) {
+        try {
+            //autonomousPath = A05Constants.AUTONOMOUS_PATH_LIST.get(autoId);
+            autonomousPath.load();
+            SmartDashboard.putString("Autonomous", autonomousPath.getName());
+        } catch (FileNotFoundException e) {
+            SmartDashboard.putString("Autonomous",
+                    String.format("Could not load path: '%s'", autonomousPath.getName()));
+        }
+        return autonomousPath;
     }
 
     public static final DriverSettings[] DRIVER_SETTINGS = {

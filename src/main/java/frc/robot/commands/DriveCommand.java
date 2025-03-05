@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
@@ -16,6 +17,8 @@ public class DriveCommand extends A05DriveCommand {
 
     private boolean isTargetingHeading = false;
 
+
+	private int driveTimeout;
     private int altTimeout;
 
     /**
@@ -33,6 +36,7 @@ public class DriveCommand extends A05DriveCommand {
         direction = A05Constants.D_PAD.NONE;
         isTargetingHeading = false;
         altTimeout = 0;
+		driveTimeout = 0;
     }
 
     @Override
@@ -46,30 +50,40 @@ public class DriveCommand extends A05DriveCommand {
 
 
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
-            if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(driveXbox) == direction) {
-				this.direction = direction;
-				isTargetingHeading = this.direction != A05Constants.D_PAD.NONE;
+			if((driveTimeout > 0 && Constants.getDPad(driveXbox) == direction)
+					|| (altTimeout > 0 &&  RobotContainer.altLeftBumper.getAsBoolean() && Constants.getDPad(Constants.ALT_XBOX) == direction)
+					&& direction != this.direction) {
+				driveTimeout = driveTimeout > 0 ? driveTimeout - 1 : 0;
+				altTimeout = altTimeout > 0 ? altTimeout - 1 : 0;
 			}
-//            } else if(this.direction == A05Constants.D_PAD.NONE && Constants.getDPad(Constants.ALT_XBOX) == direction) {
-//                this.direction = direction;
-//                if(this.direction != A05Constants.D_PAD.NONE) {
-//                    isTargetingHeading = true;
-//                    break;
-//                }
-//            }
+
+			if(direction == A05Constants.D_PAD.NONE) {
+				continue;
+			}
+
+			if(Constants.getDPad(driveXbox) == direction && driveTimeout <= 0) {
+				driveTimeout = this.direction != A05Constants.D_PAD.NONE ? 3 : 0;
+				this.direction = direction;
+				isTargetingHeading = true;
+            } else if(RobotContainer.altLeftBumper.getAsBoolean() && Constants.getDPad(Constants.ALT_XBOX) == direction && altTimeout <= 0) {
+				altTimeout = this.direction != A05Constants.D_PAD.NONE ? altTimeout - 1 : 0;
+				this.direction = direction;
+				isTargetingHeading = true;
+            }
         }
 
         if(!Utl.inTolerance(driveXbox.getRightX(), 0.0, 0.05)) {
             isTargetingHeading = false;
 			direction = A05Constants.D_PAD.NONE;
+
+			altTimeout = 0;
+			driveTimeout = 0;
         }
 
         if(isTargetingHeading) {
             lastConditionedRotate = rotate;
             calcTargetHeadingRotation();
         }
-
-		System.out.println(isTargetingHeading);
 
         iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
     }

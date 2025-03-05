@@ -5,18 +5,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.EndEffectorSubsystem;
 import org.a05annex.frc.*;
-import org.a05annex.util.AngleD;
-import org.a05annex.util.AngleUnit;
-import org.photonvision.PhotonCamera;
+import org.a05annex.frc.commands.AutonomousPathCommand;
+import org.a05annex.frc.subsystems.DriveSubsystem;
+import org.a05annex.frc.subsystems.ISwerveDrive;
+import org.a05annex.frc.subsystems.SpeedCachedSwerve;
 
 import java.util.Collections;
 
@@ -37,13 +35,13 @@ public class Robot extends A05Robot {
     {
         super.robotInit();
 
-        Constants.setSparkConfig(true,false);
+        Constants.setSparkConfig(true,true);
 
         // Set the drive constants that are specific to this swerve geometry.
         // Some drive geometry is passed in RobotContainer's constructor
         Constants.setDriveOrientationKp(Constants.DRIVE_ORIENTATION_kP);
 
-        Constants.setPrintDebug(true);
+        Constants.setPrintDebug(false);
 
         // update dictionary with all needed values
         Constants.setAprilTagPositionParametersDictionary();
@@ -128,10 +126,16 @@ public class Robot extends A05Robot {
     
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
-    public void autonomousInit()
-    {
-        // Sets up autonomous command in A05Robot
-        super.autonomousInit();
+    public void autonomousInit() {
+        // Sets up autonomous command.
+        DriveSubsystem.getInstance().calibrate();
+        autonomousCommand = new AutonomousPathCommand(Constants.setAuto(Constants.AUTO_SELECTOR.getSelected()), SpeedCachedSwerve.getInstance());
+
+        DriveSubsystem.getInstance().setDriveMode(ISwerveDrive.DriveMode.FIELD_RELATIVE);
+        this.autonomousCommand.schedule();
+        if (A05Constants.getPrintDebug()) {
+            System.out.println("A05Robot.autonomousInit scheduled autonomousCommand");
+        }
 
         enableInit();
     }
@@ -149,17 +153,13 @@ public class Robot extends A05Robot {
     public void robotPeriodic() {
         super.robotPeriodic();
 
-        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
+        SmartDashboard.putNumber("Elevator", ElevatorSubsystem.getInstance().getPosition());
+        SmartDashboard.putNumber("Analog Encoder", ElevatorSubsystem.getInstance().getCorrectedEncoder());
 
-        SmartDashboard.putNumber("encoder", Constants.ELEVATOR_ANALOG_ENCODER.get());
-        SmartDashboard.putNumber("correctedEncoder", ElevatorSubsystem.getInstance().getCorrectedEncoder());
+        SmartDashboard.putNumber("Algae RPM", AlgaeSubsystem.getInstance().getVelocity());
 
-        SmartDashboard.putNumber("algae", AlgaeSubsystem.getInstance().getVelocity());
-
-        SmartDashboard.putBoolean("front", Constants.frontSensor());
-        SmartDashboard.putBoolean("back", Constants.backSensor());
-
-        SmartDashboard.putString("D_PAD", Constants.getDPad(A05Constants.ALT_XBOX).toString());
+        SmartDashboard.putBoolean("Front", Constants.frontSensor());
+        SmartDashboard.putBoolean("Back", Constants.backSensor());
 
 
 //        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
@@ -171,11 +171,9 @@ public class Robot extends A05Robot {
 //            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
 //        }
 
-        Constants.printIDs();
+        //Constants.printIDs();
 
         SmartDashboard.putData(CommandScheduler.getInstance());
-
-        SmartDashboard.putNumber("Heading", NavX.getInstance().getHeading().getDegrees());
     }
 
     @Override
@@ -193,9 +191,6 @@ public class Robot extends A05Robot {
     @Override
     public void teleopPeriodic() {
         super.teleopPeriodic();
-
-        // Example SmartDashboard telemetry call
-        SmartDashboard.putNumber("elevator", ElevatorSubsystem.getInstance().getPosition());
     }
 
 

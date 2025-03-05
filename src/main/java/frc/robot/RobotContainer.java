@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.*;
@@ -65,21 +66,6 @@ public class RobotContainer extends A05RobotContainer
         int robotId = A05Constants.readRobotID();
         robotSettings = A05Constants.ROBOT_SETTINGS_LIST.get(robotId);
 
-        //setup the chosen autonomous path
-        int autoId = A05Constants.readAutoID();
-        A05Constants.AutonomousPath autonomousPath = Constants.AUTO_SELECTOR.getSelected();
-        try {
-            autonomousPath = A05Constants.AUTONOMOUS_PATH_LIST.get(autoId);
-            autonomousPath.load();
-            autoCommand = new AutonomousPathCommand(autonomousPath, speedCachedSwerve);
-            SmartDashboard.putString("Autonomous", autonomousPath.getName());
-        } catch (IndexOutOfBoundsException e) {
-            SmartDashboard.putString("Autonomous", String.format("Path ID %d does not exist", autoId));
-        } catch (FileNotFoundException e) {
-            SmartDashboard.putString("Autonomous",
-                    String.format("Could not load path: '%s'", autonomousPath.getName()));
-        }
-
         // Configure the button bindings
         configureButtonBindings();
     }
@@ -106,8 +92,8 @@ public class RobotContainer extends A05RobotContainer
         altY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
 
         altRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        altLeftBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::reverse)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-        driveRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+
+        driveA.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
 
         altStart.toggleOnTrue(new ManualElevatorCommand());
 
