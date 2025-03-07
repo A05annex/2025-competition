@@ -6,6 +6,7 @@ import frc.robot.subsystems.GroundIntakeSubsystem;
 
 
 public class TurtleCommand extends Command {
+	@SuppressWarnings("FieldCanBeLocal")
 	private final ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
 	private final GroundIntakeSubsystem groundIntakeSubsystem = GroundIntakeSubsystem.getInstance();
 
