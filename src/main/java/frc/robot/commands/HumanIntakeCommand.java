@@ -8,8 +8,9 @@ import frc.robot.subsystems.EndEffectorSubsystem;
 
 public class HumanIntakeCommand extends Command {
 
-	ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
-	EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
+	@SuppressWarnings("FieldCanBeLocal")
+	private final ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
+	private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
 	private int coveredTimer;
 

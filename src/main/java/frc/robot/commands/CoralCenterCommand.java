@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.Constants;
@@ -12,6 +11,7 @@ public class CoralCenterCommand extends Command {
 
     private STATUS currentStatus;
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final double slowSpeed = 200, fastSpeed = 600;
 
     private int centerTimer;
@@ -80,7 +80,7 @@ public class CoralCenterCommand extends Command {
 
     /**
      * The action to take when the command ends. Called when either the command
-     * finishes normally -- that is it is called when {@link #isFinished()} returns
+     * finishes normally -- that is, it is called when {@link #isFinished()} returns
      * true -- or when  it is interrupted/canceled. This is where you may want to
      * wrap up loose ends, like shutting off a motor that was being used in the command.
      *

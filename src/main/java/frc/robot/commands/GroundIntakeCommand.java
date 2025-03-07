@@ -8,6 +8,7 @@ import frc.robot.subsystems.GroundIntakeSubsystem;
 
 
 public class GroundIntakeCommand extends Command {
+	@SuppressWarnings("FieldCanBeLocal")
 	private final ElevatorSubsystem elevatorSubsystem;
 	private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 	private final GroundIntakeSubsystem groundIntakeSubsystem = GroundIntakeSubsystem.getInstance();
