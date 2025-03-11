@@ -31,8 +31,6 @@ public class RobotContainer extends A05RobotContainer
     //TODO: Add any additional subsystems and commands here
     final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
 
-    private final SendableChooser<Integer> autoChooser = new SendableChooser<>();
-
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
@@ -50,10 +48,11 @@ public class RobotContainer extends A05RobotContainer
         // finish swerve drive initialization for this specific robt.
         driveCommand = new DriveCommand(speedCachedSwerve);
 
-
         driveSubsystem.setDefaultCommand(driveCommand);
 
         EndEffectorSubsystem.getInstance().setDefaultCommand(new CoralCenterCommand());
+
+        ElevatorSubsystem.getInstance().setDefaultCommand(new ManualElevatorCommand());
 
         // Which robot is this? competition or spare/prototype
         int robotId = A05Constants.readRobotID();
@@ -85,12 +84,14 @@ public class RobotContainer extends A05RobotContainer
         altY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
 
         altRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+        altBack.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::reverse)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
+
 
         driveA.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
 
-        altStart.toggleOnTrue(new ManualElevatorCommand());
+        //altStart.toggleOnTrue(new ManualElevatorCommand());
 
-        altLeftStickPress.whileTrue(new AlgaeScoreCommandGroup());
+        altLeftStickPress.whileTrue(new AlgaeMoveCommandGroup());
 
         //driveX.onTrue(new ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION.HPI));
         altX.toggleOnTrue(new HumanIntakeCommand());

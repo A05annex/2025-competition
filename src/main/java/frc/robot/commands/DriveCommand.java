@@ -3,6 +3,7 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import org.a05annex.frc.A05Constants;
+import org.a05annex.frc.InferredRobotPosition;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
 import org.a05annex.util.AngleD;
@@ -17,6 +18,7 @@ public class DriveCommand extends A05DriveCommand {
 
     private boolean isTargetingHeading = false;
 
+	private final String[] keyList = {"close center reef", "far center reef", "close left reef", "far left reef", "close right reef", "far right reef"};
 
 	private int driveTimeout;
     private int altTimeout;
@@ -50,6 +52,12 @@ public class DriveCommand extends A05DriveCommand {
 
 
         for(A05Constants.D_PAD direction : A05Constants.D_PAD.values()) {
+			if(RobotContainer.driveRightBumper.getAsBoolean()) {
+				isTargetingHeading = true;
+				this.direction = A05Constants.D_PAD.NONE;
+				break;
+			}
+
 			if((driveTimeout > 0 && Constants.getDPad(driveXbox) == direction)
 					|| (altTimeout > 0 &&  RobotContainer.altLeftBumper.getAsBoolean() && Constants.getDPad(Constants.ALT_XBOX) == direction)
 					&& direction != this.direction) {
@@ -89,7 +97,10 @@ public class DriveCommand extends A05DriveCommand {
     }
 
     private void calcTargetHeadingRotation() {
-		 double heading = switch(direction) {
+		double bestY = 1000.0;
+		String bestTagSetKey = "";
+
+		double heading = switch(direction) {
 			case U -> 0.0;
 			case UR -> 60.0;
 			case DR -> 120.0;
@@ -100,6 +111,24 @@ public class DriveCommand extends A05DriveCommand {
             case L -> 270.0;
 			default -> -1.0;
 		};
+
+		if(direction == A05Constants.D_PAD.NONE) {
+			for(String key : keyList) {
+				InferredRobotPosition irp = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(key));
+				if(irp.isValid) {
+					bestY = Math.min(Math.abs(irp.y), bestY); // If the y value is less than the previous best y value, set the best y value to this y value
+					bestTagSetKey = bestY == Math.abs(irp.y) ? key : bestTagSetKey; // If the current tag is now best, update the best tag set
+				}
+			}
+
+			if(bestY == 1000.0) {
+				return;
+			}
+
+			heading = Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees();
+
+			System.out.println(heading);
+		}
 
 		 if(heading == -1.0) {
 			 return;

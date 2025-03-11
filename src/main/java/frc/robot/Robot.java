@@ -70,6 +70,8 @@ public class Robot extends A05Robot {
         // autonomous chooser on the dashboard.
         setRobotContainer(new RobotContainer());
 
+        NavX.getInstance().initializeHeadingAndNav();
+
 
         //Shuffleboard.getTab("Main"). SmartDashboard.putData("L1", new InstantCommand());
         SmartDashboard.putData("L2", new InstantCommand());
@@ -164,14 +166,15 @@ public class Robot extends A05Robot {
         SmartDashboard.putBoolean("Back", Constants.backSensor());
 
 
-//        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
-//            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-//            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-//            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
-//            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
-//            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
-//            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
-//        }
+        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
+            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
+            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
+            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
+            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
+            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
+            SmartDashboard.putNumber("Heading", NavX.getInstance().getHeading().getDegrees());
+        }
 
         //Constants.printIDs();
 

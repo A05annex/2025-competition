@@ -8,11 +8,11 @@ import org.a05annex.frc.A05Constants;
 
 
 public class AlgaeDislodgeCommand extends Command {
-    ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
+    private final ElevatorSubsystem elevatorSubsystem = ElevatorSubsystem.getInstance();
 
-    AlgaeSubsystem algaeSubsystem = AlgaeSubsystem.getInstance();
+    private final AlgaeSubsystem algaeSubsystem = AlgaeSubsystem.getInstance();
 
-    ElevatorSubsystem.ELEVATOR_POSITION position;
+    private ElevatorSubsystem.ELEVATOR_POSITION position;
 
     public AlgaeDislodgeCommand() {
         addRequirements(elevatorSubsystem, algaeSubsystem);

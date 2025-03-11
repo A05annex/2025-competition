@@ -4,6 +4,8 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.RobotStateManager;
 import org.a05annex.frc.subsystems.SparkNeo;
 import org.a05annex.util.Utl;
@@ -14,7 +16,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 171.8;
+    private final Double minPosition = 0.0, maxPosition = 166.6;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
@@ -27,7 +29,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     // Declare PID constants for speed (rpm) control
             rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156,
 
-            AGICollisionHeight = 28.0, coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 107.0,
+            AGICollisionHeight = 0.0, coralCollisionMinHeight = 60.0, coralCollisionMaxHeight = 107.0,
 
             positionTolerance = 0.3,
 
@@ -59,6 +61,12 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean goToMAXMotionPosition(double position) {
+        if(RobotContainer.altStart.getAsBoolean()) {
+            motor.setTargetMAXMotionPosition(position);
+            requestedPosition = position;
+            return true;
+        }
+
         if(position >= AGICollisionHeight && !RobotStateManager.CoralManager.elevatorBlocked()) {
             RobotStateManager.ElevatorAGIManager.releaseAccess(this);
             motor.setTargetMAXMotionPosition(position);
@@ -107,18 +115,18 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCorrectedEncoder() {
-        double shift = -0.75;
+        double shift = -0.95;
         double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;
         return encoder < 0.0 ? encoder + 1.0 : encoder;
     }
 
     private double encoderStartPosition() {
-        return (getCorrectedEncoder() - analogEncoderZero) * gearRatio + 16.0;
+        return (getCorrectedEncoder() - analogEncoderZero) * gearRatio + 0.0;
     }
 
     public enum ELEVATOR_POSITION {
         AGI(11.0),
-        HPI(71.0),
+        HPI(62.7),
         SAFE(35.0),
         ALGAE_HIGH(113.0),
         ALGAE_LOW(44.0),

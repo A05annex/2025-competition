@@ -50,8 +50,8 @@ public final class Constants extends A05Constants
         return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), -0.3429, 0.0, 0.0);
-
+    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 0.3429, 0.0, 0.0);
+//0.3429
     public static double xCorrectionFunction(double reportedX) {
         return 0.938148 * reportedX - 0.0116201;
     }
@@ -69,10 +69,10 @@ public final class Constants extends A05Constants
 
     // for practice, length and width from center of the wheels, in m (note chassis is 30" square,
     // the bolt pattern is 29" square, wheels are 2.75" in from the bolt pattern or centered on the
-    // corners of a 23.5"(0.5969m) square.
+    // corners of a 23.5"(0.5969m) square.)
     // For competition, length and width from center of the wheels, in m (note chassis is 28" square,
     // the bolt pattern is 27" square, wheels are 2.75" in from the bolt pattern or centered on the
-    // corners of a 21.5"(0.5461m) square.
+    // corners of a 21.5"(0.5461m) square.)
 
     /**
      * The geometry and calibration specific to a swerve drive robot base. We currently have 2 bases, the first being
@@ -133,7 +133,7 @@ public final class Constants extends A05Constants
     public static void setAprilTagPositionParametersDictionary() {
         aprilTagSetDictionary.put("left coral station", new AprilTagSet(new int[]{1}, new int[]{13}, new AngleD(AngleUnit.DEGREES, -126)));
         aprilTagSetDictionary.put("right coral station", new AprilTagSet(new int[]{2}, new int[]{12}, new AngleD(AngleUnit.DEGREES, 126)));
-        aprilTagSetDictionary.put("close center reef", new AprilTagSet(new int[]{7}, new int[]{18}, new AngleD(AngleUnit.DEGREES, 0), 1.0, 0.0, 2.0, 0.1));
+        aprilTagSetDictionary.put("close center reef", new AprilTagSet(new int[]{7}, new int[]{18}, new AngleD(AngleUnit.DEGREES, 0)));
         aprilTagSetDictionary.put("far center reef", new AprilTagSet(new int[]{10}, new int[]{21}, new AngleD(AngleUnit.DEGREES, 180)));
         aprilTagSetDictionary.put("close left reef", new AprilTagSet(new int[]{6}, new int[]{19}, new AngleD(AngleUnit.DEGREES, 60)));
         aprilTagSetDictionary.put("far left reef", new AprilTagSet(new int[]{11}, new int[]{20}, new AngleD(AngleUnit.DEGREES, 120)));
