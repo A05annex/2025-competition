@@ -5,6 +5,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -50,7 +51,7 @@ public final class Constants extends A05Constants
         return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 0.3429, 0.0, 0.0);
+    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), Units.inchesToMeters(14.0), 0.0, 0.0);
 //0.3429
     public static double xCorrectionFunction(double reportedX) {
         return 0.938148 * reportedX - 0.0116201;
@@ -127,7 +128,7 @@ public final class Constants extends A05Constants
     }
 
     public static final DriverSettings[] DRIVER_SETTINGS = {
-            new DriverSettings("programmer", 0)
+            new DriverSettings("Salma", 0)
     };
 
     public static void setAprilTagPositionParametersDictionary() {
