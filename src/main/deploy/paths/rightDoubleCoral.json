@@ -1,1 +1,243 @@
-{"speedMultiplier":1.0,"description":"No description provided.","robotScheduledActions":[{"robotActionCommand":"TagTargetCommand","robotActionArgs":[{"robotActionArgValue":"-0.5","robotActionArgType":"Double"},{"robotActionArgValue":"-0.0751","robotActionArgType":"Double"},{"robotActionArgValue":"far right reef","robotActionArgType":"String"}],"robotActionType":"RelinquishDriveTo","robotActionDuration":2.0,"robotScheduledActionTime":3.3499999999999996},{"robotActionCommand":"ElevatorMoveWaitCommand","robotActionArgs":[{"robotActionArgValue":"L3","robotActionArgType":"String"}],"robotActionType":"Scheduled","robotActionDuration":-1.0,"robotScheduledActionTime":3.4999999999999996},{"robotActionCommand":"ElevatorMoveWaitCommand","robotActionArgs":[{"robotActionArgValue":"HPI","robotActionArgType":"String"}],"robotActionType":"Scheduled","robotActionDuration":-1.0,"robotScheduledActionTime":4.299999999999993},{"robotActionCommand":"CoralCenterCommand","robotActionArgs":[],"robotActionType":"Scheduled","robotActionDuration":-1.0,"robotScheduledActionTime":7.199999999999982},{"robotActionCommand":"TagTargetCommand","robotActionArgs":[{"robotActionArgValue":"-0.5","robotActionArgType":"Double"},{"robotActionArgValue":"-0.0751","robotActionArgType":"Double"},{"robotActionArgValue":"far right reef","robotActionArgType":"String"}],"robotActionType":"RelinquishDriveTo","robotActionDuration":2.0,"robotScheduledActionTime":8.05},{"robotActionCommand":"ElevatorMoveWaitCommand","robotActionArgs":[{"robotActionArgValue":"L2","robotActionArgType":"String"}],"robotActionType":"Scheduled","robotActionDuration":-1.0,"robotScheduledActionTime":8.349999999999998}],"title":"untitled","controlPoints":[{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-0.7487712665406427,"field_dY":0.0,"fieldX":2.114744801512286,"fieldHeading":0.0,"time":0.0,"field_dHeading":0.0,"derivativesEdited":true},{"headingDerivativeEdited":true,"field_dX":-0.1336446789419483,"fieldY":-2.3301964839710445,"field_dY":-1.002555992360369,"fieldX":2.2670113753877974,"fieldHeading":-2.0900997607463143,"time":3.3,"field_dHeading":0.0,"derivativesEdited":true},{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-3.482986767485823,"field_dY":0.0,"fieldX":1.0466918714555753,"fieldHeading":-2.0900997607463143,"time":4.0,"field_dHeading":0.0,"robotAction":{"robotActionCommand":"CoralPostScoreCommand","robotActionArgs":[],"robotActionType":"StopAndRun","robotActionDuration":0.5,"robotScheduledActionTime":-1.0},"derivativesEdited":true},{"headingDerivativeEdited":false,"field_dX":0.8709939148073005,"fieldY":-5.652434077079107,"field_dY":-2.2920892494929,"fieldX":2.7848884381338745,"fieldHeading":-0.8940593792380367,"time":5.8,"field_dHeading":0.6578222098295528,"derivativesEdited":true},{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-7.658841778697001,"field_dY":0.0,"fieldX":3.2719751809720794,"fieldHeading":-0.8940593792380367,"time":7.0,"field_dHeading":0.0,"robotAction":{"robotActionCommand":"HumanIntakeCommand","robotActionArgs":[],"robotActionType":"StopAndRun","robotActionDuration":2.0,"robotScheduledActionTime":-1.0},"derivativesEdited":true},{"headingDerivativeEdited":false,"field_dX":-1.1231237322515213,"fieldY":-6.081282316442606,"field_dY":1.8795131845841802,"fieldX":2.7811789038262678,"fieldHeading":-1.0485413422470156,"time":8.0,"field_dHeading":-0.08496507965493838,"derivativesEdited":true},{"headingDerivativeEdited":true,"field_dX":0.0,"fieldY":-5.095746691871455,"field_dY":0.0,"fieldX":1.0466918714555753,"fieldHeading":-1.0485413422470156,"time":9.0,"field_dHeading":0.0,"robotAction":{"robotActionCommand":"CoralPostScoreCommand","robotActionArgs":[],"robotActionType":"StopAndRun","robotActionDuration":0.5,"robotScheduledActionTime":-1.0},"derivativesEdited":true}]}
+{
+  "speedMultiplier": 1.0,
+  "description": "No description provided.",
+  "robotScheduledActions": [
+    {
+      "robotActionCommand": "TagTargetCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "-0.5",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "-0.0751",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "far right reef",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "RelinquishDriveTo",
+      "robotActionDuration": 2.0,
+      "robotScheduledActionTime": 0.8999999999999998
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "L2",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 1.0499999999999998
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "HPI",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 1.999999999999993
+    },
+    {
+      "robotActionCommand": "CoralCenterCommand",
+      "robotActionArgs": [],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 4.4999999999999805
+    },
+    {
+      "robotActionCommand": "TagTargetCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "-0.5",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "0.12",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "far right reef",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "RelinquishDriveTo",
+      "robotActionDuration": 2.0,
+      "robotScheduledActionTime": 5.25
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "L1",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 5.55
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "SAFE",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 6.650000000000004
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "HPI",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 7.700000000000005
+    }
+  ],
+  "title": "untitled",
+  "controlPoints": [
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -1.64,
+      "field_dY": 0.0,
+      "fieldX": 2.15,
+      "fieldHeading": -3.1408182862206377,
+      "time": 0.0,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": -0.1336446789419483,
+      "fieldY": -2.3301964839710445,
+      "field_dY": -1.0,
+      "fieldX": 2.2670113753877974,
+      "fieldHeading": -2.0900997607463143,
+      "time": 0.85,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -3.482986767485823,
+      "field_dY": 0.0,
+      "fieldX": 1.0466918714555753,
+      "fieldHeading": -2.0900997607463143,
+      "time": 1.7000000000000002,
+      "field_dHeading": 0.0,
+      "robotAction": {
+        "robotActionCommand": "CoralPostScoreCommand",
+        "robotActionArgs": [],
+        "robotActionType": "StopAndRun",
+        "robotActionDuration": 0.5,
+        "robotScheduledActionTime": -1.0
+      },
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 1.3599999999999994,
+      "fieldY": -3.9100000000000006,
+      "field_dY": -1.9799999999999995,
+      "fieldX": 1.7200000000000006,
+      "fieldHeading": -0.9135844401838834,
+      "time": 2.5500000000000003,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": false,
+      "field_dX": 1.240000000000002,
+      "fieldY": -6.85,
+      "field_dY": -2.879999999999999,
+      "fieldX": 2.92,
+      "fieldHeading": -0.9135844401838834,
+      "time": 3.7,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -7.658841778697001,
+      "field_dY": 0.0,
+      "fieldX": 3.2719751809720794,
+      "fieldHeading": -0.9135844401838834,
+      "time": 4.299999999999999,
+      "field_dHeading": 0.0,
+      "robotAction": {
+        "robotActionCommand": "HumanIntakeCommand",
+        "robotActionArgs": [],
+        "robotActionType": "StopAndRun",
+        "robotActionDuration": 2.0,
+        "robotScheduledActionTime": -1.0
+      },
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": -1.1231237322515213,
+      "fieldY": -6.48,
+      "field_dY": 1.8795131845841802,
+      "fieldX": 2.9800000000000004,
+      "fieldHeading": -1.0485413422470156,
+      "time": 5.199999999999999,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -4.903497164461248,
+      "field_dY": 0.0,
+      "fieldX": 1.1214555765595442,
+      "fieldHeading": -1.0485413422470156,
+      "time": 6.5,
+      "field_dHeading": 0.0,
+      "robotAction": {
+        "robotActionCommand": "CoralTroughScoreCommand",
+        "robotActionArgs": [],
+        "robotActionType": "StopAndRun",
+        "robotActionDuration": 0.5,
+        "robotScheduledActionTime": -1.0
+      },
+      "derivativesEdited": true
+    },
+    {
+      "headingDerivativeEdited": true,
+      "field_dX": 0.0,
+      "fieldY": -7.947448015122872,
+      "field_dY": 0.0,
+      "fieldX": 3.0439508506616235,
+      "fieldHeading": -0.9272952180016127,
+      "time": 8.350000000000005,
+      "field_dHeading": 0.0,
+      "robotAction": {
+        "robotActionCommand": "HumanIntakeCommand",
+        "robotActionArgs": [],
+        "robotActionType": "StopAndRun",
+        "robotActionDuration": 1.0,
+        "robotScheduledActionTime": -1.0
+      },
+      "derivativesEdited": true
+    }
+  ]
+}
