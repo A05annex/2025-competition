@@ -98,7 +98,8 @@ public final class Constants extends A05Constants
             //new AutonomousPath("Test", 10, "samplePath.json"),
             new AutonomousPath("Left", 0, "leftDoubleCoral.json"),
             new AutonomousPath("Middle", 0, "middleSingleCoral.json"),
-            new AutonomousPath("Right", 10, "rightDoubleCoral.json")
+            new AutonomousPath("Right", 10, "rightDoubleCoral.json"),
+            new AutonomousPath("Test", 0, "test.json")
     };
 
     public static final SendableChooser<AutonomousPath> AUTO_SELECTOR = new SendableChooser<>();

@@ -4,6 +4,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.InferredRobotPosition;
+import org.a05annex.frc.RobotPosition;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
 import org.a05annex.util.AngleD;
@@ -23,6 +24,10 @@ public class DriveCommand extends A05DriveCommand {
 	private int driveTimeout;
     private int altTimeout;
 
+	private String lastKey = "";
+
+	private int tagSwitchTimeout;
+
     /**
      * Default command for DriveSubsystem. Left stick moves the robot field-relatively, and right stick X rotates.
      * Contains driver constants for sensitivity, gain, and deadband.
@@ -39,6 +44,8 @@ public class DriveCommand extends A05DriveCommand {
         isTargetingHeading = false;
         altTimeout = 0;
 		driveTimeout = 0;
+		tagSwitchTimeout = 0;
+		lastKey = "";
     }
 
     @Override
@@ -86,6 +93,7 @@ public class DriveCommand extends A05DriveCommand {
 
 			altTimeout = 0;
 			driveTimeout = 0;
+			tagSwitchTimeout = 0;
         }
 
         if(isTargetingHeading) {
@@ -112,31 +120,59 @@ public class DriveCommand extends A05DriveCommand {
 			default -> -1.0;
 		};
 
+		if(!lastKey.isEmpty()) {
+			InferredRobotPosition lastRobotPosition = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(lastKey));
+			if(lastRobotPosition.isValid) {
+				System.out.println("Reference Y: " + Math.abs(lastRobotPosition.y) + "\nLast Key: " + lastKey);
+				bestY = Math.abs(lastRobotPosition.y); // If the y value is less than the previous best y value, set the best y value to this y value
+			}else{
+				System.out.println("Reference not valid");
+			}
+		} else{
+			System.out.println("Last key not set");
+		}
+
 		if(direction == A05Constants.D_PAD.NONE) {
 			for(String key : keyList) {
-				InferredRobotPosition irp = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(key));
-				if(irp.isValid) {
-					bestY = Math.min(Math.abs(irp.y), bestY); // If the y value is less than the previous best y value, set the best y value to this y value
-					bestTagSetKey = bestY == Math.abs(irp.y) ? key : bestTagSetKey; // If the current tag is now best, update the best tag set
+				InferredRobotPosition robotPosition = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(key));
+				if(robotPosition.isNew && !key.equals(lastKey)) {
+					System.out.println("New Reported Y: " + Math.abs(robotPosition.y) + "\nNew Key: " + key);
+					if(Math.abs(robotPosition.y) < bestY - 0.8) {
+						bestY = Math.abs(robotPosition.y);
+						bestTagSetKey = key; // If the current tag is now best, update the best tag set
+						lastKey = key;
+						System.out.println("********* UPDATED LAST KEY ********");
+					}
 				}
 			}
 
+			bestTagSetKey = bestTagSetKey.isEmpty() ? lastKey : bestTagSetKey;
+			System.out.println("Best Y: " + bestY + "\nBest Key: " + bestTagSetKey);
+
 			if(bestY == 1000.0) {
+				lastKey = "";
 				return;
 			}
 
-			heading = Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees();
 
-			System.out.println(heading);
+			heading = Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees();
+		} else {
+			tagSwitchTimeout--;
 		}
 
 		 if(heading == -1.0) {
 			 return;
 		 }
 
-        navX.setExpectedHeading(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)));
-        conditionedRotate = new AngleD(navX.getHeadingInfo().expectedHeading).subtract(new AngleD(navX.getHeadingInfo().heading))
+		 if(tagSwitchTimeout <= 0 && !navX.getHeadingInfo().expectedHeading.equals(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)))) {
+         	 navX.setExpectedHeading(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)));
+			 tagSwitchTimeout = 0;
+		 } else {
+			 tagSwitchTimeout--;
+		 }
+
+         conditionedRotate = new AngleD(navX.getHeadingInfo().expectedHeading).subtract(new AngleD(navX.getHeadingInfo().heading))
                 .getRadians() * A05Constants.getDriveOrientationKp();
-        conditionedRotate = Utl.clip(conditionedRotate, -0.5, 0.5);
+         conditionedRotate = Utl.clip(conditionedRotate, -0.5, 0.5);
 	}
 }

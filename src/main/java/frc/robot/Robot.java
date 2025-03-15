@@ -33,6 +33,8 @@ public class Robot extends A05Robot {
     @Override
     public void robotInit()
     {
+        Constants.setPrintDebug(true);
+
         super.robotInit();
 
         Constants.setSparkConfig(true,false);
@@ -41,7 +43,6 @@ public class Robot extends A05Robot {
         // Some drive geometry is passed in RobotContainer's constructor
         Constants.setDriveOrientationKp(Constants.DRIVE_ORIENTATION_kP);
 
-        Constants.setPrintDebug(false);
 
         // update dictionary with all needed values
         Constants.setAprilTagPositionParametersDictionary();
@@ -70,10 +71,6 @@ public class Robot extends A05Robot {
         // autonomous chooser on the dashboard.
         setRobotContainer(new RobotContainer());
 
-        NavX.getInstance().initializeHeadingAndNav();
-
-
-        //Shuffleboard.getTab("Main"). SmartDashboard.putData("L1", new InstantCommand());
         SmartDashboard.putData("L2", new InstantCommand());
         SmartDashboard.putData("L3", new InstantCommand());
         SmartDashboard.putData("AGI", new InstantCommand());
@@ -112,8 +109,6 @@ public class Robot extends A05Robot {
         SmartDashboard.putData("LOW ALGAE", LOW_ALGAE);
         SmartDashboard.putData("HIGH ALGAE", HIGH_ALGAE);
         SmartDashboard.putData("SAFE", SAFE);
-
-
     }
     
     /** This method is called once each time the robot enters Disabled mode. */

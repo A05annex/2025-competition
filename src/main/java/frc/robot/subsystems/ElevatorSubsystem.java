@@ -16,7 +16,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 0.0, maxPosition = 166.6;
+    private final Double minPosition = 10.0, maxPosition = 101.2;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
@@ -35,7 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             analogEncoderZero = 0.0265,
 
-            gearRatio = 45.0,
+            gearRatio = 27.0,
 
             encoderToInches = 42.0 / (maxPosition - minPosition);
 
@@ -61,6 +61,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean goToMAXMotionPosition(double position) {
+        //position *= 27.0 / 45.0;
         if(RobotContainer.altStart.getAsBoolean()) {
             motor.setTargetMAXMotionPosition(position);
             requestedPosition = position;
@@ -125,15 +126,15 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public enum ELEVATOR_POSITION {
-        AGI(11.0),
-        HPI(62.7),
-        SAFE(35.0),
-        ALGAE_HIGH(113.0),
-        ALGAE_LOW(44.0),
-        ALGAE_HOLD(90.0),
-        L1(70.8 + getInstance().inchesToEncoder(1.0)),
-        L2(108.0),
-        L3(171.6);
+        AGI(11.0 * 27.0 / 45.0),
+        HPI(39.2),
+        SAFE(35.0 * 27.0 / 45.0),
+        ALGAE_HIGH(113.0 * 27.0 / 45.0),
+        ALGAE_LOW(44.0 * 27.0 / 45.0),
+        ALGAE_HOLD(90.0 * 27.0 / 45.0),
+        L1(43.0),
+        L2(66.9),
+        L3(100.9);
 
         public final double position;
 
