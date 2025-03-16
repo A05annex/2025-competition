@@ -12,13 +12,13 @@
       ],
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
-      "robotScheduledActionTime": 0.36
+      "robotScheduledActionTime": 1.01
     },
     {
       "robotActionCommand": "TagTargetCommand",
       "robotActionArgs": [
         {
-          "robotActionArgValue": "-0.5",
+          "robotActionArgValue": "0.25",
           "robotActionArgType": "Double"
         },
         {
@@ -32,7 +32,39 @@
       ],
       "robotActionType": "RelinquishDriveTo",
       "robotActionDuration": 2.0,
-      "robotScheduledActionTime": 0.41
+      "robotScheduledActionTime": 1.06
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "L3",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 3.3
+    },
+    {
+      "robotActionCommand": "TagTargetCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "0.25",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "-0.1251",
+          "robotActionArgType": "Double"
+        },
+        {
+          "robotActionArgValue": "far center reef",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "RelinquishDriveTo",
+      "robotActionDuration": 1.0,
+      "robotScheduledActionTime": 3.25
     }
   ],
   "title": "untitled",
@@ -43,19 +75,19 @@
       "fieldY": -0.77,
       "field_dY": 0.0,
       "fieldX": 0.0,
-      "fieldHeading": 3.141592653589793,
+      "fieldHeading": 1.5708728044523463,
       "time": 0.0,
       "field_dHeading": 0.0,
       "robotAction": {
         "robotActionCommand": "WaitCommand",
         "robotActionArgs": [
           {
-            "robotActionArgValue": "450",
+            "robotActionArgValue": "350",
             "robotActionArgType": "Integer"
           }
         ],
         "robotActionType": "StopAndRun",
-        "robotActionDuration": 9.0,
+        "robotActionDuration": 7.0,
         "robotScheduledActionTime": -1.0
       },
       "derivativesEdited": true
@@ -67,7 +99,7 @@
       "field_dY": -1.7744801512287331,
       "fieldX": 0.0,
       "fieldHeading": 3.141592653589793,
-      "time": 0.25,
+      "time": 0.9,
       "field_dHeading": 0.0,
       "derivativesEdited": true
     },
@@ -78,7 +110,7 @@
       "field_dY": 0.0,
       "fieldX": -0.010680529300568509,
       "fieldHeading": 3.141592653589793,
-      "time": 1.45,
+      "time": 2.1,
       "field_dHeading": 0.0,
       "robotAction": {
         "robotActionCommand": "TimedAlgaeSpinCommand",
@@ -90,13 +122,24 @@
       "derivativesEdited": true
     },
     {
+      "headingDerivativeEdited": false,
+      "field_dX": 0.40586011342155004,
+      "fieldY": -1.5818525519848772,
+      "field_dY": 0.9398865784499053,
+      "fieldX": 0.06408317580340217,
+      "fieldHeading": 3.141592653589793,
+      "time": 3.0,
+      "field_dHeading": 0.0,
+      "derivativesEdited": true
+    },
+    {
       "headingDerivativeEdited": true,
       "field_dX": 0.0,
       "fieldY": -3.0771266540642728,
       "field_dY": 0.0,
-      "fieldX": 0.23497164461247522,
+      "fieldX": 0.17088846880907305,
       "fieldHeading": 3.141592653589793,
-      "time": 1.95,
+      "time": 4.0,
       "field_dHeading": 0.0,
       "robotAction": {
         "robotActionCommand": "CoralPostScoreCommand",

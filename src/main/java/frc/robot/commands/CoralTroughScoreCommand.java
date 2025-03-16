@@ -50,7 +50,7 @@ public class CoralTroughScoreCommand extends Command {
       }
 
 
-      timeSpun = Constants.frontSensor() ? timeSpun + 1 : 0;
+      timeSpun = !Constants.frontSensor() ? timeSpun + 1 : 0;
     }
 
     /**
@@ -69,7 +69,7 @@ public class CoralTroughScoreCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return timeSpun > 10;
+        return timeSpun > 20;
     }
 
     /**

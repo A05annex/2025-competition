@@ -10,5 +10,5 @@
   "BOOST_TRIGGER": "RIGHT",
   "BOOST_GAIN": 1.0,
   "SLOW_TRIGGER": "LEFT",
-  "SLOW_GAIN": 0.3
+  "SLOW_GAIN": 0.45
 }
