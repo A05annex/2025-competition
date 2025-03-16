@@ -18,8 +18,6 @@ import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.A05RobotContainer;
 import org.a05annex.frc.subsystems.SpeedCachedSwerve;
 
-import javax.swing.text.html.HTML;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -30,8 +28,7 @@ public class RobotContainer extends A05RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     // NavX, DriveSubsystem, DriveXbox have already been made in A05RobotContainer
-    //TODO: Add any additional subsystems and commands here
-    final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
+    private final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()

@@ -4,7 +4,6 @@ package frc.robot.subsystems;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.RobotStateManager;
 import org.a05annex.frc.subsystems.SparkNeo;

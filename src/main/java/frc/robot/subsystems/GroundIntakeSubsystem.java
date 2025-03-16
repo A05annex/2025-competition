@@ -84,7 +84,6 @@ public class GroundIntakeSubsystem extends SubsystemBase {
         actuatorMotor.setTargetMAXMotionPosition(position);
     }
 
-    //TODO: determine if this is needed
     public void actuatorToPosition(double position) {
         actuatorMotor.setTargetPosition(position);
     }
