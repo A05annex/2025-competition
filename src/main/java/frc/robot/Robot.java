@@ -33,7 +33,7 @@ public class Robot extends A05Robot {
     @Override
     public void robotInit()
     {
-        Constants.setPrintDebug(true);
+        Constants.setPrintDebug(false);
 
         super.robotInit();
 
@@ -161,15 +161,6 @@ public class Robot extends A05Robot {
         SmartDashboard.putBoolean("Back", Constants.backSensor());
 
 
-        if(Constants.CAMERA.hasTargets(Constants.aprilTagSetDictionary.get("close center reef"))) {
-            SmartDashboard.putNumber("X", Constants.CAMERA.getXFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-            SmartDashboard.putNumber("Y", Constants.CAMERA.getYFromLastTarget(Constants.aprilTagSetDictionary.get("close center reef")));
-            SmartDashboard.putNumber("IRPX", InferredRobotPosition.getRobotPosition("close center reef").x);
-            SmartDashboard.putNumber("IRPY", InferredRobotPosition.getRobotPosition("close center reef").y);
-            SmartDashboard.putNumber("RPX", RobotPosition.getRobotPosition("close center reef").x);
-            SmartDashboard.putNumber("RPY", RobotPosition.getRobotPosition("close center reef").y);
-            SmartDashboard.putNumber("Heading", NavX.getInstance().getHeading().getDegrees());
-        }
 
         //Constants.printIDs();
 
