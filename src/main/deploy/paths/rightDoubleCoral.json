@@ -72,7 +72,7 @@
           "robotActionArgType": "Double"
         },
         {
-          "robotActionArgValue": "far right reef",
+          "robotActionArgValue": "close right reef",
           "robotActionArgType": "String"
         }
       ],

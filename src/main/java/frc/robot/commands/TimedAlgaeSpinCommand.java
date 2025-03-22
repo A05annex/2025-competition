@@ -9,15 +9,30 @@ public class TimedAlgaeSpinCommand extends Command {
 
 	private int counter = 0;
 
+	private final boolean forward;
+
 	public TimedAlgaeSpinCommand() {
 		// each subsystem used by the command must be passed into the
 		// addRequirements() method (which takes a vararg of Subsystem)
 		addRequirements(this.algaeSubsystem);
+		forward = true;
+	}
+
+	public TimedAlgaeSpinCommand(Boolean forward) {
+		// each subsystem used by the command must be passed into the
+		// addRequirements() method (which takes a vararg of Subsystem)
+		addRequirements(this.algaeSubsystem);
+
+		this.forward = forward;
 	}
 
 	@Override
 	public void initialize() {
-		algaeSubsystem.spin();
+		if(forward) {
+			algaeSubsystem.spin();
+		} else {
+			algaeSubsystem.reverse();
+		}
 		counter = 0;
 	}
 
@@ -28,7 +43,7 @@ public class TimedAlgaeSpinCommand extends Command {
 
 	@Override
 	public boolean isFinished() {
-		return counter > 25;
+		return forward ? counter > 25 : counter > 50;
 	}
 
 	@Override

@@ -12,7 +12,7 @@
       ],
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
-      "robotScheduledActionTime": 1.01
+      "robotScheduledActionTime": 0.1
     },
     {
       "robotActionCommand": "TagTargetCommand",
@@ -35,16 +35,16 @@
       "robotScheduledActionTime": 1.06
     },
     {
-      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionCommand": "TimedAlgaeSpinCommand",
       "robotActionArgs": [
         {
-          "robotActionArgValue": "L3",
-          "robotActionArgType": "String"
+          "robotActionArgValue": "false",
+          "robotActionArgType": "Boolean"
         }
       ],
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
-      "robotScheduledActionTime": 3.3
+      "robotScheduledActionTime": 2.3999999999999995
     },
     {
       "robotActionCommand": "TagTargetCommand",
@@ -65,6 +65,18 @@
       "robotActionType": "RelinquishDriveTo",
       "robotActionDuration": 1.0,
       "robotScheduledActionTime": 3.25
+    },
+    {
+      "robotActionCommand": "ElevatorMoveWaitCommand",
+      "robotActionArgs": [
+        {
+          "robotActionArgValue": "L3",
+          "robotActionArgType": "String"
+        }
+      ],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 3.3
     }
   ],
   "title": "untitled",
@@ -122,11 +134,11 @@
       "derivativesEdited": true
     },
     {
-      "headingDerivativeEdited": false,
-      "field_dX": 0.40586011342155004,
-      "fieldY": -1.5818525519848772,
-      "field_dY": 0.9398865784499053,
-      "fieldX": 0.06408317580340217,
+      "headingDerivativeEdited": true,
+      "field_dX": -2.77693761814745,
+      "fieldY": -1.4964083175803402,
+      "field_dY": 1.1321361058601127,
+      "fieldX": 0.683553875236294,
       "fieldHeading": 3.141592653589793,
       "time": 3.0,
       "field_dHeading": 0.0,

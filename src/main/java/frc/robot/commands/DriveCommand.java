@@ -123,13 +123,8 @@ public class DriveCommand extends A05DriveCommand {
 		if(!lastKey.isEmpty()) {
 			InferredRobotPosition lastRobotPosition = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(lastKey));
 			if(lastRobotPosition.isValid) {
-				System.out.println("Reference Y: " + Math.abs(lastRobotPosition.y) + "\nLast Key: " + lastKey);
 				bestY = Math.abs(lastRobotPosition.y); // If the y value is less than the previous best y value, set the best y value to this y value
-			}else{
-				System.out.println("Reference not valid");
 			}
-		} else{
-			System.out.println("Last key not set");
 		}
 
 		if(direction == A05Constants.D_PAD.NONE) {
@@ -141,20 +136,16 @@ public class DriveCommand extends A05DriveCommand {
 						bestY = Math.abs(robotPosition.y);
 						bestTagSetKey = key; // If the current tag is now best, update the best tag set
 						lastKey = key;
-						System.out.println("********* UPDATED LAST KEY ********");
 					}
 				}
+
+				bestTagSetKey = bestTagSetKey.isEmpty() ? lastKey : bestTagSetKey;
+
+				if(bestY == 1000.0) {
+					lastKey = "";
+					return;
+				}
 			}
-
-			bestTagSetKey = bestTagSetKey.isEmpty() ? lastKey : bestTagSetKey;
-			System.out.println("Best Y: " + bestY + "\nBest Key: " + bestTagSetKey);
-
-			if(bestY == 1000.0) {
-				lastKey = "";
-				return;
-			}
-
-
 			heading = Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees();
 		} else {
 			tagSwitchTimeout--;

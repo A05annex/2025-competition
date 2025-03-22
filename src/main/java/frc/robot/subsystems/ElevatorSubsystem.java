@@ -30,7 +30,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             AGICollisionHeight = 0.0, coralCollisionMinHeight = 27.0, coralCollisionMaxHeight = 63.0,
 
-            positionTolerance = 0.3,
+            positionTolerance = 0.5,
 
             analogEncoderZero = 0.0265,
 
@@ -128,11 +128,11 @@ public class ElevatorSubsystem extends SubsystemBase {
         AGI(11.0 * 27.0 / 45.0),
         HPI(41.0),
         SAFE(35.0 * 27.0 / 45.0),
-        ALGAE_HIGH(64.5),
+        ALGAE_HIGH(62.5),
         ALGAE_LOW(25.7),
         ALGAE_HOLD(90.0 * 27.0 / 45.0),
         L1(43.0),
-        L2(66.9),
+        L2(68.0),
         L3(101.8);
 
         public final double position;
