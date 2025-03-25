@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -11,6 +12,10 @@ public class CoralPostScoreCommand extends Command {
     private final EndEffectorSubsystem endEffectorSubsystem = EndEffectorSubsystem.getInstance();
 
     private int timeSpun;
+
+    private int raceTimer;
+
+    private boolean spinning = false;
 
     public CoralPostScoreCommand() {
         // each subsystem used by the command must be passed into the
@@ -24,8 +29,12 @@ public class CoralPostScoreCommand extends Command {
     @Override
     public void initialize() {
         timeSpun = 0;
+        raceTimer = 0;
+        spinning = false;
         if(ElevatorSubsystem.getInstance().isInPosition()) {
             endEffectorSubsystem.setVelocity(2000.0);
+            System.out.println("spinning *************************************");
+            spinning = true;
         }
     }
 
@@ -35,8 +44,11 @@ public class CoralPostScoreCommand extends Command {
      */
     @Override
     public void execute() {
-        if(ElevatorSubsystem.getInstance().isInPosition()) {
+        raceTimer++;
+        if(!spinning && (ElevatorSubsystem.getInstance().isInPosition() || raceTimer > 175)) {
             endEffectorSubsystem.setVelocity(2000.0);
+            System.out.println("spinning *************************************");
+            spinning = true;
         }
         timeSpun = !Constants.frontSensor() ? timeSpun + 1 : 0;
     }
@@ -57,7 +69,7 @@ public class CoralPostScoreCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return timeSpun > 10;
+        return timeSpun > 10 || raceTimer > 250;
     }
 
     /**

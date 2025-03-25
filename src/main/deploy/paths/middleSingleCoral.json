@@ -44,7 +44,7 @@
       ],
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
-      "robotScheduledActionTime": 2.3999999999999995
+      "robotScheduledActionTime": 2.4
     },
     {
       "robotActionCommand": "TagTargetCommand",
@@ -77,6 +77,13 @@
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
       "robotScheduledActionTime": 3.3
+    },
+    {
+      "robotActionCommand": "ReserveEECommand",
+      "robotActionArgs": [],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 3.45
     }
   ],
   "title": "untitled",

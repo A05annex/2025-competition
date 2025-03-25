@@ -8,8 +8,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.subsystems.EndEffectorSubsystem;
 import org.a05annex.frc.*;
 import org.a05annex.frc.commands.AutonomousPathCommand;
 import org.a05annex.frc.subsystems.DriveSubsystem;
@@ -33,7 +35,7 @@ public class Robot extends A05Robot {
     @Override
     public void robotInit()
     {
-        Constants.setPrintDebug(false);
+        Constants.setPrintDebug(true);
 
         super.robotInit();
 
@@ -144,6 +146,8 @@ public class Robot extends A05Robot {
     {
         // Cancels autonomous command
         super.teleopInit();
+
+        ElevatorSubsystem.getInstance().setDefaultCommand(new ManualElevatorCommand());
 
         enableInit();
     }

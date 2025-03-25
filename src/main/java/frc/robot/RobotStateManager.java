@@ -33,7 +33,7 @@ public class RobotStateManager {
 		}
 
 		public static boolean elevatorBlocked() {
-			return !frontCoral.get() && backCoral.get();
+			return !Constants.frontSensor() && Constants.backSensor();
 		}
 	}
 }

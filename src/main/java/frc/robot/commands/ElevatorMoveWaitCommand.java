@@ -11,6 +11,8 @@ public class ElevatorMoveWaitCommand extends Command {
 
     private boolean moveSuccessful = false;
 
+    private int raceTimer;
+
     public ElevatorMoveWaitCommand(ElevatorSubsystem.ELEVATOR_POSITION position) {
        this.position = position.position;
         // each subsystem used by the command must be passed into the
@@ -45,7 +47,8 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void initialize() {
-      moveSuccessful = elevatorSubsystem.goToMAXMotionPosition(position);
+        raceTimer = 0;
+        moveSuccessful = elevatorSubsystem.goToMAXMotionPosition(position);
     }
 
     /**
@@ -54,6 +57,7 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void execute() {
+        raceTimer++;
         if(!moveSuccessful) {
             moveSuccessful = elevatorSubsystem.goToMAXMotionPosition(position);
         }
@@ -75,7 +79,7 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public boolean isFinished() {
-        return elevatorSubsystem.isInPosition(position);
+        return elevatorSubsystem.isInPosition(position) || raceTimer > 250;
     }
 
     /**
@@ -88,6 +92,5 @@ public class ElevatorMoveWaitCommand extends Command {
      */
     @Override
     public void end(boolean interrupted) {
-
     }
 }

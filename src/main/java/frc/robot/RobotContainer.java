@@ -51,8 +51,6 @@ public class RobotContainer extends A05RobotContainer
 
         EndEffectorSubsystem.getInstance().setDefaultCommand(new CoralCenterCommand());
 
-        ElevatorSubsystem.getInstance().setDefaultCommand(new ManualElevatorCommand());
-
         // Which robot is this? competition or spare/prototype
         int robotId = A05Constants.readRobotID();
         robotSettings = A05Constants.ROBOT_SETTINGS_LIST.get(robotId);

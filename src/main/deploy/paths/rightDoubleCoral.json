@@ -42,6 +42,13 @@
       "robotScheduledActionTime": 1.1
     },
     {
+      "robotActionCommand": "ReserveEECommand",
+      "robotActionArgs": [],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 1.2
+    },
+    {
       "robotActionCommand": "ElevatorMoveWaitCommand",
       "robotActionArgs": [
         {
@@ -91,6 +98,13 @@
       "robotActionType": "Scheduled",
       "robotActionDuration": -1.0,
       "robotScheduledActionTime": 5.5
+    },
+    {
+      "robotActionCommand": "ReserveEECommand",
+      "robotActionArgs": [],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 5.6
     },
     {
       "robotActionCommand": "ElevatorMoveWaitCommand",

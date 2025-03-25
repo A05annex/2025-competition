@@ -15,20 +15,20 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 10.0, maxPosition = 102.2;
+    private final Double minPosition = 10.0, maxPosition = 103.5;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
     // Declare PID constants for smart motion control
-            mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 5200.0, mmMaxDeltaRPMSec = 10000.0, mmError = 0.2,
+            mmKp = 0.3, mmKi = 0.0, mmKiZone = 0.0, mmKd = 0.0, mmMaxRPM = 10000.0, mmMaxDeltaRPMSec = 10000.0, mmError = 0.5,
 
     // Declare PID constants for position control
-            posKp = 0.1, posKi = 0.0, posKiZone = 0.0, posKff = 0.0,
+            posKp = 0.3, posKi = 0.002, posKiZone = 1.0, posKff = 0.0,
 
     // Declare PID constants for speed (rpm) control
-            rpmKp = 0.0001, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156,
+            rpmKp = 0.1, rpmKi = 0.0, rpmKiZone = 0.0, rpmKff = 0.000156,
 
-            AGICollisionHeight = 0.0, coralCollisionMinHeight = 27.0, coralCollisionMaxHeight = 63.0,
+            coralCollisionMinHeight = 27.0, coralCollisionMaxHeight = 63.0,
 
             positionTolerance = 0.5,
 
@@ -60,37 +60,28 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public boolean goToMAXMotionPosition(double position) {
-        //position *= 27.0 / 45.0;
         if(RobotContainer.altStart.getAsBoolean()) {
             motor.setTargetMAXMotionPosition(position);
             requestedPosition = position;
             return true;
         }
 
-        if(position >= AGICollisionHeight && !RobotStateManager.CoralManager.elevatorBlocked()) {
-            RobotStateManager.ElevatorAGIManager.releaseAccess(this);
-            motor.setTargetMAXMotionPosition(position);
+        if(!RobotStateManager.CoralManager.elevatorBlocked()) {
+            System.out.println("goToMAXMotionPosition: " +  position);
+            motor.setTargetPosition(position);
             requestedPosition = position;
             return true;
         }
 
-        if(position < AGICollisionHeight) {
-            if(RobotStateManager.ElevatorAGIManager.requestAccess(this)) {
-                motor.setTargetMAXMotionPosition(position);
-                requestedPosition = position;
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
+        if((getPosition() < coralCollisionMinHeight && position <= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
+                || (getPosition() >= coralCollisionMaxHeight && position > coralCollisionMaxHeight)) {
 
-        if(!((getPosition() < coralCollisionMinHeight && position <= coralCollisionMinHeight) //Not crossing from above or below the coral collision zone
-                || (getPosition() >= coralCollisionMaxHeight && position > coralCollisionMaxHeight))) {
-                motor.setTargetMAXMotionPosition(position);
-                requestedPosition = position;
-                return true;
+            System.out.println("goToMAXMotionPosition: " +  position);
+            motor.setTargetPosition(position);
+            requestedPosition = position;
+            return true;
         }
+        System.out.println("goToMAXMotionPosition: rejected");
         return false;
     }
 
