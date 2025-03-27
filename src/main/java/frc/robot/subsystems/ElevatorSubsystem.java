@@ -15,7 +15,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     // Declare min and max soft limits and where the motor thinks it starts
     @SuppressWarnings("FieldCanBeLocal")
-    private final Double minPosition = 10.0, maxPosition = 103.5;
+    private final Double minPosition = -1.0, maxPosition = 96.5;
 
     @SuppressWarnings("FieldCanBeLocal")
 	private final double
@@ -32,7 +32,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             positionTolerance = 0.5,
 
-            analogEncoderZero = 0.0265,
+            analogEncoderZero = 0.042,
 
             gearRatio = 27.0,
 
@@ -106,7 +106,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     }
 
     public double getCorrectedEncoder() {
-        double shift = -0.95;
+        double shift = -0.12;
         double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;
         return encoder < 0.0 ? encoder + 1.0 : encoder;
     }
@@ -117,14 +117,14 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public enum ELEVATOR_POSITION {
         AGI(11.0 * 27.0 / 45.0),
-        HPI(41.0),
-        SAFE(35.0 * 27.0 / 45.0),
+        HPI(30.0),
+        SAFE(5.0),
         ALGAE_HIGH(62.5),
         ALGAE_LOW(25.7),
         ALGAE_HOLD(90.0 * 27.0 / 45.0),
-        L1(43.0),
-        L2(68.0),
-        L3(101.8);
+        L1(33.1),
+        L2(57.0),
+        L3(95.8);
 
         public final double position;
 
@@ -141,14 +141,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         public boolean isInPosition() {
             return elevatorSubsystem.isInPosition(position);
         }
-    }
-
-    public double encoderToInches(double encoder) {
-        return encoder * encoderToInches;
-    }
-
-    public double inchesToEncoder(double inches) {
-        return inches / encoderToInches;
     }
 }
 
