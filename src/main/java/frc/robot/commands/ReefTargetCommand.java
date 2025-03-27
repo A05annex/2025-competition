@@ -17,9 +17,6 @@ import org.a05annex.frc.commands.A05TagTargetCommand;
  */
 @SuppressWarnings("unused")
 public class ReefTargetCommand extends Command {
-    private double bestY = 1000.0;
-    private String bestTagSetKey = null;
-
     private final double xPosition;
 
 	private D_PAD direction = null;
@@ -42,8 +39,7 @@ public class ReefTargetCommand extends Command {
     @Override
     public void initialize() {
         super.initialize();
-		bestY = 1000.0;
-		bestTagSetKey = null;
+
 		wasScheduled = 0;
 		tagTargetCommand = null;
 		direction = null;
@@ -55,15 +51,24 @@ public class ReefTargetCommand extends Command {
 			return;
 		}
 
+		double bestAngle = 360.0;
+		String bestTagSetKey = "";
+
+		// Iterate through the tag sets and find the one with the lowest angle
 		for(String key : keyList) {
-			InferredRobotPosition irp = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(key));
-			if(irp.isValid) {
-				bestY = Math.min(Math.abs(irp.y), bestY); // If the y value is less than the previous best y value, set the best y value to this y value
-				bestTagSetKey = bestY == Math.abs(irp.y) ? key : bestTagSetKey; // If the current tag is now best, update the best tag set
+			InferredRobotPosition robotPosition = InferredRobotPosition.getRobotPosition(Constants.aprilTagSetDictionary.get(key)); // Get the position
+
+			double newAngle = Math.abs(Math.atan(robotPosition.y / robotPosition.x));
+
+			// The position needs to be new (the robot just saw the tag), it cannot be the lastKey (already checked).
+			// If the new angle is lower than the current best (lowest) angle by 10 degrees, update the lowest angle and best tag set key
+			if(robotPosition.isNew && !key.equals(bestTagSetKey) && newAngle < bestAngle - (10.0 * Math.PI / 180.0)) {
+				bestAngle = newAngle;
+				bestTagSetKey = key;
 			}
 		}
 
-		if(bestY == 1000.0) {
+		if(bestAngle == 360.0 || bestTagSetKey.isEmpty()) {
 			return;
 		}
 
