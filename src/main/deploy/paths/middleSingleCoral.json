@@ -15,10 +15,17 @@
       "robotScheduledActionTime": 0.1
     },
     {
+      "robotActionCommand": "ReserveEECommand",
+      "robotActionArgs": [],
+      "robotActionType": "Scheduled",
+      "robotActionDuration": -1.0,
+      "robotScheduledActionTime": 0.5
+    },
+    {
       "robotActionCommand": "TagTargetCommand",
       "robotActionArgs": [
         {
-          "robotActionArgValue": "0.25",
+          "robotActionArgValue": "0.3",
           "robotActionArgType": "Double"
         },
         {
@@ -50,7 +57,7 @@
       "robotActionCommand": "TagTargetCommand",
       "robotActionArgs": [
         {
-          "robotActionArgValue": "0.25",
+          "robotActionArgValue": "0.3",
           "robotActionArgType": "Double"
         },
         {
@@ -101,12 +108,12 @@
         "robotActionCommand": "WaitCommand",
         "robotActionArgs": [
           {
-            "robotActionArgValue": "350",
+            "robotActionArgValue": "300",
             "robotActionArgType": "Integer"
           }
         ],
         "robotActionType": "StopAndRun",
-        "robotActionDuration": 7.0,
+        "robotActionDuration": 6.0,
         "robotScheduledActionTime": -1.0
       },
       "derivativesEdited": true

@@ -120,7 +120,7 @@ public class ElevatorSubsystem extends SubsystemBase {
         HPI(30.0),
         SAFE(5.0),
         ALGAE_HIGH(62.5),
-        ALGAE_LOW(25.7),
+        ALGAE_LOW(14.1),
         ALGAE_HOLD(90.0 * 27.0 / 45.0),
         L1(33.1),
         L2(57.0),

@@ -43,7 +43,7 @@ public class TimedAlgaeSpinCommand extends Command {
 
 	@Override
 	public boolean isFinished() {
-		return forward ? counter > 25 : counter > 50;
+		return forward ? counter > 50 : counter > 75;
 	}
 
 	@Override
