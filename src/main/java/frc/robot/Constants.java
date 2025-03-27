@@ -51,7 +51,7 @@ public final class Constants extends A05Constants
         return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), Units.inchesToMeters(14.0), 0.0, 0.0);
+    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 0.391430883, 0.0, 0.0);
 //0.3429
     public static double xCorrectionFunction(double reportedX) {
         return 0.938148 * reportedX - 0.0116201;

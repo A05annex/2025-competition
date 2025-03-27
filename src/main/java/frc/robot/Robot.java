@@ -35,7 +35,7 @@ public class Robot extends A05Robot {
     @Override
     public void robotInit()
     {
-        Constants.setPrintDebug(true);
+        Constants.setPrintDebug(false);
 
         super.robotInit();
 
@@ -167,6 +167,13 @@ public class Robot extends A05Robot {
 
 
         //Constants.printIDs();
+
+        RobotPosition pos = InferredRobotPosition.getRobotPosition("close center reef");
+
+        if(pos.isValid) {
+            SmartDashboard.putNumber("RPX", pos.x);
+            SmartDashboard.putNumber("RPY", pos.y);
+        }
 
         SmartDashboard.putData(CommandScheduler.getInstance());
     }

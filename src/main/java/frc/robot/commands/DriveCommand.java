@@ -24,7 +24,9 @@ public class DriveCommand extends A05DriveCommand {
 	private enum HeadingSource {
 		NONE,
 		XBOX,
-		APRILTAG
+		APRILTAG,
+		LEFT_STATION,
+		RIGHT_STATION
 	}
 
 	/**
@@ -50,6 +52,8 @@ public class DriveCommand extends A05DriveCommand {
 
 		chooseHeadingSource(); // Check if we have inputs which would use an alternate rotation algorithm
 
+		System.out.println();
+
 		// If the right stick is not centered (driver is trying to spin), reset the state
 		if(!Utl.inTolerance(driveXbox.getRightX(), 0.0, 0.05)) {
 			resetState();
@@ -58,10 +62,11 @@ public class DriveCommand extends A05DriveCommand {
 		// If we have a heading source, calculate the rotation
 		if(headingSource != HeadingSource.NONE) {
 			lastConditionedRotate = rotate;
-			if(headingSource == HeadingSource.XBOX) {
-				calcXboxHeadingRotation();
-			} else if(headingSource == HeadingSource.APRILTAG) {
-				calcAprilTagHeadingRotation();
+			switch (headingSource) {
+				case XBOX -> calcXboxHeadingRotation();
+				case APRILTAG -> calcAprilTagHeadingRotation();
+				case LEFT_STATION -> targetHeading(54.0);
+				case RIGHT_STATION -> targetHeading(-54.0);
 			}
 		}
 		iSwerveDrive.swerveDrive(conditionedDirection, conditionedSpeed, conditionedRotate);
@@ -76,8 +81,18 @@ public class DriveCommand extends A05DriveCommand {
 	}
 
 	private void chooseHeadingSource() {
-		if(RobotContainer.driveRightBumper.getAsBoolean()) {
+		if(RobotContainer.driveStart.getAsBoolean()) {
 			headingSource = HeadingSource.APRILTAG;
+			return;
+		}
+
+		if(RobotContainer.driveLeftBumper.getAsBoolean()) {
+			headingSource = HeadingSource.LEFT_STATION;
+			return;
+		}
+
+		if(RobotContainer.driveRightBumper.getAsBoolean()) {
+			headingSource = HeadingSource.RIGHT_STATION;
 			return;
 		}
 
@@ -125,7 +140,7 @@ public class DriveCommand extends A05DriveCommand {
 			return;
 		}
 
-		updateHeading(heading);
+		targetHeading(heading);
 	}
 
 	private void calcAprilTagHeadingRotation() {
@@ -164,14 +179,11 @@ public class DriveCommand extends A05DriveCommand {
 			return;
 		}
 
-		updateHeading(Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees());
+		targetHeading(Constants.aprilTagSetDictionary.get(bestTagSetKey).heading().getDegrees());
 	}
 
-	private void updateHeading(double heading) {
-		if(!navX.getHeadingInfo().expectedHeading.equals(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)))) {
-			navX.setExpectedHeading(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)));
-		}
-
+	private void targetHeading(double heading) {
+		navX.setExpectedHeading(navX.getHeadingInfo().getClosestHeading(new AngleD(AngleUnit.DEGREES, heading)));
 		conditionedRotate = new AngleD(navX.getHeadingInfo().expectedHeading).subtract(new AngleD(navX.getHeadingInfo().heading))
 				.getRadians() * A05Constants.getDriveOrientationKp();
 		conditionedRotate = Utl.clip(conditionedRotate, -0.5, 0.5);
