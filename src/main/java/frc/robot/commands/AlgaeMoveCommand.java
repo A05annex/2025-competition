@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.AlgaeSubsystem;
@@ -16,6 +15,7 @@ public class AlgaeMoveCommand extends Command {
 
 	private final ReefTargetCommand reefTargetCommand;
 
+	@SuppressWarnings("unused")
 	public AlgaeMoveCommand() {
 		addRequirements(this.algaeSubsystem, this.elevatorSubsystem);
 
@@ -48,6 +48,7 @@ public class AlgaeMoveCommand extends Command {
 		}
 	}
 
+	@SuppressWarnings("RedundantMethodOverride")
 	@Override
 	public boolean isFinished() {
 		return false;
@@ -68,8 +69,7 @@ public class AlgaeMoveCommand extends Command {
 
 		final int tagID = Constants.aprilTagSetDictionary.get(reefTargetCommand.getScheduledTagSet()).tagIDs()[0];
 
-		final boolean high = (tagID % 2 != 0) ==
-				NetworkTableInstance.getDefault().getTable("FMSInfo").getEntry("IsRedAlliance").getBoolean(true);
+		final boolean high = (tagID % 2 != 0) == Constants.isRedAlliance();
 
 		position = high
 				? ElevatorSubsystem.ELEVATOR_POSITION.ALGAE_HIGH.position
