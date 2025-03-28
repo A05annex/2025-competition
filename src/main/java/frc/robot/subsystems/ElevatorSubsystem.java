@@ -103,6 +103,10 @@ public class ElevatorSubsystem extends SubsystemBase {
         return Utl.inTolerance(getPosition(), requestedPosition, positionTolerance);
     }
 
+    public double getMaxAccelerationForPosition() {
+        return (-.0008315 * getPosition()) + 0.109;
+    }
+
     public double getCorrectedEncoder() {
         double shift = -0.12;
         double encoder = Constants.ELEVATOR_ANALOG_ENCODER.get() + shift;

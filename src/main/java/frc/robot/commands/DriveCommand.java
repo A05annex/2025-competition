@@ -2,8 +2,10 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.ElevatorSubsystem;
 import org.a05annex.frc.A05Constants;
 import org.a05annex.frc.InferredRobotPosition;
+import org.a05annex.frc.NavX;
 import org.a05annex.frc.commands.A05DriveCommand;
 import org.a05annex.frc.subsystems.ISwerveDrive;
 import org.a05annex.util.AngleD;
@@ -20,6 +22,12 @@ public class DriveCommand extends A05DriveCommand {
 	private int altTimeout;
 	private String lastKey = "";
 	private HeadingSource headingSource = HeadingSource.NONE;
+
+	protected double lastConditionedForwardSpeed = 0.0;
+	protected double lastConditionedStrafeSpeed = 0.0;
+	protected double conditionedForwardSpeed = 0.0;
+	protected double conditionedStrafeSpeed = 0.0;
+
 
 	private enum HeadingSource {
 		NONE,
@@ -187,5 +195,107 @@ public class DriveCommand extends A05DriveCommand {
 		conditionedRotate = new AngleD(navX.getHeadingInfo().expectedHeading).subtract(new AngleD(navX.getHeadingInfo().heading))
 				.getRadians() * A05Constants.getDriveOrientationKp();
 		conditionedRotate = Utl.clip(conditionedRotate, -0.5, 0.5);
+	}
+
+	protected void conditionStick() {
+		// if pressing boost button, set gain to boost gain
+		double gain = driver.getDriveSpeedGain();
+		if ((null != driver.getBoostTrigger()) &&
+				(driveXbox.getRawAxis(driver.getBoostTrigger().value) >= TRIGGER_THRESHOLD)) {
+			gain = driver.getBoostGain();
+		} else if ((null != driver.getSlowTrigger()) &&
+				(driveXbox.getRawAxis(driver.getSlowTrigger().value) >= TRIGGER_THRESHOLD)) {
+			gain = driver.getSlowGain();
+		}
+
+		// get the raw stick values - these the values ae read from the controller. The Y value is negated
+		// because forward is negative from the stick, but positive for forward motion.
+		// * left stick Y for field-relative forward/backward speed
+		rawStickY = -driveXbox.getLeftY(); // Y is inverted so up is 1 and down is -1
+		// * left stick X for strafe speed
+		rawStickX = driveXbox.getLeftX();
+		// * right stick X for rotation speed
+		rawStickRotate = driveXbox.getRightX();
+
+		// But we really want field-relative direction, distance from 0,0 (which corresponds to speed),
+		// and rotation, and then we need to condition distance and rotation for deadband and sensitivity.
+		// * the distance the stick has moved from 0,0, clipped to a maximum of 1.0 because the speed can
+		//   never be greater than 1.0
+		double speedDistance = Utl.clip(Utl.length(rawStickY, rawStickX), 0.0, 1.0);
+		AngleD speedDirection = new AngleD();
+		// * the direction is computed from the raw stick X and Y values. Note that is the speed distance is less
+		//   than the DRIVE_DEADBAND, then we assume we are still going in the last direction until the driver moves
+		//   the stick enough to tell us what is happening next.
+		if (speedDistance < driver.getDriveDeadband()) {
+			speedDirection.setValue(lastConditionedDirection);
+			speedDistance = 0.0;
+		} else {
+			speedDirection.atan2(rawStickX, rawStickY);
+			speedDistance = (speedDistance - driver.getDriveDeadband()) / (1.0 - driver.getDriveDeadband());
+			speedDistance = Math.pow(speedDistance, driver.getDriveSpeedSensitivity()) * gain;
+		}
+
+		//   * delta (acceleration) limiting - this is not so simple because it is the change in the forward and
+		//   strafe components that need to be limited - so, we go bck the the forward and strafe components, limit
+		//   them
+		//     * Now break this back down to forward and strafe components for acceleration clipping
+		double speedForwardDistance = speedDistance * speedDirection.cos();
+		double speedStrafeDistance = speedDistance * speedDirection.sin();
+		//     * do the clipping - NOTE, for this robot, we have a robot enforced acceleration limit base on the
+		//       position of the lift. We want to limit acceleration to the least of the driver profile limit, or the
+		//       limit reported by the lift subsystem
+		double maxAccel = Utl.min( driver.getDriveSpeedMaxInc(),
+				ElevatorSubsystem.getInstance().getMaxAccelerationForPosition());
+		conditionedForwardSpeed = Utl.clip(speedForwardDistance, lastConditionedForwardSpeed - maxAccel,
+				lastConditionedForwardSpeed + maxAccel);
+		conditionedStrafeSpeed = Utl.clip(speedStrafeDistance, lastConditionedStrafeSpeed - maxAccel,
+				lastConditionedStrafeSpeed + maxAccel);
+		conditionedSpeed = Utl.length(conditionedForwardSpeed, conditionedStrafeSpeed);
+		conditionedDirection.atan2(conditionedStrafeSpeed, conditionedForwardSpeed);
+
+
+		// * Now let's do rotation - note, tha value here ranges from -1.0 to 1.0
+		//   * take out rotation sign and store it for later
+		double rotationMult = (rawStickRotate < 0.0) ? -1.0 : 1.0;
+		//   * Need the rotation to be between 0.0 and 1.0 to apply deadband and sensitivity
+		double rotation = Math.abs(rawStickRotate);
+		// are we rotating?
+		if (rotation < driver.getRotateDeadband()) {
+			// no rotate, keep current heading or 0 if no NavX
+			NavX.HeadingInfo headingInfo = navX.getHeadingInfo();
+			if (headingInfo != null) {
+				// This is a little PID correction to maintain heading
+				rotation = new AngleD(headingInfo.expectedHeading).subtract(new AngleD(headingInfo.heading))
+						.getRadians() * A05Constants.getDriveOrientationKp();
+				// clip and add speed multiplier
+				rotation = Utl.clip(rotation, -0.5, 0.5) * this.conditionedSpeed;
+				if (A05Constants.getPrintDebug()) {
+//                    System.out.println("**********");
+//                    System.out.println("Expected Heading: " + headingInfo.expectedHeading.getRadians());
+//                    System.out.println("Actual Heading:   " + headingInfo.heading.getRadians());
+//                    System.out.println("Rotation:         " + rotation);
+				}
+			} else {
+				// no NavX
+				rotation =  0.0;
+			}
+		} else {
+			// rotating
+			// adjust for deadband
+			rotation = (rotation - driver.getRotateDeadband()) / (1.0 - driver.getRotateDeadband());
+			// update expected heading
+			navX.setExpectedHeadingToCurrent();
+			// add sensitivity, gain and sign
+			rotation =  Math.pow(rotation, driver.getRotateSensitivity()) * driver.getRotateGain() * rotationMult;
+		}
+		conditionedRotate = Utl.clip(rotation, lastConditionedRotate - driver.getRotateMaxInc(),
+				lastConditionedRotate + driver.getRotateMaxInc());
+
+		// set the last values as references for the delta limiting in the next call to this method
+		lastConditionedDirection = conditionedDirection;
+		lastConditionedSpeed = conditionedSpeed;
+		lastConditionedForwardSpeed = conditionedForwardSpeed;
+		lastConditionedStrafeSpeed = conditionedStrafeSpeed;
+		lastConditionedRotate = conditionedRotate;
 	}
 }
