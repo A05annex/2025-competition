@@ -3,7 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AlgaeSubsystem;
 
-
+@SuppressWarnings("unused")
 public class TimedAlgaeSpinCommand extends Command {
 	private final AlgaeSubsystem algaeSubsystem = AlgaeSubsystem.getInstance();
 

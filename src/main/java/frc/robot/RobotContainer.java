@@ -28,7 +28,8 @@ public class RobotContainer extends A05RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     // NavX, DriveSubsystem, DriveXbox have already been made in A05RobotContainer
-    private final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
+    @SuppressWarnings("FieldCanBeLocal")
+	private final SpeedCachedSwerve speedCachedSwerve = SpeedCachedSwerve.getInstance();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()

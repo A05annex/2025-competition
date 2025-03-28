@@ -18,7 +18,8 @@ public class CoralTroughScoreCommand extends Command {
         addRequirements(this.endEffectorSubsystem);
     }
 
-    public CoralTroughScoreCommand() {
+    @SuppressWarnings("unused")
+	public CoralTroughScoreCommand() {
         this.stopRight = null;
         addRequirements(this.endEffectorSubsystem);
     }
@@ -34,7 +35,7 @@ public class CoralTroughScoreCommand extends Command {
 
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
-     * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
+     * (That is, it is called repeatedly until {@link #isFinished()} returns true.)
      */
     @Override
     public void execute() {
@@ -74,7 +75,7 @@ public class CoralTroughScoreCommand extends Command {
 
     /**
      * The action to take when the command ends. Called when either the command
-     * finishes normally -- that is it is called when {@link #isFinished()} returns
+     * finishes normally -- that is, it is called when {@link #isFinished()} returns
      * true -- or when  it is interrupted/canceled. This is where you may want to
      * wrap up loose ends, like shutting off a motor that was being used in the command.
      *

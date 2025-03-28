@@ -35,15 +35,4 @@ public class ManualElevatorCommand extends Command {
             elevatorSubsystem.goToDeltaPosition(0.0);
         }
     }
-
-    @Override
-    public boolean isFinished() {
-
-        return false;
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-
-    }
 }

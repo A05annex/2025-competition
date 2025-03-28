@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotStateManager;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.Constants;
 
@@ -29,7 +30,7 @@ public class CoralCenterCommand extends Command {
     public void initialize() {
         currentStatus = null;
         centerTimer = 0;
-        if (!Constants.backSensor() && !Constants.frontSensor()) {
+        if (!RobotStateManager.CoralManager.hasCoral()) {
             currentStatus = STATUS.STOPPED;
             endEffectorSubsystem.stopAll();
         } else if (!Constants.backSensor() && Constants.frontSensor()) {
@@ -43,7 +44,7 @@ public class CoralCenterCommand extends Command {
 
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
-     * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
+     * (That is, it is called repeatedly until {@link #isFinished()} returns true.)
      */
     @Override
     public void execute() {
@@ -73,7 +74,8 @@ public class CoralCenterCommand extends Command {
 
     }
 
-    @Override
+    @SuppressWarnings("RedundantMethodOverride")
+	@Override
     public boolean isFinished() {
         return false;
     }

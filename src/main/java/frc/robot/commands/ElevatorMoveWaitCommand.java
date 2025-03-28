@@ -20,14 +20,16 @@ public class ElevatorMoveWaitCommand extends Command {
         addRequirements(this.elevatorSubsystem);
     }
 
-    public ElevatorMoveWaitCommand(Double position) {
+    @SuppressWarnings("unused")
+	public ElevatorMoveWaitCommand(Double position) {
         this.position = position;
         // each subsystem used by the command must be passed into the
         // addRequirements() method (which takes a vararg of Subsystem)
         addRequirements(this.elevatorSubsystem);
     }
 
-    public ElevatorMoveWaitCommand(String positionName) {
+    @SuppressWarnings("unused")
+	public ElevatorMoveWaitCommand(String positionName) {
         addRequirements(this.elevatorSubsystem);
 
         for(ElevatorSubsystem.ELEVATOR_POSITION pos : ElevatorSubsystem.ELEVATOR_POSITION.values()) {
@@ -53,7 +55,7 @@ public class ElevatorMoveWaitCommand extends Command {
 
     /**
      * The main body of a command.  Called repeatedly while the command is scheduled.
-     * (That is, it is called repeatedly until {@link #isFinished()}) returns true.)
+     * (That is, it is called repeatedly until {@link #isFinished()} returns true.)
      */
     @Override
     public void execute() {
@@ -84,7 +86,7 @@ public class ElevatorMoveWaitCommand extends Command {
 
     /**
      * The action to take when the command ends. Called when either the command
-     * finishes normally -- that is it is called when {@link #isFinished()} returns
+     * finishes normally -- that is, it is called when {@link #isFinished()} returns
      * true -- or when  it is interrupted/canceled. This is where you may want to
      * wrap up loose ends, like shutting off a motor that was being used in the command.
      *

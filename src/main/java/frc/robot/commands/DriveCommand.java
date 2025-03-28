@@ -24,7 +24,7 @@ public class DriveCommand extends A05DriveCommand {
 	private enum HeadingSource {
 		NONE,
 		XBOX,
-		APRILTAG,
+		@SuppressWarnings("SpellCheckingInspection") APRILTAG,
 		LEFT_STATION,
 		RIGHT_STATION
 	}

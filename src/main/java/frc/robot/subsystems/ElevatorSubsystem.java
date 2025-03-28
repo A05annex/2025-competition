@@ -34,9 +34,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
             analogEncoderZero = 0.042,
 
-            gearRatio = 27.0,
-
-            encoderToInches = 42.0 / (maxPosition - minPosition);
+            gearRatio = 27.0;
 
     private double requestedPosition;
 
@@ -134,11 +132,13 @@ public class ElevatorSubsystem extends SubsystemBase {
             this.position = position;
         }
 
-        public boolean goTo() {
+        @SuppressWarnings("UnusedReturnValue")
+		public boolean goTo() {
             return elevatorSubsystem.goToMAXMotionPosition(position);
         }
 
-        public boolean isInPosition() {
+        @SuppressWarnings("unused")
+		public boolean isInPosition() {
             return elevatorSubsystem.isInPosition(position);
         }
     }

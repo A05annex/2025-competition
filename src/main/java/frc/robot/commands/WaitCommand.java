@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
+@SuppressWarnings("unused")
 public class WaitCommand extends Command {
 	private final int cycles;
 	private int currentCycles;

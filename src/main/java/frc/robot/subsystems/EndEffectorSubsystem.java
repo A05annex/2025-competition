@@ -54,18 +54,10 @@ public class EndEffectorSubsystem extends SubsystemBase {
         motorLeft.stopMotor();
     }
 
-    public double getLeftVelocity() {
-        return motorLeft.getEncoderVelocity();
-    }
-
     public void setRightVelocity(double rpm) {motorRight.setTargetRPM(rpm);}
 
     public void stopRight() {
         motorRight.stopMotor();
-    }
-
-    public double getRightVelocity() {
-        return motorRight.getEncoderVelocity();
     }
 
     public void setVelocity(double rpm) {
@@ -75,10 +67,6 @@ public class EndEffectorSubsystem extends SubsystemBase {
 
     public void spin() {
         setVelocity(2000.0);
-    }
-
-    public double getVelocity() {
-        return (getRightVelocity() + getLeftVelocity()) / 2;
     }
 
     public void stopAll() {

@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.ManualElevatorCommand;
 import frc.robot.subsystems.AlgaeSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.EndEffectorSubsystem;
 import org.a05annex.frc.*;
 import org.a05annex.frc.commands.AutonomousPathCommand;
 import org.a05annex.frc.subsystems.DriveSubsystem;
@@ -121,10 +120,6 @@ public class Robot extends A05Robot {
         ElevatorSubsystem.getInstance().stop();
     }
 
-    public void enableInit() {
-
-    }
-    
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
     public void autonomousInit() {
@@ -137,8 +132,6 @@ public class Robot extends A05Robot {
         if (A05Constants.getPrintDebug()) {
             System.out.println("A05Robot.autonomousInit scheduled autonomousCommand");
         }
-
-        enableInit();
     }
 
     @Override
@@ -148,8 +141,6 @@ public class Robot extends A05Robot {
         super.teleopInit();
 
         ElevatorSubsystem.getInstance().setDefaultCommand(new ManualElevatorCommand());
-
-        enableInit();
     }
 
     @Override
@@ -180,9 +171,7 @@ public class Robot extends A05Robot {
 
     @Override
     public void disabledPeriodic() {
-        //SmartDashboard.putNumber("Heading", NavX.getInstance().getHeadingInfo().expectedHeading.getDegrees());
         //DriveSubsystem.getInstance().printAllAngles();
-
     }
 
     /** This method is called periodically during autonomous. */

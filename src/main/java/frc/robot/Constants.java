@@ -5,7 +5,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,9 +33,7 @@ public final class Constants extends A05Constants
             ALGAE_MOTOR = 12,
             ELEVATOR_MOTOR = 10,
             END_EFFECTOR_RIGHT_MOTOR = 13,
-            END_EFFECTOR_LEFT_MOTOR = 14,
-            GROUND_INTAKE_ACTUATOR_MOTOR = 11,
-            GROUND_INTAKE_SPIN_MOTOR = 9;
+            END_EFFECTOR_LEFT_MOTOR = 14;
     }
 
     @SuppressWarnings("unused")
@@ -51,7 +48,8 @@ public final class Constants extends A05Constants
         return !FRONT_CORAL_SENSOR.get();
     }
 
-    public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 0.391430883, 0.0, 0.0);
+    @SuppressWarnings("SpellCheckingInspection")
+	public static final PhotonCameraWrapper CAMERA = new PhotonCameraWrapper(new PhotonCamera("Arducam_OV9281_USB_Camera"), 0.391430883, 0.0, 0.0);
 //0.3429
     public static double xCorrectionFunction(double reportedX) {
         return 0.938148 * reportedX - 0.0116201;
