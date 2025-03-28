@@ -62,7 +62,7 @@ public class AlgaeMoveCommand extends Command {
 
 
 	private boolean setPositionFromTargetCommand() {
-		if(reefTargetCommand.getScheduledTagSet() == null) {
+		if(reefTargetCommand.getScheduledTagSet() == null || reefTargetCommand.getScheduledTagSet().isEmpty()) {
 			position = -1.0;
 			return false;
 		}

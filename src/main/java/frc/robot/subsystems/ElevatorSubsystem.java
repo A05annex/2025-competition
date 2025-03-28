@@ -119,7 +119,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
     public enum ELEVATOR_POSITION {
         AGI(11.0 * 27.0 / 45.0),
-        HPI(30.0),
+        HPI(28.0),
         SAFE(5.0),
         ALGAE_HIGH(62.5),
         ALGAE_LOW(14.1),

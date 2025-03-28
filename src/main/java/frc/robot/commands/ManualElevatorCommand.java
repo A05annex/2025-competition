@@ -25,7 +25,7 @@ public class ManualElevatorCommand extends Command {
     @Override
     public void execute() {
         if (!Utl.inTolerance(Constants.ALT_XBOX.getRightY(), 0.0, 0.05)) {
-            elevatorSubsystem.goToDeltaPosition(-10.0 * Constants.ALT_XBOX.getRightY());
+            elevatorSubsystem.goToDeltaPosition(-5.0 * Constants.ALT_XBOX.getRightY());
             wasSpinning = true;
             return;
         }

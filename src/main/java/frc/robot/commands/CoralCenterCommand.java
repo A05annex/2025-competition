@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotStateManager;
 import frc.robot.subsystems.EndEffectorSubsystem;
 import frc.robot.Constants;
 
@@ -30,7 +29,7 @@ public class CoralCenterCommand extends Command {
     public void initialize() {
         currentStatus = null;
         centerTimer = 0;
-        if (!RobotStateManager.CoralManager.hasCoral()) {
+        if (!Constants.backSensor() && !Constants.frontSensor()) {
             currentStatus = STATUS.STOPPED;
             endEffectorSubsystem.stopAll();
         } else if (!Constants.backSensor() && Constants.frontSensor()) {

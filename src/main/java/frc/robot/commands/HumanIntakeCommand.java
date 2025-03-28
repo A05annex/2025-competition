@@ -25,7 +25,7 @@ public class HumanIntakeCommand extends Command {
 	public void initialize() {
 		coveredTimer = 0;
 		ElevatorSubsystem.ELEVATOR_POSITION.HPI.goTo();
-		endEffectorSubsystem.setVelocity(1000.0);
+		endEffectorSubsystem.setVelocity(1500.0);
 	}
 
 	@Override
