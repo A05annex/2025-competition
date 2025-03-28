@@ -79,19 +79,26 @@ public class RobotContainer extends A05RobotContainer
 
         // End Effector spin while held
         driveY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
-        altY.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
+        altStart.onTrue(new InstantCommand(EndEffectorSubsystem.getInstance()::spin)).onFalse(new InstantCommand(EndEffectorSubsystem.getInstance()::stopAll));
+     // altStart = elevatorOverride
 
         altRightBumper.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
         altBack.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::reverse)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
 
-
-        driveA.onTrue(new InstantCommand(AlgaeSubsystem.getInstance()::spin)).onFalse(new InstantCommand(AlgaeSubsystem.getInstance()::stop));
-
-        altLeftStickPress.whileTrue(new AlgaeMoveCommandGroup());
+        altY.whileTrue(new AlgaeDescoreCommandGroup());
 
         altX.toggleOnTrue(new HumanIntakeCommand());
         driveX.toggleOnTrue(new HumanIntakeCommand());
 
         altA.whileTrue(new AllCoralScoreCommandGroup());
+
+        /*
+        driveLeftBumper = left station heading lock
+        driveRightBumper = right station heading lock
+
+        driveA = auto reef heading Lock
+
+        altLeftBumper = reef heading lock
+         */
     }
 }

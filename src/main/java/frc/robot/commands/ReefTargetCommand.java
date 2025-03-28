@@ -27,6 +27,8 @@ public class ReefTargetCommand extends Command {
 
     private final String[] keyList = {"close center reef", "far center reef", "close left reef", "far left reef", "close right reef", "far right reef"};
 
+	private String scheduledTagSet;
+
     public ReefTargetCommand(double xPosition) {
         this.xPosition = xPosition;
     }
@@ -43,6 +45,7 @@ public class ReefTargetCommand extends Command {
 		wasScheduled = 0;
 		tagTargetCommand = null;
 		direction = null;
+		scheduledTagSet = "";
     }
 
     @Override
@@ -85,6 +88,7 @@ public class ReefTargetCommand extends Command {
 		tagTargetCommand = new TagTargetCommand(xPosition, yPosition, bestTagSetKey);
 		wasScheduled = 1;
 		tagTargetCommand.schedule();
+		scheduledTagSet = bestTagSetKey;
     }
 
     @Override
@@ -101,4 +105,8 @@ public class ReefTargetCommand extends Command {
 
 		SmartDashboard.putNumber("YPos", -1000);
     }
+
+	public String getScheduledTagSet() {
+		return scheduledTagSet;
+	}
 }

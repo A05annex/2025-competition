@@ -81,7 +81,7 @@ public class DriveCommand extends A05DriveCommand {
 	}
 
 	private void chooseHeadingSource() {
-		if(RobotContainer.driveStart.getAsBoolean()) {
+		if(RobotContainer.driveA.getAsBoolean()) {
 			headingSource = HeadingSource.APRILTAG;
 			return;
 		}
