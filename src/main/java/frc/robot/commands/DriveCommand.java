@@ -173,7 +173,7 @@ public class DriveCommand extends A05DriveCommand {
 
 			// The position needs to be new (the robot just saw the tag), it cannot be the lastKey (already checked).
 			// If the new angle is lower than the current best (lowest) angle by 10 degrees, update the lowest angle and best tag set key
-			if(robotPosition.isNew && !key.equals(lastKey) && newAngle < bestAngle - (10.0 * Math.PI / 180.0)) {
+			if(robotPosition.isNew && !key.equals(lastKey) && newAngle < bestAngle - (3.0 * Math.PI / 180.0)) {
 				bestAngle = newAngle;
 				bestTagSetKey = key;
 				lastKey = key;
