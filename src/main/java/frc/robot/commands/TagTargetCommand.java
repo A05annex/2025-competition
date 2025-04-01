@@ -16,7 +16,7 @@ public class TagTargetCommand extends A05TagTargetCommand implements ICanTakeDri
         super.initialize();
         MAX_SPEED = 1.0;
         POSITION_CONTROL_SPEED = 0.2;
-        REDUCED_SPEED_RADIUS = 1.5;
+        REDUCED_SPEED_RADIUS = 1.0;
 
     }
 

@@ -65,7 +65,7 @@ public class ReefTargetCommand extends Command {
 
 			// The position needs to be new (the robot just saw the tag), it cannot be the lastKey (already checked).
 			// If the new angle is lower than the current best (lowest) angle by 10 degrees, update the lowest angle and best tag set key
-			if(robotPosition.isNew && !key.equals(bestTagSetKey) && newAngle < bestAngle - (10.0 * Math.PI / 180.0)) {
+			if(robotPosition.isNew && !key.equals(bestTagSetKey) && newAngle < bestAngle - (5.0 * Math.PI / 180.0)) {
 				bestAngle = newAngle;
 				bestTagSetKey = key;
 			}
@@ -75,8 +75,8 @@ public class ReefTargetCommand extends Command {
 			return;
 		}
 
-		double cameraOffset = 0.02;
-		double coralSpacing = 0.2051;
+		double cameraOffset = 0.0508;
+		double coralSpacing = 0.1651;
 		direction = direction == null ? Constants.getDPad(A05Constants.ALT_XBOX) : direction;
 		double yPosition = switch (direction) {
 			case L, UL, DL -> cameraOffset + coralSpacing;
